@@ -3,10 +3,11 @@ package com.group_16.webproject.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "test")
 public class User {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "username")
@@ -14,7 +15,15 @@ public class User {
 
     @Column(name = "password")
     private String password;
+    
 
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return this.id;
@@ -39,5 +48,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public User id(Long id) {
+        setId(id);
+        return this;
+    }
+
+    public User username(String username) {
+        setUsername(username);
+        return this;
+    }
+
+    public User password(String password) {
+        setPassword(password);
+        return this;
+    }
+
+
 }

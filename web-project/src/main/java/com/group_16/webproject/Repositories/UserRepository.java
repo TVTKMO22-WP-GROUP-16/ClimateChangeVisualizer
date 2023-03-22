@@ -8,5 +8,5 @@ import com.group_16.webproject.Entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+    User findByUsername(String username);
 }
