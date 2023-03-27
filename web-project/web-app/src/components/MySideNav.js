@@ -1,13 +1,15 @@
 import React from "react";
-import SideNav, { Toggle , NavItem, NavIcon, NavText} from '@trendmicro/react-sidenav';
+import SideNav, { Toggle , NavItem, NavIcon, NavText, ClickOutside} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { useNavigate } from "react-router-dom";
 
 function MySideNav() {
   const navigate = useNavigate();
-  return <SideNav
+      
+    
+      return <SideNav
+        
         onSelect={(selected)=> {
-          
           navigate('/' + selected)
         }}
         >
@@ -37,7 +39,7 @@ function MySideNav() {
                 Emission charts
               </NavText>
             </NavItem>
-            <NavItem eventKey="signUp"> 
+            <NavItem eventKey="signup"> 
               <NavIcon>
                 <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
@@ -47,6 +49,6 @@ function MySideNav() {
             </NavItem>
           </SideNav.Nav>
         </SideNav>
-    
+     
 }
 export default MySideNav;

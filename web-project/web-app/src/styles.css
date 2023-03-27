@@ -8,8 +8,9 @@ body {
 }
 
 .home,
-.reports,
-.products {
+.charts1,
+.charts2,
+.signup {
   display: flex;
   height: 90vh;
   align-items: center;
