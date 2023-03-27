@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles.css";
 
-function App() {
+import MySideNav from "./components/MySideNav";
+import { BrowserRouter as Router, Route, Switch, Routes } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
+import Charts1 from "./pages/Charts1";
+import Charts2 from "./pages/Charts2";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <MySideNav />
+      <Routes>
+        <Route path="/home" element={<Home/>} />
+        <Route path="/charts1" element={<Charts1/>} />
+        <Route path="/charts2" element={<Charts2/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
