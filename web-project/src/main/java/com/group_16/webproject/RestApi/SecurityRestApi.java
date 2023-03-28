@@ -1,5 +1,7 @@
 package com.group_16.webproject.RestApi;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,16 @@ import com.group_16.webproject.Repositories.UserRepository;
 import com.group_16.webproject.Service.SecurityService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 public class SecurityRestApi {
 
     @Autowired
     SecurityService securityService;
     
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> userDetails) {
+        String username = userDetails.get("username");
+        String password = userDetails.get("password");
         User u = securityService.register(username, password);
         return new ResponseEntity<>(u.getUsername(), HttpStatus.OK);
     }
