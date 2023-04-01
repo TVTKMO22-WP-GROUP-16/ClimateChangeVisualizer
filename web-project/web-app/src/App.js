@@ -17,8 +17,9 @@ export default function App() {
         <Route path="/charts1" element={<Charts1/>} />
         <Route path="/charts2" element={<Charts2/>} />
         <Route path="/signup" element={<SignUp/>} />
-        
+         
       </Routes>
     </Router>
+   
   );
 }
