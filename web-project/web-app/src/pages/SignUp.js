@@ -1,9 +1,54 @@
-import React from "react";
+import { useState }from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../api";
 
-export default function SignUp() {
-  return (
-    <div className="signup">
-      <h1>Sign Up</h1>
-    </div>
-  );
-}
+const SignUp = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = (event) => { setUsername(event.target.value); };
+  const handlePasswordChange = (event) => { setPassword(event.target.value); };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await register(username, password);
+      alert("Rekisteröinti onnistui!");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      alert("Rekisteröinti epäonnistui.");
+    }
+  };
+
+    return (
+      <div className="signup">
+        <h1>Rekisteröidy</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="username">Käyttäjätunnus</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Salasana</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button type="submit">Rekisteröidy</button>
+        </form>
+      </div>
+    );
+  
+};
+
+export default SignUp;
