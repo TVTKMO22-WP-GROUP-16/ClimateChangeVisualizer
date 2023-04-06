@@ -47,6 +47,14 @@ function MySideNav() {
                 Sign Up
               </NavText>
             </NavItem>
+            <NavItem eventKey="login"> 
+              <NavIcon>
+                <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
+              </NavIcon>
+              <NavText>
+                Login
+              </NavText>
+            </NavItem>
           </SideNav.Nav>
         </SideNav>
      

@@ -3,6 +3,7 @@ package com.group_16.webproject.Entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
     
     @Id
@@ -10,7 +11,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
