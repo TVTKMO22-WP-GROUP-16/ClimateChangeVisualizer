@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function MySideNav() {
   const navigate = useNavigate();
-      
+      console.log('testpush')
     
       return <SideNav
         
