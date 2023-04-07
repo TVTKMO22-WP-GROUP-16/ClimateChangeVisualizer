@@ -4,8 +4,6 @@ src/main/resources/application.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-/node_modules
-node_modules/
 
 
 ### STS ###
