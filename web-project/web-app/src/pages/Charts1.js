@@ -205,7 +205,7 @@ export default function Charts1() {
   };
   return (
     console.log(datasetOption),
-    <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingTop: '30px' }}>
+    <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
       <RadioButton onChangeValue={onChangeValue} />
       <Line options={options} data={chartData} />
     </div>
