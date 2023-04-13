@@ -5,13 +5,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "psector")
-public class Co2Share {
-
+@Table(name = "sub_sector")
+public class Co2SubShare {
     @Id
-    public int psector_id;
+    public int subsector_id;
     private String sector;
     private float shares;
+    private String psector_fk;
+
+   
 
     public String getSector() {
         return this.sector;
@@ -21,11 +23,20 @@ public class Co2Share {
         this.sector = sector;
     }
 
-    public float getShare() {
+    public float getShares() {
         return this.shares;
     }
 
-    public void setShare(float shares) {
+    public void setShares(float shares) {
         this.shares = shares;
     }
+
+    public String getPsector_fk() {
+        return this.psector_fk;
+    }
+
+    public void setPsector_fk(String psector_fk) {
+        this.psector_fk = psector_fk;
+    }
+
 }
