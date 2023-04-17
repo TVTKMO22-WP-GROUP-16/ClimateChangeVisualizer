@@ -39,6 +39,14 @@ function MySideNav() {
                 Emission charts
               </NavText>
             </NavItem>
+            <NavItem eventKey="charts3">
+              <NavIcon>
+                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
+              </NavIcon>
+              <NavText>
+                Human history events
+              </NavText>
+            </NavItem>
             <NavItem eventKey="signup"> 
               <NavIcon>
                 <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
