@@ -13,21 +13,19 @@ public class Co2SubShare {
     private float shares;
     private String psector_fk;
 
-   
-
-    public String getSector() {
+    public String getSubSector() {
         return this.sector;
     }
 
-    public void setSector(String sector) {
+    public void setSubSector(String sector) {
         this.sector = sector;
     }
 
-    public float getShares() {
+    public float getSubShares() {
         return this.shares;
     }
 
-    public void setShares(float shares) {
+    public void setSubShares(float shares) {
         this.shares = shares;
     }
 
