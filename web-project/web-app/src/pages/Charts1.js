@@ -4,6 +4,8 @@ import { Chart } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
+import axios from "axios";
+
 
 import annualDataset from "./data/HCYearly.json";
 import monthlyDataset from "./data/HCMonthly.json";
@@ -47,37 +49,55 @@ class RadioButton extends Component {
 }
 
 export default function Charts1() {
+
+  const [dataYearly, setDataYearly] = useState();
+  
+  useEffect(() => {
+    GetGlobalAnomaliesData();
+   }, []);
+
+  function GetGlobalAnomaliesData (){
+    axios.get("http://localhost:8090/globalanomalies")
+     .then(response => {
+       setDataYearly(response.data);
+       console.log(response);
+       console.log (dataYearly);
+     }).catch(err => {
+       console.log(err);
+     })
+   } 
+  
   const [datasetOption, setDatasetOption] = useState("Yearly");
   const annualData = {
     datasets: [
       {
         label: "Global annual anomalies",
-        data: [...annualDataset].reverse(),
+        data: dataYearly,
         borderColor: "black",
         backgroundColor: "black",
         parsing: {
           xAxisKey: "Time",
-          yAxisKey: "AnomalyGA",
+          yAxisKey: "anomalyGA",
         },
       },
       {
         label: "North annual anomalies",
-        data: [...annualDataset].reverse(),
+        data: dataYearly,
         borderColor: "darkred",
         backgroundColor: "darkred",
         parsing: {
           xAxisKey: "Time",
-          yAxisKey: "AnomalyNA",
+          yAxisKey: "anomalyNA",
         },
       },
       {
         label: "South annual anomalies",
-        data: [...annualDataset].reverse(),
+        data: dataYearly,
         borderColor: "orange",
         backgroundColor: "orange",
         parsing: {
           xAxisKey: "Time",
-          yAxisKey: "AnomalySA",
+          yAxisKey: "anomalySA",
         },
       },
       {
@@ -207,6 +227,7 @@ export default function Charts1() {
     console.log(datasetOption),
     <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
       <RadioButton onChangeValue={onChangeValue} />
+      <button onClick={GetGlobalAnomaliesData}>Get data</button>
       <Line options={options} data={chartData} />
     </div>
   );
