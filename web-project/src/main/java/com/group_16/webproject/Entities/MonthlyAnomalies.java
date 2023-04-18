@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 
 @Entity
-@Table(name = "hcyearly")
-public class GlobalAnomalies {
+@Table(name = "hcmonthly")
+public class MonthlyAnomalies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Date Time; // primary key

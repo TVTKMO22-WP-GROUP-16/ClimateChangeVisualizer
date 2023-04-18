@@ -5,21 +5,21 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.group_16.webproject.Entities.GlobalAnomalies;
+import com.group_16.webproject.Entities.MonthlyAnomalies;
 import java.util.List;
-import com.group_16.webproject.Service.GlobalAnomaliesService;
+import com.group_16.webproject.Service.MonthlyAnomaliesService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class GlobalAnomaliesRestApi {
+public class MonthlyAnomaliesRestApi {
 
     @Autowired
-    GlobalAnomaliesService globalAnomaliesService;
+    MonthlyAnomaliesService monthlyAnomaliesService;
 
-    @GetMapping("globalanomalies")
+    @GetMapping("monthlyanomalies")
 
-    public List<GlobalAnomalies> getAllGlobalAnomalies() {
+    public List<MonthlyAnomalies> getAllMonthlyAnomalies() {
 
-        return globalAnomaliesService.getAllGlobalAnomalies();
+        return monthlyAnomaliesService.getAllMonthlyAnomalies();
     }
 }

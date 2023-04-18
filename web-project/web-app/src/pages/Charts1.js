@@ -6,73 +6,34 @@ import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
 
-
-import annualDataset from "./data/HCYearly.json";
-import monthlyDataset from "./data/HCMonthly.json";
 import Reconstruction from "./data/Reconstruction.json";
-
-class RadioButton extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "Annual"
-    };
-    this.onChangeValue = this.onChangeValue.bind(this);
-  }
-
-  onChangeValue(event) {
-    const selectedValue = event.target.value;
-    this.props.onChangeValue(selectedValue);
-  }
-
-  render() {
-    // Laitetaan radiobuttonit allekkain määrittelemällä ne block-tyyppiseksi.
-    const radioStyle = {
-        display: "block",
-        marginBottom: 10,
-    };
-    const labelStyle = {
-        fontFamily: "Helvetica Neue, sans-serif",
-        fontSize: 14,
-    };
-    return (
-      <div onChange={this.onChangeValue}>
-        <label style={{ ...radioStyle, ...labelStyle }}>
-        <input type="radio" value="Yearly" name="dataset" defaultChecked /> Yearly
-        </label>
-        <label style={{ ...radioStyle, ...labelStyle }}>
-        <input type="radio" value="Monthly" name="dataset" /> Monthly
-        </label>
-      </div>
-    );
-  }
-}
 
 export default function Charts1() {
 
   const [dataYearly, setDataYearly] = useState();
-  
-  useEffect(() => {
-    GetGlobalAnomaliesData();
-   }, []);
+  const [dataMonthly, setDataMonthly] = useState();
+  const [isAnnual, setIsAnnual] = useState(true);
+  let endpoints = ["http://localhost:8090/yearlyanomalies", "http://localhost:8090/monthlyanomalies"];
 
-  function GetGlobalAnomaliesData (){
-    axios.get("http://localhost:8090/globalanomalies")
-     .then(response => {
-       setDataYearly(response.data);
-       console.log(response);
-       console.log (dataYearly);
+  useEffect(() => {
+    GetData();
+   }, []);
+  function GetData (){
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+     .then((data) => {
+       console.log(data);
+       setDataYearly(data[0].data);
+       setDataMonthly(data[1].data);
      }).catch(err => {
        console.log(err);
      })
    } 
-  
-  const [datasetOption, setDatasetOption] = useState("Yearly");
-  const annualData = {
+   
+  const data = {
     datasets: [
       {
         label: "Global annual anomalies",
-        data: dataYearly,
+        data: isAnnual ? dataYearly : dataMonthly,
         borderColor: "black",
         backgroundColor: "black",
         parsing: {
@@ -82,7 +43,7 @@ export default function Charts1() {
       },
       {
         label: "North annual anomalies",
-        data: dataYearly,
+        data: isAnnual ? dataYearly : dataMonthly,
         borderColor: "darkred",
         backgroundColor: "darkred",
         parsing: {
@@ -92,7 +53,7 @@ export default function Charts1() {
       },
       {
         label: "South annual anomalies",
-        data: dataYearly,
+        data: isAnnual ? dataYearly : dataMonthly,
         borderColor: "orange",
         backgroundColor: "orange",
         parsing: {
@@ -112,72 +73,6 @@ export default function Charts1() {
         hidden: true,
       },
     ],
-  };
-
-  const monthlyData = {
-    datasets: [
-      {
-        label: "Global monthly anomalies",
-        data: [...monthlyDataset].reverse(),
-        borderColor: "black",
-        backgroundColor: "black",
-        parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "AnomalyGM",
-        },
-      },
-      {
-        label: "North monthly anomalies",
-        data: [...monthlyDataset].reverse(),
-        borderColor: "darkred",
-        backgroundColor: "darkred",
-        parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "AnomalyNM",
-        },
-      },
-      {
-        label: "South monthly anomalies",
-        data: [...monthlyDataset].reverse(),
-        borderColor: "orange",
-        backgroundColor: "orange",
-        parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "AnomalySM",
-        },
-      },
-      {
-        label: "Reconstruction",
-        data: [...Reconstruction].reverse(),
-        borderColor: "darkcyan",
-        backgroundColor: "darkcyan",
-        parsing: {
-          xAxisKey: "time",
-          yAxisKey: "t",
-        },
-        hidden: true,
-        x: {
-          type: "time",
-          time: {
-            unit: "year",
-            displayFormats: {
-              year: "y",
-            },
-          },
-        }
-      },
-    ],
-  };
-
-  const [chartData, setChartData] = useState(annualData);
-
-  const onChangeValue = (value) => {
-    if (value === "Yearly") {
-      setChartData(annualData);
-    } else {
-      setChartData(monthlyData);
-    }
-    setDatasetOption(value);
   };
 
   const options = {
@@ -201,7 +96,7 @@ export default function Charts1() {
         },
         type: "time",
         time: {
-          unit: datasetOption === "Yearly" ? "year" : "month",
+          unit: isAnnual ? "year" : "month",
           autoskip: true,
           displayFormats: {
             year: "y",
@@ -224,11 +119,19 @@ export default function Charts1() {
     },
   };
   return (
-    console.log(datasetOption),
+    console.log(dataYearly),
     <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
-      <RadioButton onChangeValue={onChangeValue} />
-      <button onClick={GetGlobalAnomaliesData}>Get data</button>
-      <Line options={options} data={chartData} />
+  <div className="form-check">
+      <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
+      <label className="form-check-label" htmlFor="annualData"> Yearly
+    </label>
+    </div>   
+    <div className="form-check">
+      <input className="form-check-input" type="radio" name="dataOption" id="monthlyData" checked={!isAnnual} onChange={() => setIsAnnual(false)} />
+      <label className="form-check-label" htmlFor="monthlyData"> Monthly
+      </label>
+    </div>
+      <Line options={options} data={data} />
     </div>
   );
 }
