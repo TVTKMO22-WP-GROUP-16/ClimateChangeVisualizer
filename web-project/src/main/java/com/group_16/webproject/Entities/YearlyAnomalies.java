@@ -9,39 +9,50 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 
 @Entity
-@Table(name = "hcyearly")
+@Table(schema = "public", name = "hcyearly")
 public class YearlyAnomalies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Date Time; // primary key
+    private Long id;
 
-    private float AnomalyGA;
+    public Date time;
 
-    private float AnomalySA;
+    private float anomalyg;
 
-    private float AnomalyNA;
+    private float anomalys;
 
-    public float getAnomalyGA() {
-        return this.AnomalyGA;
+    private float anomalyn;
+
+    public Date getTime() {
+        return this.time;
     }
 
-    public void setAnomalyGA(float AnomalyGA) {
-        this.AnomalyGA = AnomalyGA;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
-    public float getAnomalySA() {
-        return this.AnomalySA;
+    public float getAnomalyg() {
+        return this.anomalyg;
     }
 
-    public void setAnomalySA(float AnomalySA) {
-        this.AnomalySA = AnomalySA;
+    public void setAnomalyg(float anomalyg) {
+        this.anomalyg = anomalyg;
     }
 
-    public float getAnomalyNA() {
-        return this.AnomalyNA;
+    public float getAnomalys() {
+        return this.anomalys;
     }
 
-    public void setAnomalyNA(float AnomalyNA) {
-        this.AnomalyNA = AnomalyNA;
+    public void setAnomalys(float anomalys) {
+        this.anomalys = anomalys;
     }
+
+    public float getAnomalyn() {
+        return this.anomalyn;
+    }
+
+    public void setAnomalyn(float anomalyn) {
+        this.anomalyn = anomalyn;
+    }
+
 }

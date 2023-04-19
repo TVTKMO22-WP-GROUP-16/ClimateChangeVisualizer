@@ -6,14 +6,14 @@ import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
 
-import Reconstruction from "./data/Reconstruction.json";
-
 export default function Charts1() {
 
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
+  const [dataReconstruction, setReconstruction] = useState();
   const [isAnnual, setIsAnnual] = useState(true);
-  let endpoints = ["http://localhost:8090/yearlyanomalies", "http://localhost:8090/monthlyanomalies"];
+  let endpoints = ["/yearlyanomalies", "/monthlyanomalies", "/reconstruction"];
+  axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
     GetData();
@@ -24,6 +24,7 @@ export default function Charts1() {
        console.log(data);
        setDataYearly(data[0].data);
        setDataMonthly(data[1].data);
+       setReconstruction(data[2].data);
      }).catch(err => {
        console.log(err);
      })
@@ -37,8 +38,8 @@ export default function Charts1() {
         borderColor: "black",
         backgroundColor: "black",
         parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "anomalyGA",
+          xAxisKey: "time",
+          yAxisKey: "anomalyg",
         },
       },
       {
@@ -47,8 +48,8 @@ export default function Charts1() {
         borderColor: "darkred",
         backgroundColor: "darkred",
         parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "anomalyNA",
+          xAxisKey: "time",
+          yAxisKey: "anomalyn",
         },
       },
       {
@@ -57,13 +58,13 @@ export default function Charts1() {
         borderColor: "orange",
         backgroundColor: "orange",
         parsing: {
-          xAxisKey: "Time",
-          yAxisKey: "anomalySA",
+          xAxisKey: "time",
+          yAxisKey: "anomalys",
         },
       },
       {
         label: "Reconstruction",
-        data: [...Reconstruction].reverse(),
+        data: dataReconstruction,
         borderColor: "darkcyan",
         backgroundColor: "darkcyan",
         parsing: {
@@ -119,7 +120,6 @@ export default function Charts1() {
     },
   };
   return (
-    console.log(dataYearly),
     <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
   <div className="form-check">
       <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
