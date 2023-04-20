@@ -1,7 +1,5 @@
 package com.group_16.webproject.Service;
 
-
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,15 +14,15 @@ import com.group_16.webproject.Repositories.UserRepository;
 
 @Service
 public class SecurityService {
-    
+
     @Autowired
     UserRepository userRepository;
 
     @Value("${jwt.secret}")
     private String jwtKey;
 
-    //Rekisteröinti
-    //Luo uusi käyttäjä ja salasana
+    // Rekisteröinti
+    // Luo uusi käyttäjä ja salasana
     public User register(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User u = new User(username, encoder.encode(password));
@@ -32,8 +30,8 @@ public class SecurityService {
         return u;
     }
 
-    //Kirjautuminen
-    //Tarkista käyttäjänimi ja salasana
+    // Kirjautuminen
+    // Tarkista käyttäjänimi ja salasana
     public String login(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User u = userRepository.findByUsername(username);
