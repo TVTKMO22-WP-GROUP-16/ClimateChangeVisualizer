@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 
 import MySideNav from "./components/MySideNav";
-import { BrowserRouter as Router, Route, Switch, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Routes, useNavigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <Router>
-      <MySideNav />
+      <MySideNav handleLogout={handleLogout} />
       <Routes>
         <Route path="/home" element={<Home/>} />
         <Route path="/charts1" element={<Charts1/>} />

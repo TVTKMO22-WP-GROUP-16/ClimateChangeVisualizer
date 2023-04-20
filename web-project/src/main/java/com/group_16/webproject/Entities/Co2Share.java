@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 
 @Entity
-@Table(name = "psector")
+@Table(schema ="public", name = "psector")
 public class Co2Share {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

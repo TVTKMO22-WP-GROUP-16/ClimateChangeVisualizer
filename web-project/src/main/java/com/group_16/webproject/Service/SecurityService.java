@@ -44,7 +44,53 @@ public class SecurityService {
         return JWT.create().withSubject(u.getUsername()).sign(algorithm);
     }
 
-    // Varmista JWT Tokenin oikeellisuus
+    //Käyttäjien haku
+    //Hae kaikki käyttäjät
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    //Käyttäjän hakeminen nimellä
+    //Hae käyttäjä nimellä
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    //Käyttäjän hakeminen id:llä
+    //Hae käyttäjä id:llä
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+    //Käyttäjän ID, käyttäjänimellä
+    public Long getUserIdByUsername(String username) {
+        User u = userRepository.findByUsername(username);
+        return u.getId();
+    }
+
+    //Käyttäjän poistaminen
+    //Poista käyttäjä
+    public void deleteUser(Long id) {
+        User u = userRepository.findById(id).get();
+        if (u != null) {
+            userRepository.delete(u);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    //Käyttäjän poistaminen käyttäjänimellä
+    //Poista käyttäjä käyttäjänimellä
+    public void deleteUserByUsername(String username) {
+        User u = userRepository.findByUsername(username);
+        if (u != null) {
+            userRepository.delete(u);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    //Varmista JWT Tokenin oikeellisuus
     public String validateJwt(String jwtToken) {
 
         Algorithm algorithm = Algorithm.HMAC256(jwtKey);
