@@ -6,7 +6,7 @@ import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
 
-export default function Charts1() {
+export default function V1() {
 
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
@@ -120,7 +120,7 @@ export default function Charts1() {
     },
   };
   return (
-    <div className="chart1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
   <div className="form-check">
       <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
       <label className="form-check-label" htmlFor="annualData"> Yearly
