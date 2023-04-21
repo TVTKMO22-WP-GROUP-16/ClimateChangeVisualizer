@@ -6,13 +6,14 @@ import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
 
-export default function V1() {
+export default function V2() {
 
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
-  const [dataReconstruction, setReconstruction] = useState();
-  const [isAnnual, setIsAnnual] = useState(true);
-  let endpoints = ["/yearlyanomalies", "/monthlyanomalies", "/reconstruction"];
+  const [dataIcecore1, setIcecore1] = useState();
+  const [dataIcecore2, setIcecore2] = useState();
+  const [dataIcecore3, setIcecore3] = useState();
+  let endpoints = ["/maunaloayearly", "/maunaloamonthly", "/icecore1", "/icecore2", "/icecore3"];
   axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
@@ -22,9 +23,11 @@ export default function V1() {
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
      .then((data) => {
        console.log(data);
-       setDataYearly(data[0].data);
-       setDataMonthly(data[1].data);
-       setReconstruction(data[2].data);
+        setDataYearly(data[0].data);
+        setDataMonthly(data[1].data);
+        setIcecore1(data[2].data);
+        setIcecore2(data[3].data);
+        setIcecore3(data[4].data);
      }).catch(err => {
        console.log(err);
      })
@@ -33,43 +36,55 @@ export default function V1() {
   const data = {
     datasets: [
       {
-        label: "Global annual anomalies",
-        data: isAnnual ? dataYearly : dataMonthly,
+        label: "Mauna Loa Annual CO2",
+        data: dataYearly,
         borderColor: "black",
         backgroundColor: "black",
         parsing: {
           xAxisKey: "time",
-          yAxisKey: "anomalyg",
+          yAxisKey: "co2",
         },
       },
       {
-        label: "North annual anomalies",
-        data: isAnnual ? dataYearly : dataMonthly,
-        borderColor: "darkred",
-        backgroundColor: "darkred",
-        parsing: {
-          xAxisKey: "time",
-          yAxisKey: "anomalyn",
-        },
-      },
-      {
-        label: "South annual anomalies",
-        data: isAnnual ? dataYearly : dataMonthly,
+        label: "Mauna Loa Monthly CO2",
+        data: dataMonthly,
         borderColor: "orange",
         backgroundColor: "orange",
         parsing: {
           xAxisKey: "time",
-          yAxisKey: "anomalys",
+          yAxisKey: "co2",
         },
       },
       {
-        label: "Reconstruction",
-        data: dataReconstruction,
-        borderColor: "darkcyan",
-        backgroundColor: "darkcyan",
+        label: "Ice core 1",
+        data: dataIcecore1,
+        borderColor: "darkviolet",
+        backgroundColor: "darkviolet",
         parsing: {
           xAxisKey: "time",
-          yAxisKey: "t",
+          yAxisKey: "co2",
+        },
+        hidden: true,
+      },
+      {
+        label: "Ice core 2",
+        data: dataIcecore2,
+        borderColor: "deeppink",
+        backgroundColor: "deeppink",
+        parsing: {
+          xAxisKey: "time",
+          yAxisKey: "co2",
+        },
+        hidden: true,
+      },
+      {
+        label: "Ice core 3",
+        data: dataIcecore3,
+        borderColor: "darkred",
+        backgroundColor: "darkred",
+        parsing: {
+          xAxisKey: "time",
+          yAxisKey: "co2",
         },
         hidden: true,
       },
@@ -97,7 +112,7 @@ export default function V1() {
         },
         type: "time",
         time: {
-          unit: isAnnual ? "year" : "month",
+          unit: "year",
           autoskip: true,
           displayFormats: {
             year: "y",
@@ -111,26 +126,16 @@ export default function V1() {
         position: "left",
         title: {
           display: true,
-          text: "Anomaly (Deg C)",
+          text: "CO2 (ppm)",
         },
         ticks: {
-            stepSize: 0.2,
+            stepSize: 5,
         }
       },
     },
   };
   return (
-    <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
-  <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
-      <label className="form-check-label" htmlFor="annualData"> Yearly
-    </label>
-    </div>   
-    <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="monthlyData" checked={!isAnnual} onChange={() => setIsAnnual(false)} />
-      <label className="form-check-label" htmlFor="monthlyData"> Monthly
-      </label>
-    </div>
+    <div className="V2" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
       <Line options={options} data={data} />
     </div>
   );
