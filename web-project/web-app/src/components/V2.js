@@ -99,7 +99,7 @@ export default function V2() {
       },
       title: {
         display: true,
-        text: "Global historical surface temperature anomalies",
+        text: "Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements",
       },
     },
     pointRadius: 0,
