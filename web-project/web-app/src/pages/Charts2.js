@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import React, { useEffect, useRef, useState, } from "react";
-import { Doughnut, getElementAtEvent } from "react-chartjs-2";
+import { Doughnut, getElementsAtEvent } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -9,66 +9,63 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Charts2() {
 
-
+  const [primarySector, setPrimarySector] = useState();
+  const [subSector, setSubSector] = useState();
+  const [chartData, setChartData] = useState([]);
  
-  const [labels, setLabels] = useState([]);
-  const [shares, setShares] = useState([]);
+ 
+
+  const chartRef = useRef();
+  
   
   useEffect(() => {
     getCo2shares();
   }, []);
 
-
+  
   function getCo2shares() {
 
     axios.get("http://localhost:8090/co2shares")
-      .then(response => {
-        const labels = response.data.map((co2share) => co2share.sector);
-        setLabels(labels);
-        console.log(labels)
-        const shares = response.data.map((co2share) => co2share.share);
-        setShares(shares);
+      .then((response) => {    
+        console.log(response.data);
+        setPrimarySector(response.data);
+        setChartData(response.data);
+       
       }).catch(err => {
         console.log(err);
       })
 
-  }
-  function getCo2Subsectors(index) {
-
-    axios.get("http://localhost:8090/co2subshares/" + index +"")
+    axios.get("http://localhost:8090/co2subshares")
       .then(response => {
-       
-       
-        const labels = response.data.map((co2subshare) => co2subshare.subSector);
-        setLabels(labels);
-        console.log(labels)
-        const shares = response.data.map((co2subshare) => co2subshare.share);
-        setShares(shares);
+        console.log(response.data);
+        setSubSector(response.data);  
+          
       }).catch(err => {
         console.log(err);
       })
-
   }
+  
 
-
-  const chartRef = useRef();
+  
   const onClick = (event) => {
     
     const { current: chart } = chartRef;
-    const { index } = getElementAtEvent(chart, event)[0];
-    getCo2Subsectors(data.labels[index]);
+    const { index } = getElementsAtEvent(chart, event)[0];   
     console.log(data.labels[index]);
+    console.log(subSector.filter(label => label.psector_fk === data.labels[index]));
+    setChartData(subSector.filter(label => label.psector_fk === data.labels[index]));
+    
   };
  
   
 
   const data = {
 
-    labels: labels,
+    labels: chartData.map(label => label.sector),
     datasets: [
       {
         label: "Co2 Emission %",
-        data: shares,
+        data: chartData.map(label => label.share),
         backgroundColor: [
         "rgba(255, 99, 132, 0.5)",
         "rgba(54, 162, 235, 0.5)",
@@ -79,18 +76,35 @@ export default function Charts2() {
         "rgba(255, 99, 132, 0.5)",
         "rgba(54, 162, 235, 0.5)",
         "rgba(255, 206, 86, 0.5)",
-        
+        "rgba(75, 192, 192, 0.5)",
+        "rgba(153, 102, 255, 0.5)",
+        "rgba(255, 159, 64, 0.5)",
+        "rgba(255, 99, 132, 0.5)",
+        "rgba(54, 162, 235, 0.5)",
+        "rgba(255, 206, 86, 0.5)",
+        "rgba(75, 192, 192, 0.5)",
+        "rgba(153, 102, 255, 0.5)",
+        "rgba(255, 159, 64, 0.5)",
       ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
           
         ],
         borderWidth: 2,
@@ -125,7 +139,7 @@ export default function Charts2() {
       <div className="donut">
         <h1>CO2 Emissions</h1>
         <Doughnut ref={chartRef} options={options} data={data} onClick={onClick}/>
-        <button onClick={getCo2shares}>Back</button>
+         <button onClick={() => setChartData(primarySector)}>Back</button>
       </div>
     </div>
   );

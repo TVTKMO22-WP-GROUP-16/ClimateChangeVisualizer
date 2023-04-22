@@ -25,44 +25,6 @@ public class Co2SubSharesRestApi {
         return co2SubSharesService.getAllCo2SubShares();
     }
 
-    @GetMapping("co2subshares/Energy")
-    public List<Co2SubShare> getEnergyCo2SubShares() {
-        try {
-            return co2SubSharesService.getEnergyCo2SubShares();
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    @GetMapping("co2subshares/Industrial processes")
-    public List<Co2SubShare> getInduCo2SubShares() {
-        try {
-            return co2SubSharesService.getInduCo2SubShares();
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    @GetMapping("co2subshares/Waste")
-    public List<Co2SubShare> getWasteCo2SubShares() {
-        try {
-            return co2SubSharesService.getWasteCo2SubShares();
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    @GetMapping("co2subshares/AFOLU")
-    public List<Co2SubShare> getAFOLUCo2SubShares() {
-        try {
-            return co2SubSharesService.getAFOLUCo2SubShares();
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
+    
 
 }
