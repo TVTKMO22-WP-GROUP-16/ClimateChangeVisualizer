@@ -39,7 +39,7 @@ export default function Charts2() {
       .then(response => {
         console.log(response.data);
         setSubSector(response.data);  
-          
+          console.log (subSector);
       }).catch(err => {
         console.log(err);
       })
@@ -50,10 +50,12 @@ export default function Charts2() {
   const onClick = (event) => {
     
     const { current: chart } = chartRef;
-    const { index } = getElementsAtEvent(chart, event)[0];   
-    console.log(data.labels[index]);
-    console.log(subSector.filter(label => label.psector_fk === data.labels[index]));
-    setChartData(subSector.filter(label => label.psector_fk === data.labels[index]));
+    const { index } = getElementsAtEvent(chart, event)[0];  
+    if(chartData === primarySector) {
+      console.log(data.labels[index]);
+      console.log(subSector.filter(label => label.psector_fk === data.labels[index]));
+      setChartData(subSector.filter(label => label.psector_fk === data.labels[index]));
+    }
     
   };
  
@@ -85,6 +87,7 @@ export default function Charts2() {
         "rgba(75, 192, 192, 0.5)",
         "rgba(153, 102, 255, 0.5)",
         "rgba(255, 159, 64, 0.5)",
+        "rgba(255, 99, 132, 0.5)",
       ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
@@ -105,6 +108,7 @@ export default function Charts2() {
         "rgba(75, 192, 192, 1)",
         "rgba(153, 102, 255, 1)",
         "rgba(255, 159, 64, 1)",
+        "rgba(255, 99, 132, 1)",
           
         ],
         borderWidth: 2,

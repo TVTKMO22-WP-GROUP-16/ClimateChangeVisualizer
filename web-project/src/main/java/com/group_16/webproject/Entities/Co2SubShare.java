@@ -21,11 +21,11 @@ public class Co2SubShare {
         this.sector = sector;
     }
 
-    public float getShares() {
+    public float getShare() {
         return this.shares;
     }
 
-    public void setShares(float shares) {
+    public void setShare(float shares) {
         this.shares = shares;
     }
 
