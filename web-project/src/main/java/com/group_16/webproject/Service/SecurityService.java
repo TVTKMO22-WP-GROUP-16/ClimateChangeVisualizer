@@ -1,7 +1,5 @@
 package com.group_16.webproject.Service;
 
-
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,15 +14,15 @@ import com.group_16.webproject.Repositories.UserRepository;
 
 @Service
 public class SecurityService {
-    
+
     @Autowired
     UserRepository userRepository;
 
     @Value("${jwt.secret}")
     private String jwtKey;
 
-    //Rekisteröinti
-    //Luo uusi käyttäjä ja salasana
+    // Rekisteröinti
+    // Luo uusi käyttäjä ja salasana
     public User register(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User u = new User(username, encoder.encode(password));
@@ -32,8 +30,8 @@ public class SecurityService {
         return u;
     }
 
-    //Kirjautuminen
-    //Tarkista käyttäjänimi ja salasana
+    // Kirjautuminen
+    // Tarkista käyttäjänimi ja salasana
     public String login(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User u = userRepository.findByUsername(username);
@@ -44,6 +42,52 @@ public class SecurityService {
 
         Algorithm algorithm = Algorithm.HMAC256(jwtKey);
         return JWT.create().withSubject(u.getUsername()).sign(algorithm);
+    }
+
+    //Käyttäjien haku
+    //Hae kaikki käyttäjät
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    //Käyttäjän hakeminen nimellä
+    //Hae käyttäjä nimellä
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    //Käyttäjän hakeminen id:llä
+    //Hae käyttäjä id:llä
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
+    }
+
+    //Käyttäjän ID, käyttäjänimellä
+    public Long getUserIdByUsername(String username) {
+        User u = userRepository.findByUsername(username);
+        return u.getId();
+    }
+
+    //Käyttäjän poistaminen
+    //Poista käyttäjä
+    public void deleteUser(Long id) {
+        User u = userRepository.findById(id).get();
+        if (u != null) {
+            userRepository.delete(u);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    //Käyttäjän poistaminen käyttäjänimellä
+    //Poista käyttäjä käyttäjänimellä
+    public void deleteUserByUsername(String username) {
+        User u = userRepository.findByUsername(username);
+        if (u != null) {
+            userRepository.delete(u);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
     }
 
     //Varmista JWT Tokenin oikeellisuus
