@@ -12,6 +12,7 @@ import com.group_16.webproject.Repositories.Co2ShareRepository;
 import com.group_16.webproject.Repositories.UserRepository;
 
 
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableJpaRepositories
 @EntityScan
@@ -21,6 +22,7 @@ public class WebProjectApplication {
 	UserRepository userRepository;
 	@Autowired
 	Co2ShareRepository co2ShareRepository;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebProjectApplication.class, args);

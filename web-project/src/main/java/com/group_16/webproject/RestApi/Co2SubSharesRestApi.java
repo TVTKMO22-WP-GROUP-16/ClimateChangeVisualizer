@@ -1,3 +1,4 @@
+
 package com.group_16.webproject.RestApi;
 
 import java.util.List;
@@ -7,21 +8,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.group_16.webproject.Entities.Co2Share;
-import com.group_16.webproject.Service.Co2SharesService;
+import com.group_16.webproject.Entities.Co2SubShare;
+import com.group_16.webproject.Service.Co2SubSharesService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class Co2SharesRestApi {
+public class Co2SubSharesRestApi {
 
     @Autowired
-    Co2SharesService co2SharesService;
+    Co2SubSharesService co2SubSharesService;
 
-    @GetMapping("co2shares")
+    @GetMapping("co2subshares")
 
-    public List<Co2Share> getAllCo2Shares() {
+    public List<Co2SubShare> getAllCo2SubShares() {
 
-        return co2SharesService.getAllCo2Shares();
+        return co2SubSharesService.getAllCo2SubShares();
     }
+
+    
 
 }
