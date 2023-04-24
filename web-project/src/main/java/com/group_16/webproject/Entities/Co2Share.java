@@ -5,11 +5,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "psector")
+@Table(schema = "public", name = "psector")
 public class Co2Share {
 
     @Id
-    public int psector_id;
+    public int id;
     private String sector;
     private float shares;
 

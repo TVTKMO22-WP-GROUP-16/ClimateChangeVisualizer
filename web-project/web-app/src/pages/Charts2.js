@@ -12,8 +12,8 @@ export default function Charts2() {
   const [primarySector, setPrimarySector] = useState();
   const [subSector, setSubSector] = useState();
   const [chartData, setChartData] = useState([]);
- 
- 
+  let endpoints = ["/co2shares", "/co2subshares"];
+  axios.defaults.baseURL = "http://localhost:8090";
 
   const chartRef = useRef();
   
@@ -24,8 +24,18 @@ export default function Charts2() {
 
   
   function getCo2shares() {
+    
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    .then((data)=> {
+      console.log(data);
+      setPrimarySector(data[0].data);
+      setSubSector(data[1].data);
+      setChartData(data[0].data);
+    }).catch(err => {
+      console.log(err);
+    })
 
-    axios.get("http://localhost:8090/co2shares")
+ /*    axios.get("http://localhost:8090/co2shares")
       .then((response) => {    
         console.log(response.data);
         setPrimarySector(response.data);
@@ -39,10 +49,10 @@ export default function Charts2() {
       .then(response => {
         console.log(response.data);
         setSubSector(response.data);  
-          console.log (subSector);
+          //console.log (subSector);
       }).catch(err => {
         console.log(err);
-      })
+      }) */
   }
   
 
@@ -50,7 +60,8 @@ export default function Charts2() {
   const onClick = (event) => {
     
     const { current: chart } = chartRef;
-    const { index } = getElementsAtEvent(chart, event)[0];  
+    const { index } = getElementsAtEvent(chart, event)[0];
+    //const index = getElementsAtEvent(chartRef.current, event)["0"].index;  
     if(chartData === primarySector) {
       console.log(data.labels[index]);
       console.log(subSector.filter(label => label.psector_fk === data.labels[index]));
