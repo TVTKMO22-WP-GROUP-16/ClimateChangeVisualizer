@@ -9,6 +9,7 @@ export default function V4() {
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [countryColors, setCountryColors] = useState({});
   const [countryList, setCountryList] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
   useEffect(() => {
     getData();
@@ -20,6 +21,7 @@ export default function V4() {
       .then((response) => {
         setData(response.data);
         setCountryList(Object.keys(response.data[0].countries));
+        setFilteredCountries(Object.keys(response.data[0].countries));
       })
       .catch((error) => {
         console.log(error);
@@ -28,9 +30,10 @@ export default function V4() {
 
   const addCountryToChart = () => {
     if (selectedCountry) {
-      setSelectedCountries([...selectedCountries, selectedCountry]);
+      const selectedOption = document.querySelector("select option:checked").value;
+      setSelectedCountries([...selectedCountries, selectedOption]);
       setSelectedCountry("");
-      setCountryColors({ ...countryColors, [selectedCountry]: getRandomColor() });
+      setCountryColors({ ...countryColors, [selectedOption]: getRandomColor() });
     }
   };
 
@@ -96,8 +99,22 @@ export default function V4() {
   };
 
   const handleDropdownChange = (e) => {
-    setSelectedCountry(e.target.value);
+    const searchQuery = e.target.value;
+    setSelectedCountry(searchQuery);
+    setFilteredCountries(
+      countryList.filter((country) =>
+        country.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
   };
+
+  useEffect(() => {
+    setFilteredCountries(
+      countryList.filter((country) =>
+        country.toLowerCase().includes(selectedCountry.toLowerCase())
+      )
+    );
+  }, [selectedCountry, countryList]);
 
   return (
     <div className="V4" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
@@ -105,7 +122,7 @@ export default function V4() {
           <div style={{ display: "flex" }}>
         <input
             type="text"
-            placeholder="Search for a country"
+            placeholder="Etsi maa..."
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
             onKeyDown={handleKeyPress}
@@ -119,7 +136,7 @@ export default function V4() {
         <option value="" disabled>
             Valitse maa
         </option>
-        {countryList.map((country, index) => (
+        {filteredCountries.map((country, index) => (
             <option key={index} value={country}>
             {country}
             </option>
