@@ -42,7 +42,9 @@ public class Co2EBCService {
                     String propertyName = propertyDescriptor.getName();
                     if (!propertyName.equals("class") && !propertyName.equals("year")) {
                         Method readMethod = propertyDescriptor.getReadMethod();
-                        countryEmissions.put(propertyName, (Double) readMethod.invoke(co2ebc));
+                        String key = propertyName.replace("_", " "); // Replace underscore with space in key
+                        key = Character.toUpperCase(key.charAt(0)) + key.substring(1); // Capitalize first letter
+                        countryEmissions.put(key, (Double) readMethod.invoke(co2ebc));
                     }
                 }
             } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
@@ -52,5 +54,5 @@ public class Co2EBCService {
             result.add(co2ebcMap);
         }
         return result;
-        }
+    }
 }
