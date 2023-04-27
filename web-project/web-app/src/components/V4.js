@@ -19,8 +19,9 @@ export default function V4() {
       .get("http://localhost:8090/co2ebc")
       .then((response) => {
         setData(response.data);
-        setCountryList(Object.keys(response.data[0].countries));
-        setFilteredCountries(Object.keys(response.data[0].countries));
+        const countries = Object.keys(response.data[0].countries).sort();
+        setCountryList(countries);
+        setFilteredCountries(countries);
       })
       .catch((error) => {
         console.log(error);
