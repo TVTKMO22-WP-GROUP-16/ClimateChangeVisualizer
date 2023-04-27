@@ -40,12 +40,20 @@ function MySideNav({ handleLogout }) {
                 Emission charts
               </NavText>
             </NavItem>
+<<<<<<< HEAD
             <NavItem eventKey="charts3">
+=======
+            <NavItem eventKey="charts4">
+>>>>>>> bbd984dcc533590be9d3634b53d15715e40434ab
               <NavIcon>
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
+<<<<<<< HEAD
                 Human activities
+=======
+                Emissions by country
+>>>>>>> bbd984dcc533590be9d3634b53d15715e40434ab
               </NavText>
             </NavItem>
             {!hasToken && (
@@ -71,7 +79,7 @@ function MySideNav({ handleLogout }) {
             {hasToken && (
               <NavItem eventKey="dashboard">
                 <NavIcon>
-                  <i className='fa-solid fa-user' style={{fontSize:'1.75 em'}}/>
+                  <i className='fa-solid fa-user-gear' style={{fontSize:'1.75 em'}}/>
                 </NavIcon>
                 <NavText>
                   Dashboard
