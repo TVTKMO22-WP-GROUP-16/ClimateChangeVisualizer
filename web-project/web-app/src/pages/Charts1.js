@@ -5,8 +5,12 @@ export default function Charts1() {
 
   return (
     <div>
+      <div>
       <V1/>
+      </div>
+      <div>
       <V2/>
+      </div>
     </div>
   );
 }
