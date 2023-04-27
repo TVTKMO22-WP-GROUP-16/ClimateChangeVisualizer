@@ -107,8 +107,8 @@ export default function V2() {
     scales: {
       x: {
         ticks: {
-          source: "data",
           autoSkip: true,
+          stepSize: 1,
         },
         type: "time",
         time: {
