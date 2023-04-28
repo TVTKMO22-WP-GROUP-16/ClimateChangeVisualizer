@@ -140,10 +140,10 @@ export default function V1() {
   return (
     <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
       <div>
-      <Radio checked={isAnnual} onChange={() => setIsAnnual(true)} /> Annual
+      <Radio checked={isAnnual} onChange={() => setIsAnnual(true)} />Annual
       </div>
       <div>
-      <Radio checked={!isAnnual} onChange={() => setIsAnnual(false)} /> Monthly
+      <Radio checked={!isAnnual} onChange={() => setIsAnnual(false)} />Monthly
       </div>
       <Line options={options} data={data} />
       <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
