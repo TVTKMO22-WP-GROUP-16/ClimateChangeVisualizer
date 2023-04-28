@@ -40,6 +40,14 @@ function MySideNav({ handleLogout }) {
                 Emission charts
               </NavText>
             </NavItem>
+            <NavItem eventKey="charts3">
+              <NavIcon>
+                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
+              </NavIcon>
+              <NavText>
+                Human activities
+              </NavText>
+            </NavItem>
             <NavItem eventKey="charts4">
               <NavIcon>
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
