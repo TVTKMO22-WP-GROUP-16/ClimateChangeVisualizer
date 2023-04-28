@@ -16,9 +16,6 @@ export default function V1() {
   axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
-    GetData();
-   }, []);
-  function GetData (){
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
      .then((data) => {
        console.log(data);
@@ -28,7 +25,7 @@ export default function V1() {
      }).catch(err => {
        console.log(err);
      })
-   } 
+   }, []);
    
   const data = {
     datasets: [
