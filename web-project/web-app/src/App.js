@@ -32,7 +32,7 @@ export default function App() {
         <Route element={<PrivateRoutes />}>
             <Route element={<Dashboard handleLogout={handleLogout}/>} path="/dashboard" />
         </Route>
-        <Route path="/home" element={<Home/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/charts1" element={<Charts1/>} />
         <Route path="/charts2" element={<Charts2/>} />
         <Route path="/charts4" element={<Charts4/>} />
