@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 
 import MySideNav from "./components/MySideNav";
+import PrivateRoutes from "./components/PrivateRoutes";
 import { BrowserRouter as Router, Route, Switch, Routes, useNavigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -11,6 +12,7 @@ import Charts2 from "./pages/Charts2";
 import Charts3 from "./pages/Charts3";
 import Charts4 from "./pages/Charts4";
 import Dashboard from "./pages/Dashboard";
+
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -28,15 +30,17 @@ export default function App() {
     <Router>
       <MySideNav handleLogout={handleLogout} />
       <Routes>
-        <Route path="/home" element={<Home/>} />
+        <Route element={<PrivateRoutes />}>
+            <Route element={<Dashboard handleLogout={handleLogout}/>} path="/dashboard" />
+        </Route>
+        <Route path="/" element={<Home/>} />
         <Route path="/charts1" element={<Charts1/>} />
         <Route path="/charts2" element={<Charts2/>} />
         <Route path="/charts3" element={<Charts3/>} />
         <Route path="/charts4" element={<Charts4/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-        <Route path="/dashboard" element={<Dashboard handleLogout={handleLogout} />} />
-         
+        
       </Routes>
     </Router>
    
