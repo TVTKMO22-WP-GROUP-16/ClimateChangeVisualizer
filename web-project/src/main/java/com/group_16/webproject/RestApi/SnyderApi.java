@@ -1,27 +1,26 @@
 package com.group_16.webproject.RestApi;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.group_16.webproject.Entities.Co2Share;
-import com.group_16.webproject.Service.Co2SharesService;
+import com.group_16.webproject.Entities.Snyder;
+import com.group_16.webproject.Service.SnyderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class Co2SharesRestApi {
+public class SnyderApi {
 
     @Autowired
-    Co2SharesService co2SharesService;
+    SnyderService snyderService;
 
-    @GetMapping("co2shares")
+    @GetMapping("snyder")
 
-    public List<Co2Share> getAllCo2Shares() {
+    public List<Snyder> getAllSnyder() {
 
-        return co2SharesService.getAllCo2Shares();
+        return snyderService.getAllSnyder();
     }
 
 }

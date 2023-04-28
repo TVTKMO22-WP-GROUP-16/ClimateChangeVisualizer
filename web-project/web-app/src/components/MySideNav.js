@@ -3,8 +3,9 @@ import SideNav, { Toggle , NavItem, NavIcon, NavText, ClickOutside} from '@trend
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { useNavigate } from "react-router-dom";
 
-function MySideNav() {
+function MySideNav({ handleLogout }) {
   const navigate = useNavigate();
+  const hasToken = localStorage.getItem('token');
       
     
       return <SideNav
@@ -39,6 +40,23 @@ function MySideNav() {
                 Emission charts
               </NavText>
             </NavItem>
+            <NavItem eventKey="charts3">
+              <NavIcon>
+                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
+              </NavIcon>
+              <NavText>
+                Human activities
+              </NavText>
+            </NavItem>
+            <NavItem eventKey="charts4">
+              <NavIcon>
+                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
+              </NavIcon>
+              <NavText>
+                Emissions by country
+              </NavText>
+            </NavItem>
+            {!hasToken && (
             <NavItem eventKey="signup"> 
               <NavIcon>
                 <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
@@ -47,14 +65,37 @@ function MySideNav() {
                 Sign Up
               </NavText>
             </NavItem>
+            )}
+            {!hasToken && (
             <NavItem eventKey="login"> 
               <NavIcon>
-                <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
+                <i className='fa-solid fa-user' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
                 Login
               </NavText>
             </NavItem>
+            )}
+            {hasToken && (
+              <NavItem eventKey="dashboard">
+                <NavIcon>
+                  <i className='fa-solid fa-user-gear' style={{fontSize:'1.75 em'}}/>
+                </NavIcon>
+                <NavText>
+                  Dashboard
+                </NavText>
+              </NavItem>
+            )}
+            {hasToken && (
+              <NavItem eventKey="login" onClick={handleLogout}>
+                <NavIcon>
+                  <i className='fa-solid fa-user-minus' style={{fontSize:'1.75 em'}}/>
+                </NavIcon>
+                <NavText>
+                  Logout
+                </NavText>
+              </NavItem>
+            )}
           </SideNav.Nav>
         </SideNav>
      

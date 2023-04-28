@@ -1,10 +1,15 @@
 package com.group_16.webproject.RestApi;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +45,33 @@ public class SecurityRestApi {
         }
     }
 
+    @GetMapping("users")
+    public ResponseEntity<Iterable<User>> getUsers() {
+        return new ResponseEntity<>(securityService.getUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("users/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        return new ResponseEntity<>(securityService.findByUsername(username), HttpStatus.OK);
+    }
+
+    @GetMapping("users/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(securityService.getUser(id), HttpStatus.OK);
+    }
+
+    /*@DeleteMapping("users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        securityService.deleteUser(id);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
+    }*/
+
+    @DeleteMapping("users/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username) {
+        securityService.deleteUserByUsername(username);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
+    }
+
     //GetMapping
     @GetMapping("private")
     public ResponseEntity<String> getPrivateData(@RequestHeader("Authorization") String bearer) {
@@ -49,7 +81,7 @@ public class SecurityRestApi {
             String username = securityService.validateJwt(token);
             
             if(username != null) {
-                return new ResponseEntity<>("Private data for "+ username, HttpStatus.OK);
+                return ResponseEntity.ok().body("{\"username\": \"" + username + "\"}");
             }
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
