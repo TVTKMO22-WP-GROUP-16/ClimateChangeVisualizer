@@ -7,30 +7,27 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip,
 export default function V3() {
 
   const [co2ppm, setCo2ppm] = useState([]);
-  const [muutos, setMuutos] = useState([]);
   let endpoints = ["/snyder"];
   axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
-    getData();
-  }, []);
+    GetData();
+   }, []);
 
-  function getData() {
-
-    axios
-    .all(endpoints.map((endpoint) => axios.get(endpoint)))
-    .then((response) => {
-       console.log(response.data);
+  function GetData (){
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+     .then((data) => {
+       console.log(data);
        setCo2ppm(data[0].data);
-       setMuutos(data[0].data);
-     })
-     .catch((err) => {
+     }).catch(err => {
        console.log(err);
-     });
+     })
    } 
 
   const data = {
-      labels: ['2000000', '1800000', '1600000', '1400000', '1200000', '1000000', '800000', '600000', '400000', '200000', '0AD', '100000AD'],
+      labels: co2ppm.sort((a, b) => a.time - b.time)
+      .map((d) => d.time.toString()),
+
       datasets: [
         {
           label: 'Hiilidioksidin määrä (ppm)',
@@ -39,16 +36,24 @@ export default function V3() {
           backgroundColor: 'red',
           borderColor: 'black',
           tension: 0.4,
-          yAxisID: 'y'
+          yAxisID: 'y',
+          parsing: {
+            xAxisKey: "time",
+            yAxisKey: "cd",
+          }
         },
         {
           label: 'Maapallon pintalämpötilan keskimuutos',
-          data: muutos,
+          data: co2ppm,
           fill: false,
           backgroundColor: 'red',
           borderColor: 'blue',
           tension: 0.4,
-          yAxisID: 'ppm'     
+          yAxisID: 'ppm',
+          parsing: {
+            xAxisKey: "time",
+            yAxisKey: "cdu",
+          }    
         },
       ],
     };
@@ -109,7 +114,7 @@ export default function V3() {
 return (
   <div style={styles.chartContainer}>
       <Line data={data} options={options} />
-      <button onClick={getData}>Check</button>
+      <button onClick={GetData}>Check</button>
     </div>
   );
 }
