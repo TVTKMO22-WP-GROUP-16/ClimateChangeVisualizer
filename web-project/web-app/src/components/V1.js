@@ -5,13 +5,7 @@ import { Line } from "react-chartjs-2";
 import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
-
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {Card, Box, CardActions, CardContent, Button, Typography, Radio} from '@mui/material/';
 
 export default function V1() {
 
@@ -145,16 +139,12 @@ export default function V1() {
 
   return (
     <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
-  <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
-      <label className="form-check-label" htmlFor="annualData"> Yearly
-    </label>
-    </div>   
-    <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="monthlyData" checked={!isAnnual} onChange={() => setIsAnnual(false)} />
-      <label className="form-check-label" htmlFor="monthlyData"> Monthly
-      </label>
-    </div>
+      <div>
+      <Radio checked={isAnnual} onChange={() => setIsAnnual(true)} /> Annual
+      </div>
+      <div>
+      <Radio checked={!isAnnual} onChange={() => setIsAnnual(false)} /> Monthly
+      </div>
       <Line options={options} data={data} />
       <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
         <Card variant="outlined">{card}</Card>
