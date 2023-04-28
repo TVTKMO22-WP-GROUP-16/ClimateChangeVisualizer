@@ -6,6 +6,13 @@ import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
 
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 export default function V2() {
 
   const [dataYearly, setDataYearly] = useState();
@@ -134,9 +141,32 @@ export default function V2() {
       },
     },
   };
+
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <Typography variant="h5" component="div" gutterBottom>
+          Description
+        </Typography>
+        <Typography variant="body2">
+          This chart contains data about atmospheric CO2 concentrations from Mauna Loa measurements starting from the year 1958.
+          <br />
+          Additionally you can enable data from Antarctic ice core records combined with Mauna Loa measurements.
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" href="https://gml.noaa.gov/ccgg/trends/data.html">Mauna Loa data</Button>
+        <Button size="small" href="https://cdiac.ess-dive.lbl.gov/ftp/trends/co2/lawdome.combined.dat">Lawdome data</Button>
+      </CardActions>
+    </React.Fragment>
+  );
+
   return (
     <div className="V2" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
       <Line options={options} data={data} />
+      <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
+        <Card variant="outlined">{card}</Card>
+      </Box>
     </div>
   );
 }
