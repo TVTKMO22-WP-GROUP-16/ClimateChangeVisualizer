@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import DeleteUserButton from '../components/DeleteUserButton';
 
 export default function Dashboard({ handleLogout }) {
     const [username, setUsername] = useState('');
@@ -22,6 +21,7 @@ export default function Dashboard({ handleLogout }) {
     }, []);
 
     const handleUserDelete = () => {
+      if (window.confirm('Haluatko varmasti poistaa käyttäjän?')) {
       axios.delete('http://localhost:8090/users/' + username)
         .then((response) => {
           console.log("Käyttäjä poistettu", response.data);
@@ -31,14 +31,14 @@ export default function Dashboard({ handleLogout }) {
         .catch((error) => {
           console.log('Käyttäjän poistaminen ei onnistunut:', error);
         });
+      }
     };
-
 
     return (
       <div className="dashboard">
         <h1>Dashboard</h1>
         <button onClick={handleLogout}>Kirjaudu ulos</button>
-        <DeleteUserButton handleUserDelete={handleUserDelete} />
+        <button onClick={handleUserDelete}>Poista käyttäjä</button>
         <div>
           <h2>Tiedot</h2>
           <p>Käyttäjänimi: {username}</p>

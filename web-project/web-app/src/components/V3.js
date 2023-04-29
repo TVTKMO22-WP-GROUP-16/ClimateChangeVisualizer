@@ -25,7 +25,7 @@ export default function V3() {
    } 
 
   const data = {
-      labels: co2ppm.sort((a, b) => a.time - b.time)
+      labels: co2ppm.sort((b, a) => a.time - b.time)
       .map((d) => d.time.toString()),
 
       datasets: [

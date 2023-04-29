@@ -13,10 +13,11 @@ body {
     justify-content: center;
 }
 .charts1 {
-
+    display: block;
+    text-align: center;
 }
 .charts2 {
-    display: flex;
+    display: block;
     font-family: sans-serif;
     margin: 0;
     padding: 0;

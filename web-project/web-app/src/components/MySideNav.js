@@ -15,13 +15,13 @@ function MySideNav({ handleLogout }) {
         }}
         >
           <SideNav.Toggle />
-          <SideNav.Nav defaultSelected="home">
-            <NavItem eventKey="home">
+          <SideNav.Nav defaultSelected="">
+            <NavItem eventKey="">
               <NavIcon>
                 <i className='fa fa-fw fa-home' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Home
+                Etusivu
               </NavText>
             </NavItem>
             <NavItem eventKey="charts1">
@@ -29,7 +29,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Temp & CO2 charts
+                Lämpötilatiedot ja CO2
               </NavText>
             </NavItem>
             <NavItem eventKey="charts2">
@@ -37,23 +37,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Emission charts
-              </NavText>
-            </NavItem>
-            <NavItem eventKey="charts3">
-              <NavIcon>
-                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
-              </NavIcon>
-              <NavText>
-                Human activities
-              </NavText>
-            </NavItem>
-            <NavItem eventKey="charts4">
-              <NavIcon>
-                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
-              </NavIcon>
-              <NavText>
-                Emissions by country
+                Päästölähteet
               </NavText>
             </NavItem>
             {!hasToken && (
@@ -62,7 +46,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Sign Up
+                Rekisteröidy
               </NavText>
             </NavItem>
             )}
@@ -72,7 +56,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa-solid fa-user' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Login
+                Kirjaudu sisään
               </NavText>
             </NavItem>
             )}
@@ -82,7 +66,7 @@ function MySideNav({ handleLogout }) {
                   <i className='fa-solid fa-user-gear' style={{fontSize:'1.75 em'}}/>
                 </NavIcon>
                 <NavText>
-                  Dashboard
+                  Oma sivu
                 </NavText>
               </NavItem>
             )}
@@ -92,7 +76,7 @@ function MySideNav({ handleLogout }) {
                   <i className='fa-solid fa-user-minus' style={{fontSize:'1.75 em'}}/>
                 </NavIcon>
                 <NavText>
-                  Logout
+                  Kirjaudu ulos
                 </NavText>
               </NavItem>
             )}
