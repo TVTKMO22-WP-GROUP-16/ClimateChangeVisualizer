@@ -41,12 +41,14 @@ export default function V4() {
   };
 
 
-  const removeCountryFromChart = (country) => {
-    setSelectedCountries(selectedCountries.filter((c) => c !== country));
-    setCountryColors((prevState) => {
-      const { [country]: removedColor, ...rest } = prevState;
-      return rest;
-    });
+  const removeCountryFromChart = (country) => {   
+      const selectedOption = document.querySelector("select option:checked").value;
+      setSelectedCountries(selectedCountries.filter((c) => c !== selectedOption));
+      setSelectedCountry("");
+      setCountryColors((prevState) => {
+        const { [country]: removedColor, ...rest } = prevState;
+        return rest;
+      });
   };
 
   //Graafin data
@@ -108,12 +110,16 @@ export default function V4() {
     },
   };
 
-  //Enterin painaminen
+  //Näppäimistöstä nappien painaminen (Enter ja delete, maiden lisäämiseen ja poistamiseen)
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       addCountryToChart();
     }
+    if (e.keyCode === 46) {
+      removeCountryFromChart();
+    }
   };
+
 
   //Dropdown menu ja sen filtteröinti
   const handleDropdownChange = (e) => {
@@ -161,6 +167,7 @@ export default function V4() {
         ))}
         </select>
         <button onClick={addCountryToChart}>Lisää maa</button>
+        <button onClick={removeCountryFromChart}>Poista valittu maa</button>
         </div>
         <div style={{ marginTop: "10px" }}>
         <Line options={options} data={chartData} />
