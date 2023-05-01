@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api';
 
+//Sisäänkirjautuminen
 const Login = ({ onLogin }) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    //Kirjautumislomakkeen käsittely
     const handleUsernameChange = (event) => { setUsername(event.target.value); };
     const handlePasswordChange = (event) => { setPassword(event.target.value); };
 
+    //Kirjautumisen käsittely
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -25,6 +28,7 @@ const Login = ({ onLogin }) => {
         }
     };
 
+    //Sisäänkirjautumislomake
     return (
         <div className="login">
             <h1>Kirjaudu sisään</h1>
