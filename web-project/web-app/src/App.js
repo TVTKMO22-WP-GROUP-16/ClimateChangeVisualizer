@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Charts1 from "./pages/Charts1";
 import Charts2 from "./pages/Charts2";
 import Dashboard from "./pages/Dashboard";
-
+import CustomVizualization from "./pages/CustomVizualization";
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -36,7 +36,7 @@ export default function App() {
         <Route path="/charts2" element={<Charts2/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-        
+        <Route path="/customviews/:url" element={<CustomVizualization/>} />          
       </Routes>
     </Router>
    
