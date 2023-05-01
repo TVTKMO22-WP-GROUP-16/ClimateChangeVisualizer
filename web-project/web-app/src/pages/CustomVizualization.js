@@ -71,23 +71,25 @@ export default function CustomVizualization() {
     
     console.log("Visualizations:", Visualizations);
     return (
-        <>
-            <div className="text-center" style={{paddingLeft: '70px'}}>
-                <h2>{title}</h2>
-                <p>View created by: {creator}</p>
-            </div>
-            <div className={`visualizationContainer ${layout ? "stacked" : "sidebyside"}`}>
-            {
-                    viewData.map(view => {
-                        if (Visualizations[view]) {
-                            return Visualizations[view];
-                        } else {
-                            console.log(`Visualization '${view}' is not defined`);
-                            return null;
-                        }
-                    })
-                }
-            </div>
-        </>
-    );
+      <>
+          <div className="customVisualization" style={{paddingLeft: '70px'}}>
+              <h2>{title}</h2>
+              <p>View created by: {creator}</p>
+          </div>
+          <div className={`visualizationContainer ${layout ? "stacked" : "sidebyside"}`}>
+              {viewData.map((view, i) => {
+                  if (Visualizations[view]) {
+                      return (
+                          <div key={`view-${i}`} className={layout ? "chartContainer-stacked" : "chartContainer-sidebyside"}>
+                              {Visualizations[view]}
+                          </div>
+                      );
+                  } else {
+                      console.log(`Visualization '${view}' is not defined`);
+                      return null;
+                  }
+              })}
+          </div>
+      </>
+  );
 }
