@@ -1,35 +1,33 @@
-import React, { Component } from "react";
-import { useState, useEffect } from "react";
-import { Chart } from "chart.js/auto";
-import { Line } from "react-chartjs-2";
-import "chartjs-adapter-luxon";
-import { DateTime } from "luxon";
 import axios from "axios";
+import "chartjs-adapter-luxon";
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
 
 export default function V1() {
-
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
   const [dataReconstruction, setReconstruction] = useState();
   const [isAnnual, setIsAnnual] = useState(true);
   let endpoints = ["/yearlyanomalies", "/monthlyanomalies", "/reconstruction"];
-  axios.defaults.baseURL = "http://localhost:8090"
+  axios.defaults.baseURL = "http://localhost:8090";
 
   useEffect(() => {
     GetData();
-   }, []);
-  function GetData (){
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-     .then((data) => {
-       console.log(data);
-       setDataYearly(data[0].data);
-       setDataMonthly(data[1].data);
-       setReconstruction(data[2].data);
-     }).catch(err => {
-       console.log(err);
-     })
-   } 
-   
+  }, []);
+  function GetData() {
+    axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((data) => {
+        console.log(data);
+        setDataYearly(data[0].data);
+        setDataMonthly(data[1].data);
+        setReconstruction(data[2].data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   const data = {
     datasets: [
       {
@@ -103,10 +101,10 @@ export default function V1() {
             year: "y",
             month: "MMM y",
           },
-        }
-      }, 
+        },
+      },
       y: {
-        type: "linear", 
+        type: "linear",
         display: true,
         position: "left",
         title: {
@@ -114,25 +112,45 @@ export default function V1() {
           text: "Anomaly (Deg C)",
         },
         ticks: {
-            stepSize: 0.2,
-        }
+          stepSize: 0.2,
+        },
       },
     },
   };
   return (
-    <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
-  <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
-      <label className="form-check-label" htmlFor="annualData"> Yearly
-    </label>
-    </div>   
-    <div className="form-check">
-      <input className="form-check-input" type="radio" name="dataOption" id="monthlyData" checked={!isAnnual} onChange={() => setIsAnnual(false)} />
-      <label className="form-check-label" htmlFor="monthlyData"> Monthly
-      </label>
-    </div>
+    <div
+      className="V1"
+      /* style={{ position: "relative", margin: "auto", width: "80vw" }} */
+    >
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="dataOption"
+          id="annualData"
+          checked={isAnnual}
+          onChange={() => setIsAnnual(true)}
+        />
+        <label className="form-check-label" htmlFor="annualData">
+          {" "}
+          Yearly
+        </label>
+      </div>
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="radio"
+          name="dataOption"
+          id="monthlyData"
+          checked={!isAnnual}
+          onChange={() => setIsAnnual(false)}
+        />
+        <label className="form-check-label" htmlFor="monthlyData">
+          {" "}
+          Monthly
+        </label>
+      </div>
       <Line options={options} data={data} />
     </div>
   );
 }
-

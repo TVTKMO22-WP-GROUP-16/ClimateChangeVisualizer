@@ -1,16 +1,17 @@
 package com.group_16.webproject.RestApi;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group_16.webproject.Entities.User;
@@ -23,7 +24,7 @@ public class SecurityRestApi {
 
     @Autowired
     SecurityService securityService;
-    
+
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody Map<String, String> userDetails) {
         String username = userDetails.get("username");
@@ -60,11 +61,13 @@ public class SecurityRestApi {
         return new ResponseEntity<>(securityService.getUser(id), HttpStatus.OK);
     }
 
-    /*@DeleteMapping("users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        securityService.deleteUser(id);
-        return new ResponseEntity<>("User deleted", HttpStatus.OK);
-    }*/
+    /*
+     * @DeleteMapping("users/{id}")
+     * public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+     * securityService.deleteUser(id);
+     * return new ResponseEntity<>("User deleted", HttpStatus.OK);
+     * }
+     */
 
     @DeleteMapping("users/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
@@ -72,15 +75,15 @@ public class SecurityRestApi {
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 
-    //GetMapping
+    // GetMapping
     @GetMapping("private")
     public ResponseEntity<String> getPrivateData(@RequestHeader("Authorization") String bearer) {
 
-        if(bearer.startsWith("Bearer")){
+        if (bearer.startsWith("Bearer")) {
             String token = bearer.split(" ")[1];
             String username = securityService.validateJwt(token);
-            
-            if(username != null) {
+
+            if (username != null) {
                 return ResponseEntity.ok().body("{\"username\": \"" + username + "\"}");
             }
         }

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { ArcElement, Title , Chart as ChartJS, Legend, Tooltip ,} from "chart.js";
-import React, { useEffect, useRef, useState  } from "react";
-import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
+import React, { useEffect, useRef, useState } from "react";
+import { Doughnut, getElementsAtEvent } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function V5() {
@@ -21,7 +21,6 @@ export default function V5() {
     axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((data) => {
-        
         setPrimarySector(data[0].data);
         setSubSector(data[1].data);
         setChartData(data[0].data);
@@ -32,11 +31,9 @@ export default function V5() {
   }
 
   const onClick = (event) => {
-    
     const index = getElementsAtEvent(chartRef.current, event)["0"].index;
-    
+
     if (chartData === primarySector) {
-      
       setChartData(
         subSector.filter((label) => label.psector_fk === data.labels[index])
       );
@@ -98,23 +95,21 @@ export default function V5() {
 
   const options = {
     responsive: true,
-    plugins: {   
+    plugins: {
       title: {
         display: true,
-        text: "Co2 Emissions By sector",     
+        text: "Co2 Emissions By sector",
       },
       legend: {
         display: true,
         position: "bottom",
-         onClick: null,
-      labels: {
-        fontColor: "#333",
-        fontSize: 16,
-       
+        onClick: null,
+        labels: {
+          fontColor: "#333",
+          fontSize: 16,
+        },
       },
     },
-    },
-   
   };
 
   return (
@@ -124,7 +119,6 @@ export default function V5() {
         options={options}
         data={data}
         onClick={onClick}
-        
       />
       <button onClick={() => setChartData(primarySector)}>Reset</button>
     </div>

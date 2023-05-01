@@ -7,12 +7,13 @@ function MySideNav({ handleLogout }) {
   const navigate = useNavigate();
   const hasToken = localStorage.getItem('token');
       
-    
-      return <SideNav
-        
+    return(
+    <div class = 'sidebar'>   
+      <SideNav 
         onSelect={(selected)=> {
           navigate('/' + selected)
         }}
+        id="sidebar"
         >
           <SideNav.Toggle />
           <SideNav.Nav defaultSelected="home">
@@ -40,14 +41,7 @@ function MySideNav({ handleLogout }) {
                 Emission charts
               </NavText>
             </NavItem>
-            <NavItem eventKey="charts4">
-              <NavIcon>
-                <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
-              </NavIcon>
-              <NavText>
-                Emissions by country
-              </NavText>
-            </NavItem>
+            
             {!hasToken && (
             <NavItem eventKey="signup"> 
               <NavIcon>
@@ -90,6 +84,6 @@ function MySideNav({ handleLogout }) {
             )}
           </SideNav.Nav>
         </SideNav>
-     
+     </div>)
 }
 export default MySideNav;

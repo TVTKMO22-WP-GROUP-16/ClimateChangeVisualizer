@@ -5,6 +5,7 @@ export default function Charts1() {
 
   return (
     <div>
+      <h1> charts1</h1>
       <div>
       <V1/>
       </div>
