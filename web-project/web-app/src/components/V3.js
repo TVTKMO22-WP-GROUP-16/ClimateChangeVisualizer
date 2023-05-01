@@ -31,55 +31,113 @@ export default function V3() {
       datasets: [
         {
           label: 'Hiilidioksidin määrä (ppm)',
-          data: co2ppm,
+          data: co2ppm.filter((d) => d.cd !== 0),
           fill: false,
+          pointRadius: 0,
           backgroundColor: 'red',
-          borderColor: 'black',
+          borderColor: 'red',
           tension: 0.4,
           yAxisID: 'y',
           parsing: {
             xAxisKey: "time",
             yAxisKey: "cd",
-          }
+          },
         },
         {
           label: 'Maapallon pintalämpötilan keskimuutos',
           data: co2ppm,
           fill: false,
-          backgroundColor: 'red',
+          pointRadius: 0,
+          backgroundColor: 'blue',
           borderColor: 'blue',
           tension: 0.4,
           yAxisID: 'ppm',
           parsing: {
             xAxisKey: "time",
-            yAxisKey: "cdu",
-          }    
+            yAxisKey: "fifty",
+          },
         },
+        {
+          label: 'Ihmisen aiheuttamia tapahtumia',
+          data: co2ppm.filter((d) => d.event !== ' '),
+          fill: false,
+          backgroundColor: 'black',
+          borderColor: 'transparent',
+          pointRadius: 5,
+          showLine: false,
+          tension: 0.4,
+          yAxisID: 'events',
+          parsing: {
+            xAxisKey: "time",
+            yAxisKey: "event",
+          },
+        },
+        {
+          label: 'Vuosia sitten (BC)',
+          data: co2ppm,
+          fill: false,
+          pointRadius: 0,
+          backgroundColor: 'red',
+          borderColor: 'red',
+          tension: 0.4,
+          xAxisID: 'x',
+          parsing: {
+            xAxisKey: "time",
+          }
+        }
       ],
     };
     
   const options = {
+    responsive: true,
     plugins: {
       legend: {
+        position: "bottom",
+      },
+      title: {
         display: true,
-        position: "bottom"
-      }
+        text: "Lämpötilan evoluutio maailmanlaajuisesti 2-miljoonalta vuodelta",
+        font: {
+          size: 30
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = "";
+            if (context.datasetIndex === 0) {
+              label += context.parsed.y.toLocaleString() + " ppm";
+            } else if (context.datasetIndex === 1) {
+              label += context.parsed.y.toLocaleString() + " °C";
+            } else {
+              label += context.raw.event;
+            }
+            return label;
+          },
+        },
+      },
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Vuosia sitten (BC)'
+          text: 'Vuosia sitten (BC)',
+          font: {
+            size: 16,
+          },
         },
+        position: 'bottom'
       },
       y: {
         title: {
           display: true,
-          text: 'co2 ppm'
+          text: 'co2 ppm',
         },
         beginAtZero: true,
         type: 'linear',
-        position: 'left'
+        position: 'left',
+        min: 130,
+        max: 300       
       },
       ppm:{
         title: {
@@ -90,23 +148,41 @@ export default function V3() {
         type: 'linear',
         position: 'right',
         grid: {
-          drawOnChartArea: false
+        drawOnChartArea: false
         },
+        min: -8,
+        max: 3,
         ticks: {
           callback: function(value) {
             return `${value}°C`
-          }
+          },
         }
+      },
+      events: {
+        title: {
+          display: false,
+          text: 'Ihmisen aiheuttamat tapahtumat'
+        },
+        type: 'category',
+        position: 'left',
+        drawBorder: false,
+        ticks: {
+          display: true
+        },
+        grid: {
+          drawOnChartArea: false
+        },
+        min: 100000
       }
     }
-  }
+  };
 
   const styles = {
     chartContainer: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '80vh',
+      height: '100vh',
     },
   };
 
@@ -114,7 +190,6 @@ export default function V3() {
 return (
   <div style={styles.chartContainer}>
       <Line data={data} options={options} />
-      <button onClick={GetData}>Check</button>
     </div>
   );
 }
