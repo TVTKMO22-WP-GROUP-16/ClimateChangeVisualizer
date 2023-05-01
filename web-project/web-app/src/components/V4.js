@@ -166,8 +166,8 @@ export default function V4() {
             </option>
         ))}
         </select>
-        <button onClick={addCountryToChart}>Lisää maa</button>
-        <button onClick={removeCountryFromChart}>Poista valittu maa</button>
+        <button onClick={addCountryToChart} class="button-19">Lisää maa</button>
+        <button onClick={removeCountryFromChart} class="button-19">Poista valittu maa</button>
         </div>
         <div style={{ marginTop: "10px" }}>
         <Line options={options} data={chartData} />

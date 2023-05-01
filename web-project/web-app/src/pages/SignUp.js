@@ -44,7 +44,7 @@ const SignUp = () => {
               onChange={handlePasswordChange}
             />
           </div>
-          <button type="submit">Rekisteröidy</button>
+          <button type="submit" class= "button-19">Rekisteröidy</button>
         </form>
       </div>
     );

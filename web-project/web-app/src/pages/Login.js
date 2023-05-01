@@ -51,7 +51,7 @@ const Login = ({ onLogin }) => {
                         onChange={handlePasswordChange}
                     />
                 </div>
-                <button type="submit">Kirjaudu sisään</button>
+                <button type="submit" class= "button-19">Kirjaudu sisään</button>
             </form>
         </div>
     );

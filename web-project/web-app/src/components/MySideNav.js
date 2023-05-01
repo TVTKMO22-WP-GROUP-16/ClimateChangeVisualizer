@@ -7,12 +7,13 @@ function MySideNav({ handleLogout }) {
   const navigate = useNavigate();
   const hasToken = localStorage.getItem('token');
       
-    
-      return <SideNav
-        
+    return(
+    <div class = 'sidebar'>   
+      <SideNav 
         onSelect={(selected)=> {
           navigate('/' + selected)
         }}
+        id="sidebar"
         >
           <SideNav.Toggle />
           <SideNav.Nav defaultSelected="">
@@ -21,7 +22,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa fa-fw fa-home' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Etusivu
+                Home
               </NavText>
             </NavItem>
             <NavItem eventKey="charts1">
@@ -29,7 +30,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Lämpötilatiedot ja CO2
+                Temp & CO2 charts
               </NavText>
             </NavItem>
             <NavItem eventKey="charts2">
@@ -37,16 +38,17 @@ function MySideNav({ handleLogout }) {
                 <i className='fa fa-fw fa-line-chart' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Päästölähteet
+                Emission charts
               </NavText>
             </NavItem>
+            
             {!hasToken && (
             <NavItem eventKey="signup"> 
               <NavIcon>
                 <i className='fa-solid fa-user-plus' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Rekisteröidy
+                Sign Up
               </NavText>
             </NavItem>
             )}
@@ -56,7 +58,7 @@ function MySideNav({ handleLogout }) {
                 <i className='fa-solid fa-user' style={{fontSize:'1.75 em'}}/>
               </NavIcon>
               <NavText>
-                Kirjaudu sisään
+                Login
               </NavText>
             </NavItem>
             )}
@@ -66,7 +68,7 @@ function MySideNav({ handleLogout }) {
                   <i className='fa-solid fa-user-gear' style={{fontSize:'1.75 em'}}/>
                 </NavIcon>
                 <NavText>
-                  Oma sivu
+                  Dashboard
                 </NavText>
               </NavItem>
             )}
@@ -76,12 +78,12 @@ function MySideNav({ handleLogout }) {
                   <i className='fa-solid fa-user-minus' style={{fontSize:'1.75 em'}}/>
                 </NavIcon>
                 <NavText>
-                  Kirjaudu ulos
+                  Logout
                 </NavText>
               </NavItem>
             )}
           </SideNav.Nav>
         </SideNav>
-     
+     </div>)
 }
 export default MySideNav;
