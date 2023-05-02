@@ -22,7 +22,7 @@ export default function V3() {
      }).catch(err => {
        console.log(err);
      })
-   }
+   }  
 
   const data = {
       labels: co2ppm.sort((a, b) => a.time - b.time)
@@ -34,16 +34,15 @@ export default function V3() {
           data: co2ppm.filter((d) => d.cd !== 0),
           fill: false,
           pointRadius: 0,
-          backgroundColor: 'red',
-          borderColor: 'red',
+          backgroundColor: "red",
+          borderColor: "red",
           tension: 0.4,
           yAxisID: 'y',
           parsing: {
             xAxisKey: "time",
-            yAxisKey: "cd",
-          },
-        },
-        
+            yAxisKey: "cd",         
+          }
+        },        
         {
           label: 'Maapallon pintalämpötilan keskimuutos',
           data: co2ppm,
@@ -51,26 +50,29 @@ export default function V3() {
           pointRadius: 0,
           backgroundColor: 'blue',
           borderColor: 'blue',
+          hitRadius: 3,
           tension: 0.4,
-          yAxisID: 'ppm',
+          yAxisID: 'y1',
           parsing: {
             xAxisKey: "time",
             yAxisKey: "fifty",
           },
         },
-
         {
           label: 'Ihmisen aiheuttamia tapahtumia',
           data: co2ppm,
           fill: false,
           backgroundColor: 'black',
           borderColor: 'black',
+          pointRadius: (context) => {
+            return context.raw && context.raw.event === "" ? 0 : 5;
+          },
           hitRadius: (context) => {
             return context.raw && context.raw.event === "" ? 0 : 5;
           },
           showLine: false,
           tension: 0.4,
-          yAxisID: 'events',
+          yAxisID: 'y2',
           parsing: {
             xAxisKey: "time",
             yAxisKey: "event",
@@ -78,14 +80,13 @@ export default function V3() {
         },
       ],
     };
-    
+  
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "bottom",
       },
-
       title: {
         display: true,
         text: "Lämpötilan evoluutio maailmanlaajuisesti 2-miljoonalta vuodelta",
@@ -108,6 +109,13 @@ export default function V3() {
             }
             return label;
           },
+          title: function(context) {
+            const xLabel = context[0].label;
+            if (xLabel !== undefined && xLabel !== null) {
+              return xLabel + " vuotta sitten";
+            }
+            return "";
+          }
         },
       },
     },
@@ -120,7 +128,7 @@ export default function V3() {
           font: {
             size: 16,
           },
-          position: 'bottom'
+          position: 'bottom',
         },
       },
 
@@ -132,11 +140,11 @@ export default function V3() {
         beginAtZero: true,
         type: 'linear',
         position: 'left',
-        min: 130,
-        max: 300,      
+        min: 140,
+        max: 300,     
       },
 
-      ppm:{
+      y1:{
         title: {
           display: true,
           text: 'Lämpötilan muutos'
@@ -151,13 +159,19 @@ export default function V3() {
         max: 3,
       },
 
-      events: {
+      y2: {
         title: {
-          display: true,
-          text: 'Ihmisen aiheuttamat tapahtumat'
+          display: false,
+          text: 'Ihmisen aiheuttamat tapahtumat',
         },
         type: 'category',
         position: 'left',
+        grid:{
+        drawOnChartArea: false,
+        },
+        ticks: {
+          display: true,
+        },
       },
     }
   };
@@ -167,10 +181,9 @@ export default function V3() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '80vh',
+      height: '90vh',
     },
   };
-
 
 return (
   <div style={styles.chartContainer}>
