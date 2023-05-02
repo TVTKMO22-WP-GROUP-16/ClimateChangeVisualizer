@@ -41,7 +41,6 @@ export default function CustomVizualization() {
                    // console.log("selected charts:", selectedCharts);
                     setLayout(response.data.layout);
                     console.log("layout:", response.data.layout);
-                    console.log(layout);
                     setViewData(selectedCharts);
                    // console.log("view data:", selectedCharts);
                     setTitle(response.data.title);
