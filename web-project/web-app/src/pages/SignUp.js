@@ -32,7 +32,8 @@ const SignUp = () => {
               type="text"
               id="username"
               value={username}
-              onChange={handleUsernameChange}
+              onChange={handleUsernameChange} 
+              placeholder ="Käyttäjätunnus"
             />
           </div>
           <div>
@@ -42,6 +43,7 @@ const SignUp = () => {
               id="password"
               value={password}
               onChange={handlePasswordChange}
+              placeholder ="Salasana"
             />
           </div>
           <button type="submit" class= "button-19">Rekisteröidy</button>

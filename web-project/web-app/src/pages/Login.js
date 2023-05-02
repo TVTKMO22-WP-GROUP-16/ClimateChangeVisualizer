@@ -34,12 +34,14 @@ const Login = ({ onLogin }) => {
             <h1>Kirjaudu sisään</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="username">Käyttäjätunnus</label>
+                    <label htmlFor="username" >Käyttäjätunnus</label>
                     <input
+                        
                         type="text"
                         id="username"
                         value={username}
                         onChange={handleUsernameChange}
+                        placeholder ="Käyttäjätunnus"
                     />
                 </div>
                 <div>
@@ -48,7 +50,8 @@ const Login = ({ onLogin }) => {
                         type="password"
                         id="password"
                         value={password}
-                        onChange={handlePasswordChange}
+                        onChange={handlePasswordChange} 
+                        placeholder ="Salasana"
                     />
                 </div>
                 <button type="submit" class= "button-19">Kirjaudu sisään</button>

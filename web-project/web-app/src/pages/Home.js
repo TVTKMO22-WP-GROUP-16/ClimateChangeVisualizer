@@ -1,10 +1,12 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default function Home() {
 
     return (
       <div className="home">
-        <h1>Climate Change Visualizer</h1>
+        <header>
+          <h1>Climate Change Visualizer</h1>
+        </header>
         <main>
           <section>
             <article>
@@ -19,9 +21,9 @@ export default function Home() {
                 porttitor leo ante, vitae blandit justo tempor ut. Morbi at ante
                 ante.
               </p>
-              <a href="http://localhost:3000/Charts1">
+              <Link to = "/Charts1">
                 <button class="button-19">Avaa</button>
-              </a>
+              </Link>
             </article>
             <article>
               <h2>Charts 2</h2>
@@ -31,9 +33,9 @@ export default function Home() {
                 felis. Nam lectus massa, pellentesque vitae justo et, suscipit
                 tempus purus.
               </p>
-              <a href="http://localhost:3000/Charts2">
+              <Link to = "/Charts2">
                 <button class="button-19">Avaa</button>
-              </a>
+              </Link>
             </article>
             <article>
               <h2>Kirjaudu/Rekisteröidy</h2>
@@ -41,16 +43,16 @@ export default function Home() {
                 Jos teillä on jo käyttäjä voitte siirtyä kirjautumiseen painamalla
                 näppäintä
               </p>
-              <a href="http://localhost:3000/login">
+              <Link to = "/Login">
                 <button class="button-19">Kirjaudu</button>
-              </a>
+              </Link>
               <p>
                 Jos haluatte rekisteröityä käyttäjäksi voitte siirtyä
                 rekisteröitymään painamalla näppäintä{" "}
               </p>
-              <a href="http://localhost:3000/signup">
+              <Link to= "/SignUp">
                 <button class="button-19">Rekisteröidy</button>
-              </a>
+              </Link>
             </article>
           </section>
         </main>

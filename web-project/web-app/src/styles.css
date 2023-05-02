@@ -1,10 +1,10 @@
 body {
-  font-family: sans-serif;
+ 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  /* text-align: center; */
+  /* font-family: din-round,sans-serif; */
+  
 }
 
 .home, .dashboard {
@@ -29,19 +29,10 @@ body {
     justify-content: center;
 }
 
-.charts4 {
-  
-}
 
 
-.signup, .login {
-  display: block;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  text-align: center;
-}
+
+
 body {
   font-family: sans-serif;
   box-sizing: border-box;
@@ -50,10 +41,12 @@ body {
 }
 h1{
   text-align: center;
+  margin-left: 7vw;
+  margin-right: 10vw;
   font-size: 3rem;
   color: black;
   margin-top: 10vh;
-  margin-bottom: 10vh;
+  margin-bottom: 7vh;
 }
 
 
@@ -81,7 +74,7 @@ article{
   padding: 10vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
-  margin-right : 10vw;
+  margin-right : 7vw;
   margin-left :10vw;
   border: 2px solid black;
   border-radius: 25px;
@@ -102,28 +95,27 @@ article{
   background-color: white;
 }
 
-.signup, .login {
+.signup form, .login form{
   padding: 20vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
-  margin-right : 10vh;
-  margin-left : 15vh;
+  margin-right : 7vw;
+  margin-left : 10vw;
   background-color: white;
-  align-items: center;
-  justify-content: center;
   font-size: 2rem;
-  text-align: center;
+  text-align: center; 
   background-color: white;
   border: 2px solid black;
   border-radius: 25px;
 }
 
-.sidebar{
-  top: 0px;
-  bottom: 0px;  
-  position: fixed;
-      
+input[type=text], input[type=password]{
+  width: 100%;
+  padding: 1.5vh 1vh;
+  margin: 7px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.103) 
 }
-#sidebar{
-  background-color: rgb(117, 142, 255)
-}
+

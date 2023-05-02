@@ -39,9 +39,16 @@ export default function Dashboard({ handleLogout }) {
   return (
     <div className="dashboard">
       <h1>Dashboard</h1>
-      <button onClick={handleLogout}>Kirjaudu ulos</button>
-      <button onClick={handleUserDelete}>Poista käyttäjä</button>
-      <div>
+     
+      <div style ={{
+        padding: "10vh",
+        marginLeft: "10vw",
+        marginRight: "7vw",
+        border: "2px solid black",
+        borderRadius: "25px",
+        backgroundColor: "white"}}>
+        <button onClick={handleLogout} class = "button-19">Kirjaudu ulos</button>
+        <button onClick={handleUserDelete} class = "button-19">Poista käyttäjä</button>
         <h2>Tiedot</h2>
         <p>Käyttäjänimi: {username}</p>
       </div>
