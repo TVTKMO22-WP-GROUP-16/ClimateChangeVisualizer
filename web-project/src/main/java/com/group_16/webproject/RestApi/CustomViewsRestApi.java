@@ -1,5 +1,7 @@
 package com.group_16.webproject.RestApi;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,11 @@ public class CustomViewsRestApi {
 
     @Autowired
     private CustomViewsService customViewsService;
+
+    @PostMapping("/customviews")
+    public CustomViews createCustomView(@RequestBody CustomViews customView) {
+        return customViewsService.createCustomView(customView);
+    }
 
     @GetMapping("/customviews/{url}")
     public CustomViews getCustomViewByUrl(@PathVariable("url") String url) {

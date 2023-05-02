@@ -72,25 +72,43 @@ export default function CreateView() {
         layout: event.target.value,
       });
     };
-  
-    // Handle form submission
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // Prepare the submitted data
-      const submittedData = {
-        title: formData.title,
-        visualizations: formData.visualizations.join(","),
-        layout: formData.layout === "stacked" ? 0 : 1,
+
+    // Generate a randomized url for the view. (Pitää varmaan implementoida backendin puolelle joku metodi base64 jne jos aikaa.)
+    const generateRandomString = (length) => {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
       };
   
-      // Add descriptions as individual fields
-      formData.descriptions.forEach((description, index) => {
-        submittedData[`description${index + 1}`] = description;
-      });
-  
-      // Log the submitted data
-      console.log("Form submitted:", submittedData);
-    };
+    // Handle form submission
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // Prepare the submitted data
+        const submittedData = {
+          title: formData.title,
+          visualizations: formData.visualizations.join(","),
+          layout: formData.layout === "stacked" ? 0 : 1,
+          url: generateRandomString(15), // Add the randomly generated "url" field
+        };
+      
+        // Add descriptions as individual fields
+        formData.descriptions.forEach((description, index) => {
+          submittedData[`description${index + 1}`] = description;
+        });
+      
+        // Send a POST request to the backend with the submitted data
+        try {
+          const response = await axios.post("http://localhost:8090/customviews", submittedData);
+          console.log("Form submitted and saved:", response.data);
+        } catch (error) {
+          console.error("Error submitting form:", error);
+        }
+      };
+      
+    
   
     // Render the CreateView component
     return (
@@ -98,7 +116,7 @@ export default function CreateView() {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <FormLabel sx={{ fontSize: "2rem" }}>Create view</FormLabel>
         <FormGroup sx={{ padding: 2, borderRadius: 2, border: "1px solid", borderColor: "primary.main"}}>
-        <TextField sx={{ paddingBottom: 2 }} variant="standard" placeholder="Title" value={formData.title} onChange={handleTitleChange} />
+        <TextField sx={{ paddingBottom: 2 }}  inputProps={{ maxLength: 45 }} variant="standard" placeholder="Title" value={formData.title} onChange={handleTitleChange} />
           <FormLabel component="legend">Select Visualizations</FormLabel>
           <FormGroup row sx={{ paddingBottom: 2 }}>
             <FormControlLabel control={<Checkbox checked={checked.v1} onChange={handleChange} name="v1" />}label="V1"/>
@@ -108,11 +126,11 @@ export default function CreateView() {
             <FormControlLabel control={<Checkbox checked={checked.v5} onChange={handleChange} name="v5" />}label="V5"/>
           </FormGroup>
           <FormGroup sx={{ paddingBottom: 2, alignItems: "center", width: "100%", display: 'flex', flexDirection: 'column' }}>
-          {checked.v1 && <FormControlLabel control={<TextField placeholder="Description 1" onChange={(e) => handleInputChange(e, 0)} />} />}
-          {checked.v2 && <FormControlLabel control={<TextField placeholder="Description 2" onChange={(e) => handleInputChange(e, 1)} />} />}
-          {checked.v3 && <FormControlLabel control={<TextField placeholder="Description 3" onChange={(e) => handleInputChange(e, 2)} />} />}
-          {checked.v4 && <FormControlLabel control={<TextField placeholder="Description 4" onChange={(e) => handleInputChange(e, 3)} />} />}
-          {checked.v5 && <FormControlLabel control={<TextField placeholder="Description 5" onChange={(e) => handleInputChange(e, 4)} />} />}
+          {checked.v1 && <FormControlLabel control={<TextField placeholder="Description 1" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 0)} />} />}
+          {checked.v2 && <FormControlLabel control={<TextField placeholder="Description 2" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 1)} />} />}
+          {checked.v3 && <FormControlLabel control={<TextField placeholder="Description 3" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 2)} />} />}
+          {checked.v4 && <FormControlLabel control={<TextField placeholder="Description 4" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 3)} />} />}
+          {checked.v5 && <FormControlLabel control={<TextField placeholder="Description 5" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 4)} />} />}
           </FormGroup>
           <FormLabel component="legend">Select layout</FormLabel>
           <RadioGroup value={layout} onChange={handleLayoutChange} sx={{ paddingBottom: 2 }}>
