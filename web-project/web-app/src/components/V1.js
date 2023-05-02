@@ -89,6 +89,9 @@ export default function V1(props) {
       title: {
         display: true,
         text: "Global historical surface temperature anomalies",
+        font: {
+          size: 20,
+        }
       },
     },
     pointRadius: 0,

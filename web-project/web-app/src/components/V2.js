@@ -107,6 +107,9 @@ export default function V2(props) {
       title: {
         display: true,
         text: "Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements",
+        font: {
+          size: 20,
+        }
       },
     },
     pointRadius: 0,
