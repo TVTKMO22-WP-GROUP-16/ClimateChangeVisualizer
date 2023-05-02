@@ -37,12 +37,13 @@ export default function Dashboard({ handleLogout }) {
     return (
       <div className="dashboard">
         <h1>Dashboard</h1>
-        <button onClick={handleLogout}>Kirjaudu ulos</button>
-        <button onClick={handleUserDelete}>Poista käyttäjä</button>
         <div>
           <h2>Tiedot</h2>
           <p>Käyttäjänimi: {username}</p>
         </div>
+        <button onClick={handleLogout} style={{ fontWeight: "bold" }}>Kirjaudu ulos</button>        
+        <button onClick={handleUserDelete} style={{ fontWeight: "bold", backgroundColor: "darkred" }}>Poista käyttäjä</button>
+        
       </div>
     );
 }

@@ -26,8 +26,8 @@ const SignUp = () => {
       <div className="signup">
         <h1>Rekisteröidy</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Käyttäjätunnus</label>
+          <div className="divPuts">
+            <label htmlFor="username">Käyttäjätunnus: </label>
             <input
               type="text"
               id="username"
@@ -35,8 +35,8 @@ const SignUp = () => {
               onChange={handleUsernameChange}
             />
           </div>
-          <div>
-            <label htmlFor="password">Salasana</label>
+          <div className="divPuts">
+            <label htmlFor="password">Salasana: </label>
             <input
               type="password"
               id="password"

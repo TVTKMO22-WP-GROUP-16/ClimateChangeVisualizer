@@ -7,13 +7,9 @@ export default function Charts1() {
   return (
     <div className="charts1">
       <h1>Lämpötilatiedot ja CO2 pitoisuudet</h1>
-      <div>
+      <div className="lineCharts">
       <V1/>
-      </div>
-      <div>
       <V2/>
-      </div>
-      <div>
       <V3/>
       </div>
     </div>
