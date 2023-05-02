@@ -21,18 +21,18 @@ export default function CustomVizualization() {
     const [creator, setCreator] = useState("");
 
     const Visualizations = {
-        v1: <V1 key='v1' descriptions={descriptions['v1']} />,
-        v2: <V2 key='v2' descriptions={descriptions['v2']} />,
-        v3: <V3 key='v3' descriptions={descriptions['v3']} />,
-        v4: <V4 key='v4' descriptions={descriptions['v4']} />,
-        v5: <V5 key='v5' descriptions={descriptions['v5']} />
+        v1: <V1 key='v1' description={descriptions['v1']} />,
+        v2: <V2 key='v2' description={descriptions['v2']} />,
+        v3: <V3 key='v3' description={descriptions['v3']} />,
+        v4: <V4 key='v4' description={descriptions['v4']} />,
+        v5: <V5 key='v5' description={descriptions['v5']} />
     };
-    console.log(Object.keys(Visualizations));
+    // console.log(Object.keys(Visualizations));
 
     useEffect(() => {
         axios.get(`/customviews/${url}`)
             .then(response => {
-                console.log("get response:", response);
+                // console.log("get response:", response);
                 if (response.status === 200) {
                     setGetSuccess(true);
 
@@ -40,7 +40,7 @@ export default function CustomVizualization() {
                     const selectedCharts = response.data.visualizations.split(",");
                    // console.log("selected charts:", selectedCharts);
                     setLayout(response.data.layout);
-                    console.log("layout:", response.data.layout);
+                   // console.log("layout:", response.data.layout);
                     setViewData(selectedCharts);
                    // console.log("view data:", selectedCharts);
                     setTitle(response.data.title);
@@ -57,7 +57,6 @@ export default function CustomVizualization() {
                     }
 
                     setDescriptions(tempDescription);
-                    // console.log("Descriptions", selectedDescriptions);
                 } else {
                     setGetSuccess(false);
                 }
@@ -67,8 +66,8 @@ export default function CustomVizualization() {
                 setGetSuccess(false);
             });
     }, [url]);
-    
-    console.log("Visualizations:", Visualizations);
+    // console.log("Visualizations:", Visualizations);
+    // console.log("Descriptions:", descriptions);
     return (
       <>
           <div className="customVisualization" style={{paddingLeft: '70px'}}>

@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function V2() {
+export default function V2(props) {
 
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
@@ -29,7 +29,7 @@ export default function V2() {
   function GetData (){
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
      .then((data) => {
-       console.log(data);
+      // console.log(data);
         setDataYearly(data[0].data);
         setDataMonthly(data[1].data);
         setIcecore1(data[2].data);
@@ -148,11 +148,15 @@ export default function V2() {
         <Typography variant="h5" component="div" gutterBottom>
           Description
         </Typography>
+        {
+          !props.description ?
         <Typography variant="body2">
           This chart contains data about atmospheric CO2 concentrations from Mauna Loa measurements starting from the year 1958.
           <br />
           Additionally you can enable data from Antarctic ice core records combined with Mauna Loa measurements.
         </Typography>
+        : <Typography>{props.description}</Typography>
+        }
       </CardContent>
       <CardActions>
         <Button size="small" href="https://gml.noaa.gov/ccgg/trends/data.html">Mauna Loa data</Button>
