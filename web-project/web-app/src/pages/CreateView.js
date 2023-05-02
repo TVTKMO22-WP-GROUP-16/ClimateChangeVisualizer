@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Rating, TextField, Typography, RadioGroup, Radio } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 export default function CreateView() {
     // State for username
     const [username, setUsername] = useState('');
+    // State for createdUrl
+    const [createdUrl, setCreatedUrl] = useState(null);
     // State for layout, initialized with 'stacked' as default
     const [layout, setLayout] = useState("stacked");
     // State for checkboxes, initialized with all values set to false
@@ -106,6 +109,7 @@ export default function CreateView() {
         try {
           const response = await axios.post("http://localhost:8090/customviews", submittedData);
           console.log("Form submitted and saved:", response.data);
+          setCreatedUrl(submittedData.url); // Set the created url to the state
         } catch (error) {
           console.error("Error submitting form:", error);
         }
@@ -160,6 +164,9 @@ export default function CreateView() {
             Submit
           </Button>
         </FormGroup>
+      {createdUrl && ( <Button component={Link} to={`/customviews/${createdUrl}`} variant="contained" color="primary">
+      Go to created view
+      </Button>)}
       </div>
     </form>
   );
