@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Rating, TextField, Typography, RadioGroup, Radio } from "@mui/material";
 
 
 export default function CreateView() {
+    // State for username
+    const [username, setUsername] = useState('');
     // State for layout, initialized with 'stacked' as default
     const [layout, setLayout] = useState("stacked");
     // State for checkboxes, initialized with all values set to false
@@ -90,7 +92,8 @@ export default function CreateView() {
         const submittedData = {
           title: formData.title,
           visualizations: formData.visualizations.join(","),
-          layout: formData.layout === "stacked" ? 0 : 1,
+          layout: formData.layout === "stacked" ? 1 : 0,
+          username: username, // Add the current username
           url: generateRandomString(15), // Add the randomly generated "url" field
         };
       
@@ -108,11 +111,27 @@ export default function CreateView() {
         }
       };
       
-    
+      useEffect(() => {
+        axios.get('http://localhost:8090/private', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+            .then((response) => {
+                setUsername(response.data.username);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
   
     // Render the CreateView component
     return (
       <form onSubmit={handleSubmit} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
+        <div>
+          <h2>Tiedot</h2>
+          <p>Käyttäjänimi: {username}</p>
+        </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <FormLabel sx={{ fontSize: "2rem" }}>Create view</FormLabel>
         <FormGroup sx={{ padding: 2, borderRadius: 2, border: "1px solid", borderColor: "primary.main"}}>
