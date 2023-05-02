@@ -22,12 +22,12 @@ export default function V3() {
      }).catch(err => {
        console.log(err);
      })
-   } 
+   }
 
   const data = {
       labels: co2ppm.sort((a, b) => a.time - b.time)
       .map((d) => d.time.toString()),
-
+      
       datasets: [
         {
           label: 'Hiilidioksidin määrä (ppm)',
@@ -43,6 +43,7 @@ export default function V3() {
             yAxisKey: "cd",
           },
         },
+        
         {
           label: 'Maapallon pintalämpötilan keskimuutos',
           data: co2ppm,
@@ -57,13 +58,16 @@ export default function V3() {
             yAxisKey: "fifty",
           },
         },
+
         {
           label: 'Ihmisen aiheuttamia tapahtumia',
-          data: co2ppm.filter((d) => d.event !== ' '),
+          data: co2ppm,
           fill: false,
           backgroundColor: 'black',
-          borderColor: 'transparent',
-          pointRadius: 5,
+          borderColor: 'black',
+          hitRadius: (context) => {
+            return context.raw && context.raw.event === "" ? 0 : 5;
+          },
           showLine: false,
           tension: 0.4,
           yAxisID: 'events',
@@ -72,19 +76,6 @@ export default function V3() {
             yAxisKey: "event",
           },
         },
-        {
-          label: 'Vuosia sitten (BC)',
-          data: co2ppm,
-          fill: false,
-          pointRadius: 0,
-          backgroundColor: 'red',
-          borderColor: 'red',
-          tension: 0.4,
-          xAxisID: 'x',
-          parsing: {
-            xAxisKey: "time",
-          }
-        }
       ],
     };
     
@@ -94,13 +85,16 @@ export default function V3() {
       legend: {
         position: "bottom",
       },
+
       title: {
         display: true,
         text: "Lämpötilan evoluutio maailmanlaajuisesti 2-miljoonalta vuodelta",
         font: {
           size: 30
-        }
+        },
+        color: 'black',
       },
+
       tooltip: {
         callbacks: {
           label: function (context) {
@@ -117,6 +111,7 @@ export default function V3() {
         },
       },
     },
+    
     scales: {
       x: {
         title: {
@@ -125,9 +120,10 @@ export default function V3() {
           font: {
             size: 16,
           },
+          position: 'bottom'
         },
-        position: 'bottom'
       },
+
       y: {
         title: {
           display: true,
@@ -137,8 +133,9 @@ export default function V3() {
         type: 'linear',
         position: 'left',
         min: 130,
-        max: 300       
+        max: 300,      
       },
+
       ppm:{
         title: {
           display: true,
@@ -152,28 +149,16 @@ export default function V3() {
         },
         min: -8,
         max: 3,
-        ticks: {
-          callback: function(value) {
-            return `${value}°C`
-          },
-        }
       },
+
       events: {
         title: {
-          display: false,
+          display: true,
           text: 'Ihmisen aiheuttamat tapahtumat'
         },
         type: 'category',
         position: 'left',
-        drawBorder: false,
-        ticks: {
-          display: true
-        },
-        grid: {
-          drawOnChartArea: false
-        },
-        min: 100000
-      }
+      },
     }
   };
 
@@ -182,7 +167,7 @@ export default function V3() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '100vh',
+      height: '80vh',
     },
   };
 
