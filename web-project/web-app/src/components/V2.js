@@ -92,7 +92,6 @@ export default function V2() {
   };
 
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",

@@ -1,4 +1,4 @@
-import { useState }from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api";
 
@@ -24,7 +24,7 @@ const SignUp = () => {
 
     return (
       <div className="signup">
-        <h1>Rekisteröidy</h1>
+        <h1>Rekisteröityminen</h1>
         <form onSubmit={handleSubmit}>
           <div className="divPuts">
             <label htmlFor="username">Käyttäjätunnus: </label>

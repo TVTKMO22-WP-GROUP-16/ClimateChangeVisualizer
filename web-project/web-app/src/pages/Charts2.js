@@ -7,10 +7,10 @@ export default function Charts2() {
   return (
     <div className="charts2">
       <h1>Päästölähteet</h1>
-      <div className="lineCharts">
+      <div>
       <V4/>
       </div>     
-      <div className="V5">
+      <div>
       <V5/>
       </div>     
     </div>
