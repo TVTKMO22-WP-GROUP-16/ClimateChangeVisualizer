@@ -12,13 +12,17 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await register(username, password);
-      alert("Rekisteröinti onnistui!");
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-      alert("Rekisteröinti epäonnistui.");
+    if (username.length < 1 || password.length !== 0) {
+      try {
+        await register(username, password);
+        alert("Rekisteröinti onnistui!");
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+        alert("Rekisteröinti epäonnistui.");
+      }
+    } else {
+      alert("Rekisteröinti epäonnistui. Täytä kaikki kentät!");
     }
   };
 
