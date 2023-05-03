@@ -174,7 +174,7 @@ export default function V3() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '90vh',
+      height: '95vh',
     },
   };
 
