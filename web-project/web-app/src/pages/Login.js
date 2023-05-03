@@ -15,7 +15,7 @@ const Login = ({ onLogin }) => {
     //Kirjautumisen käsittely
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if(username.length < 1 || password.length !== 0){
+        if (username.length !== 0 && password.length !== 0){
         try {
             const token = await login(username, password);
             localStorage.setItem('token', token);
@@ -35,7 +35,7 @@ const Login = ({ onLogin }) => {
     //Sisäänkirjautumislomake
     return (
         <div className="login">
-            <h1 class="otsikko">Kirjaudu sisään</h1>
+            <h1 className="otsikko">Kirjaudu sisään</h1>
             <form onSubmit={handleSubmit}>
 
                 <div className="divPuts">
@@ -61,7 +61,7 @@ const Login = ({ onLogin }) => {
                         style= {{marginBottom:"5vh"}}
                     />
                 </div>
-                <button type="submit" class= "button-19">Kirjaudu sisään</button>
+                <button type="submit" className="button-19">Kirjaudu sisään</button>
             </form>
         </div>
     );
