@@ -15,6 +15,7 @@ const Login = ({ onLogin }) => {
     //Kirjautumisen käsittely
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if(username.length < 1 || password.length !== 0){
         try {
             const token = await login(username, password);
             localStorage.setItem('token', token);
@@ -25,6 +26,9 @@ const Login = ({ onLogin }) => {
         } catch (error) {
             console.log(error);
             alert("Kirjautuminen epäonnistui.");
+        }
+        } else{
+            alert("Kirjautuminen epäonnistui. Täytä kaikki kentät!");
         }
     };
 

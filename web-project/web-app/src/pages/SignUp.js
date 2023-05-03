@@ -1,56 +1,65 @@
-import { useState }from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (event) => { setUsername(event.target.value); };
-  const handlePasswordChange = (event) => { setPassword(event.target.value); };
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await register(username, password);
-      alert("Rekisteröinti onnistui!");
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-      alert("Rekisteröinti epäonnistui.");
+    if (username.length < 1 || password.length !== 0) {
+      try {
+        await register(username, password);
+        alert("Rekisteröinti onnistui!");
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+        alert("Rekisteröinti epäonnistui.");
+      }
+    } else {
+      alert("Rekisteröinti epäonnistui. Täytä kaikki kentät!");
     }
   };
 
-    return (
-      <div className="signup">
-        <h1>Rekisteröidy</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Käyttäjätunnus</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange} 
-              placeholder ="Käyttäjätunnus"
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Salasana</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder ="Salasana"
-            />
-          </div>
-          <button type="submit" class= "button-19">Rekisteröidy</button>
-        </form>
-      </div>
-    );
-  
+  return (
+    <div className="signup">
+      <h1>Rekisteröidy</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Käyttäjätunnus</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
+            placeholder="Käyttäjätunnus"
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Salasana</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Salasana"
+          />
+        </div>
+        <button type="submit" class="button-19">
+          Rekisteröidy
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default SignUp;
