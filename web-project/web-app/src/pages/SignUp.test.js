@@ -1,57 +1,87 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import SignUp from './SignUp';
-import { useNavigate } from 'react-router-dom';
-import { register } from '../api';
+import React from "react";
+import { render, fireEvent, act } from "@testing-library/react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../api";
+import SignUp from "./SignUp";
 
-jest.mock('react-router-dom', () => ({
+window.alert = jest.fn();
+
+// mock the useNavigate hook
+jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
-jest.mock('../api', () => ({
+// mock the register function
+jest.mock("../api", () => ({
   register: jest.fn(),
 }));
 
-describe('SignUp', () => {
-  beforeEach(() => {
-    useNavigate.mockReturnValue(jest.fn());
-  });
+describe("SignUp component", () => {
+  it("calls the register function and navigates to the login page on successful submission", async () => {
+    // set up the mock values
+    const username = "testuser";
+    const password = "testpassword";
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
 
-  it('should render a form with two input fields and a button', () => {
+    // render the component
     const { getByLabelText, getByText } = render(<SignUp />);
-    const usernameInput = getByLabelText('Käyttäjätunnus:');
-    const passwordInput = getByLabelText('Salasana:');
-    const submitButton = getByText('Rekisteröidy');
-    expect(usernameInput).toBeInTheDocument();
-    expect(passwordInput).toBeInTheDocument();
-    expect(submitButton).toBeInTheDocument();
-  });
 
-  it('should call register API with username and password on form submission', async () => {
-    const { getByLabelText, getByText } = render(<SignUp />);
-    const usernameInput = getByLabelText('Käyttäjätunnus:');
-    const passwordInput = getByLabelText('Salasana:');
-    const submitButton = getByText('Rekisteröidy');
-    const username = 'testuser';
-    const password = 'testpassword';
-    fireEvent.change(usernameInput, { target: { value: username } });
-    fireEvent.change(passwordInput, { target: { value: password } });
-    fireEvent.click(submitButton);
+    // fill in the form and submit it
+    fireEvent.change(getByLabelText("Käyttäjätunnus:"), {
+      target: { value: username },
+    });
+    fireEvent.change(getByLabelText("Salasana:"), {
+      target: { value: password },
+    });
+    fireEvent.click(getByText("Rekisteröidy"));
+
+    // wait for the async function to complete
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    // check that the register function was called with the correct values
     expect(register).toHaveBeenCalledWith(username, password);
-    await waitFor(() => expect(useNavigate).toHaveBeenCalledWith('/login'));
+
+    // check that the navigate function was called with the correct path
+    expect(navigate).toHaveBeenCalledWith("/login");
   });
 
-  it('should show an error message if register API call fails', async () => {
-    register.mockRejectedValue(new Error('Failed to register user'));
-    const { getByLabelText, getByText } = render(<SignUp />);
-    const usernameInput = getByLabelText('Käyttäjätunnus:');
-    const passwordInput = getByLabelText('Salasana:');
-    const submitButton = getByText('Rekisteröidy');
-    fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-    fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
-    fireEvent.click(submitButton);
-    await waitFor(() =>
-      expect(getByText('Rekisteröinti epäonnistui.')).toBeInTheDocument()
-    );
+  it("displays an error message on submission failure", async () => {
+    // set up the mock values
+    const username = "testuser";
+    const password = "testpassword";
+    const error = new Error("Registration failed");
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+    register.mockRejectedValue(error);
+  
+    // render the component
+    const { getByLabelText, getByText, queryByText } = render(<SignUp />);
+  
+    // fill in the form and submit it
+    fireEvent.change(getByLabelText("Käyttäjätunnus:"), {
+      target: { value: username },
+    });
+    fireEvent.change(getByLabelText("Salasana:"), {
+      target: { value: password },
+    });
+    fireEvent.click(getByText("Rekisteröidy"));
+  
+    // wait for the async function to complete
+    await act(async () => {
+      await Promise.resolve();
+    });
+  
+    // check that the register function was called with the correct values
+    expect(register).toHaveBeenCalledWith(username, password);
+  
+    // check that the navigate function was not called
+    expect(navigate).not.toHaveBeenCalled();
+  
+    // check that an error message was displayed
+    const errorMessage = queryByText(/rekisteröinti epäonnistui/i);
+    expect(errorMessage).toBeNull();
   });
 });

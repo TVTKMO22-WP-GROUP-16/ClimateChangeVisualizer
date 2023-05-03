@@ -28,8 +28,15 @@ public class SecurityRestApi {
     public ResponseEntity<String> register(@RequestBody Map<String, String> userDetails) {
         String username = userDetails.get("username");
         String password = userDetails.get("password");
-        User u = securityService.register(username, password);
-        return new ResponseEntity<>(u.getUsername(), HttpStatus.OK);
+        if (username != null && !username.isEmpty() && password !=null && !password.isEmpty()) {
+            User u = securityService.register(username, password);
+            if (u == null) {
+                String bg = "Käyttäjä: " + username + " on jo olemassa";
+                return new ResponseEntity<>(bg, HttpStatus.FORBIDDEN);
+            }
+            return new ResponseEntity<>(u.getUsername(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Käyttäjätunnus tai salasana puuttuu", HttpStatus.FORBIDDEN);             
     }
 
     @PostMapping("login")
@@ -38,9 +45,8 @@ public class SecurityRestApi {
         String password = userDetails.get("password");
         String token = securityService.login(username, password);
         if (token == null) {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Väärä käyttäjätunnus tai salasana", HttpStatus.UNAUTHORIZED);
         } else {
-
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
     }
