@@ -105,7 +105,9 @@ export default function V3() {
  
 
 return (
-  <div className="V3">
+
+  <div className="lineCharts">
+
       <Line data={data} options={options} />
       <button onClick={GetData} class="button-19">Check</button>
     </div>

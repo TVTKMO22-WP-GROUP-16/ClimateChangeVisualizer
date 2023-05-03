@@ -76,7 +76,6 @@ export default function V4() {
  
   //Graafin asetukset
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",
@@ -141,8 +140,9 @@ export default function V4() {
   }, [selectedCountry, countryList]);
 
   return (
-    <div className="V4" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="lineCharts">
         <div>
+
           <div style={{ display: "flex" }}>
         <input
             type="text"
@@ -181,6 +181,7 @@ export default function V4() {
         <div style={{ marginTop: "10px" }}>
         <Line options={options} data={chartData} />
         </div>
+
         </div>    
     </div>
   );
