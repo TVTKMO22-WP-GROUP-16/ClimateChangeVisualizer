@@ -31,6 +31,12 @@ public class CustomViewsService {
         customViewsRepository.delete(customView);
     }
 
+    public List<CustomViews> deleteCustomViewsByUsername(String username) {
+        List<CustomViews> customViews = getCustomViewsByUsername(username);
+        customViewsRepository.deleteAll(customViews);
+        return customViews;
+    }
+
     public boolean isUserOwnerOfCustomView(String username, String url) {
         Optional<CustomViews> customViewOptional = getCustomViewByUrl(url);
         return customViewOptional.isPresent() && customViewOptional.get().getUsername().equals(username);

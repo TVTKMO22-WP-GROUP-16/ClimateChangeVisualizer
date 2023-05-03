@@ -36,7 +36,7 @@ function MySideNav({ handleLogout }) {
                 style={{ fontSize: "1.75 em" }}
               />
             </NavIcon>
-            <NavText>Lämpötilat ja Co2 Pitoisuudet</NavText>
+            <NavText>Lämpötilatiedot ja CO2</NavText>
           </NavItem>
           <NavItem eventKey="charts2">
             <NavIcon>
@@ -71,6 +71,17 @@ function MySideNav({ handleLogout }) {
             </NavItem>
           )}
           {hasToken && (
+            <NavItem eventKey="createview">
+              <NavIcon>
+                <i
+                  className="fa fa-fw fa-plus-circle"
+                  style={{ fontSize: "1.75 em" }}
+                />
+              </NavIcon>
+              <NavText>Luo näkymä</NavText>
+            </NavItem>
+          )}
+          {hasToken && (
             <NavItem eventKey="dashboard">
               <NavIcon>
                 <i
@@ -78,7 +89,7 @@ function MySideNav({ handleLogout }) {
                   style={{ fontSize: "1.75 em" }}
                 />
               </NavIcon>
-              <NavText>Dashboard</NavText>
+              <NavText>Tili</NavText>
             </NavItem>
           )}
           {hasToken && (
@@ -89,7 +100,7 @@ function MySideNav({ handleLogout }) {
                   style={{ fontSize: "1.75 em" }}
                 />
               </NavIcon>
-              <NavText>Logout</NavText>
+              <NavText>Kirjaudu ulos</NavText>
             </NavItem>
           )}
         </SideNav.Nav>

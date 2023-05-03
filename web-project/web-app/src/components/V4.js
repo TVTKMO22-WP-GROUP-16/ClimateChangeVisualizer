@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function V4() {
+import { Card, Box, CardActions, CardContent, Button, Typography, Radio } from '@mui/material/';
+
+export default function V4(props) {
   const [data, setData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -64,7 +66,7 @@ export default function V4() {
       label: country,
       data: data
         .sort((a, b) => a.year - b.year)
-        .map((d) => d.countries[country] * 3.661),
+        .map((d) => d.countries[country] * 3.664),
       borderColor: countryColors[country],
       backgroundColor: countryColors[country],
     })),
@@ -142,6 +144,28 @@ export default function V4() {
     );
   }, [selectedCountry, countryList]);
 
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <Typography variant="h5" component="div" gutterBottom>
+          Description
+        </Typography>
+        {
+          !props.description ?
+        <Typography variant="body2">
+          National estimates include emissions from fossil fuel combustion and oxidation and cement production and excludes emissions from bunker fuels. 
+          World totals include emissions from bunker fuels.
+        </Typography>
+       : <Typography>{props.description}</Typography>
+        }
+      </CardContent>
+      <CardActions>
+        <Button size="small" href="https://essd.copernicus.org/articles/14/1917/2022/">Description</Button>
+        <Button size="small" href="https://data.icos-cp.eu/licence_accept?ids=%5B%22lApekzcmd4DRC34oGXQqOxbJ%22%5D">Dataset (.xlsx)</Button>
+      </CardActions>
+    </React.Fragment>
+  );
+
   return (
     <div className="lineCharts">
       <div>
@@ -197,6 +221,9 @@ export default function V4() {
         </div>
 
         <Line options={options} data={chartData} />
+        <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
+          <Card variant="outlined">{card}</Card>
+        </Box>
       </div>
     </div>
   );

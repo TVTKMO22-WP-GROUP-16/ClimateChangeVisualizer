@@ -63,9 +63,7 @@ export default function Dashboard({ handleLogout }) {
       }
     };
 
-
   const handleUserDelete = () => {
-    if (window.confirm("Haluatko varmasti poistaa käyttäjän?")) {
       axios
         .delete("http://localhost:8090/users/" + username)
         .then((response) => {
@@ -76,33 +74,58 @@ export default function Dashboard({ handleLogout }) {
         .catch((error) => {
           console.log("Käyttäjän poistaminen ei onnistunut:", error);
         });
+  };
+
+  const handleUserDeleteViews = () => {
+    if (window.confirm("Haluatko varmasti poistaa käyttäjän?")) {
+      axios
+        .delete("http://localhost:8090/customviews/user/" + username)
+        .then((response) => {
+          console.log("Näkymät poistettu", response.data);
+          handleUserDelete();
+        })
+        .catch((error) => {
+          console.log("Näkymien poistaminen ei onnistunut", error);
+        });
     }
   };
 
-
     return (
       <div className="dashboard">
-        <div>
-          <h2>Tiedot</h2>
+        <div style={{ width: "500px", minWidth: "400px" }}>
+          <h2>Tili</h2>
           <p>Käyttäjänimi: {username}</p>
-          <h2>Visualisointi näkymät: </h2>
-          <div>
-            <select value={selectedView} onChange={handleViewChange}>
-            <option value="">Select a custom view</option>
+          <h2>Visualisoinnit</h2>
+          <div style={{ maxWidth: "100%" }}>
+            <select value={selectedView} onChange={handleViewChange}
+            style={{
+              marginRigth: "10px",
+              width: "50%",
+              padding: "1.5vh 1vh",
+              margin: "8px 8px",
+              boxSizing: "border-box",
+              border: " 2px solid black",
+              borderRadius: "6px",
+              boxShadow: "0 0 15px 4px rgba(0, 0, 0, 0.103)",
+              minWidth: "10vw",
+              maxWidth: "50vw",
+            }}
+            >
+            <option value="">Valitse näkymä</option>
             {customViews.map((view) => (
             <option key={view.id} value={view.url}>
             {view.title}
             </option>
             ))}
             </select>
-            <button onClick={openSelectedView}>Open</button>
-            <button onClick={() => deleteCustomView(selectedView)}>
-            Delete
+            <button className="button-19" style={{ marginLeft: "1vh" }} onClick={openSelectedView}>Avaa</button>
+            <button className="button-19" style={{ marginLeft: "1vh" }} onClick={() => deleteCustomView(selectedView)}>
+            Poista
             </button>
           </div>
         </div>
-        <button onClick={handleLogout} style={{ fontWeight: "bold" }}>Kirjaudu ulos</button>        
-        <button onClick={handleUserDelete} style={{ fontWeight: "bold", backgroundColor: "darkred" }}>Poista käyttäjä</button>
+        <button className="button-19" style={{ marginTop: "3vh" }} onClick={handleLogout}>Kirjaudu ulos</button>        
+        <button onClick={handleUserDeleteViews} style={{ fontWeight: "bold", backgroundColor: "darkred", marginTop: "6vh" }}>Poista käyttäjä</button>
 
       </div>
    
