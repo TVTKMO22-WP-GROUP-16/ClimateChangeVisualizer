@@ -1,7 +1,7 @@
 /* CSS */
 .button-19 {
     appearance: button;
-    background-color: #1899D6;
+    background-color: #000000;
     border: solid transparent;
     border-radius: 16px;
     border-width: 0 0 4px;
@@ -17,7 +17,7 @@
     margin: 0;
     outline: none;
     overflow: visible;
-    padding: 13px 16px;
+    padding: 13px 16px; 
     text-align: center;
     text-transform: uppercase;
     touch-action: manipulation;
@@ -27,12 +27,12 @@
     -webkit-user-select: none;
     vertical-align: middle;
     white-space: nowrap;
- 
+    
   }
   
   .button-19:after {
     background-clip: padding-box;
-    background-color: #1CB0F6;
+    background-color: #303133;
     border: solid transparent;
     border-radius: 16px;
     border-width: 0 0 4px;
@@ -43,6 +43,7 @@
     right: 0;
     top: 0;
     z-index: -1;
+    
   }
   
   .button-19:main,
