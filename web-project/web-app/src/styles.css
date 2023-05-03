@@ -1,32 +1,70 @@
 body {
+  min-width: 600px;
   font-family: sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  background-color: rgb(241, 243, 235);
   /* text-align: center; */
 }
 
-.home, .dashboard {
-    display: block;
+.dashboard {  
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     justify-content: center;
+
+    padding: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(203, 255, 233);
+    word-wrap: break-word;
 }
-.charts1 {
-    display: block;
+
+.home {   
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    justify-content: center;
+  
+    padding: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(203, 255, 233);
+    word-wrap: break-word;
+}
+
+.home h1 {
     text-align: center;
 }
-.charts2 {
-    display: block;
+
+.home p {
+    max-width: 66%;
+    text-align: center;
+}
+
+.charts1 {
+    min-width: 600px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
     font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: "Roboto", sans-serif;
     text-align: center;
-
-    align-items: center;
-    justify-content: center;
 }
 .customVisualization {
   display: block;
@@ -63,16 +101,104 @@ body {
   margin-bottom: 20px;
 }
 
-.charts4 {
-  
+.charts1 h1, .charts2 h1 {
+  text-align: left;
+  margin-left: 8vh;
+  word-wrap: break-word;
+}
+
+.charts2 {
+    min-width: 600px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    align-items: left;
+    justify-content: left;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(247, 250, 249);
+}
+
+.lineCharts {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  max-width: 80%;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  padding-left: 70px;
+  padding-right: 25px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.V5 {
+  min-width: 500px;
+  max-width: 50%;
+  height: auto;
+  box-sizing: border-box;
+  padding-left: 70px;
+  padding-right: 25px;
+}
+
+.countrySelector {
+  text-align: center;
+}
+
+.countrySelector button {
+  margin-left: 1vh;
 }
 
 
 .signup, .login {
-  display: block;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  
+    padding: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right : 10vw;
+    margin-left :10vw;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(203, 255, 233);
+}
+
+.signup button, .login button, .dashboard button {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.divPuts input {
+    margin-bottom: 4px;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    text-align: right;
+}
+
+.divPuts label {
+    align-content: left;
+}
+
+.divPuts {
+    text-align: right;
 }
