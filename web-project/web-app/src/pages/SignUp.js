@@ -12,7 +12,7 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username.length < 1 || password.length !== 0) {
+    if (username.length !== 0 || password.length !== 0) {
       try {
         await register(username, password);
         alert("Rekisteröinti onnistui!");

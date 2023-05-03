@@ -1,6 +1,8 @@
 package com.group_16.webproject.RestApi;
 
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.group_16.webproject.Service.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,4 +65,11 @@ public class CustomViewsRestApi {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
     }
+
+    @DeleteMapping("/customviews/user/{username}")
+    public ResponseEntity<?> deleteCustomViewsByUsername(@PathVariable("username") String username) {
+        customViewsService.deleteCustomViewsByUsername(username);
+        return ResponseEntity.ok().build();
+    }
+
 }

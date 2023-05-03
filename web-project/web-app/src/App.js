@@ -31,15 +31,15 @@ export default function App() {
       <MySideNav handleLogout={handleLogout} />
       <Routes>
         <Route element={<PrivateRoutes />}>
-            <Route element={<Dashboard handleLogout={handleLogout}/>} path="/dashboard" />
+            <Route  path="/dashboard" element={<Dashboard handleLogout={handleLogout}/>} />
+            <Route path="/createview" element={<CreateView/>} /> 
         </Route>
         <Route path="/" element={<Home/>} />
         <Route path="/charts1" element={<Charts1/>} />
         <Route path="/charts2" element={<Charts2/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
-        <Route path="/customviews/:url" element={<CustomVisualization/>} />
-        <Route path="createview" element={<CreateView/>} />          
+        <Route path="/customviews/:url" element={<CustomVisualization/>} />                 
       </Routes>
     </Router>
    

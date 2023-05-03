@@ -26,7 +26,7 @@ body {
     margin-left: 10vw;
     border: 2px solid black;
     border-radius: 25px;
-    background-color: rgb(203, 255, 233);
+    background-color: rgb(247, 250, 249);
     word-wrap: break-word;
 }
 
@@ -99,8 +99,6 @@ canvas {
 }
 
  .lineCharts {
-  
- 
   display: flex;
   flex-direction: column;
   margin-top: 10vh;
@@ -126,17 +124,12 @@ canvas {
  
 }
 
-
-
-
-
 section{
   display: flex;
 
 }
 
 article{
-   
   flex:1; 
   padding: 1rem;
   margin: 0.5rem;
@@ -145,8 +138,6 @@ article{
   border: 2px solid black;
   text-align: center;
 }
-
-
 
 
 .signup form, .login form{
@@ -158,7 +149,7 @@ article{
   background-color: white;
   font-size: 2rem;
   text-align: center; 
-  background-color: white;
+  background-color: rgb(247, 250, 249);
   border: 2px solid black;
   border-radius: 25px;
 }
