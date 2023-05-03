@@ -66,6 +66,40 @@ body {
     font-family: "Roboto", sans-serif;
     text-align: center;
 }
+.customVisualization {
+  display: block;
+  text-align: center;
+}
+
+.visualizationContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.visualizationContainer.stacked {
+  flex-direction: column;
+}
+
+.visualizationContainer.sidebyside {
+  flex-direction: row;
+}
+
+.visualizationContainer.sidebyside > * {
+  width: calc(50% - 10px);
+  margin-right: 20px;
+}
+
+.visualizationContainer.sidebyside > *:nth-child(2n) {
+  margin-right: 0;
+}
+
+.visualizationContainer.stacked > * {
+  height: 70%;
+  width: 80%;
+  margin-bottom: 20px;
+}
 
 .charts1 h1, .charts2 h1 {
   text-align: left;

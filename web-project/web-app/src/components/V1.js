@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function V1() {
+export default function V1(props) {
 
   const [dataYearly, setDataYearly] = useState();
   const [dataMonthly, setDataMonthly] = useState();
@@ -25,7 +25,7 @@ export default function V1() {
   useEffect(() => {
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
      .then((data) => {
-       console.log(data);
+      // console.log(data);
        setDataYearly(data[0].data);
        setDataMonthly(data[1].data);
        setReconstruction(data[2].data);
@@ -88,6 +88,9 @@ export default function V1() {
       title: {
         display: true,
         text: "Global historical surface temperature anomalies",
+        font: {
+          size: 20,
+        }
       },
     },
     pointRadius: 0,
@@ -129,11 +132,15 @@ export default function V1() {
         <Typography variant="h5" component="div" gutterBottom>
           Description
         </Typography>
+        {
+          !props.description ?
         <Typography variant="body2">
           This chart contains data about both yearly and monthly global surface temperature anomalies between the years 1850 and 2022.
           <br />
           Additionally you can enable a 2000-year temperature reconstruction of the Northern Hemisphere.
         </Typography>
+       : <Typography>{props.description}</Typography>
+        }
       </CardContent>
       <CardActions>
         <Button size="small" href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">HADCrut 5 data</Button>
