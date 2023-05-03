@@ -36,7 +36,7 @@ function MySideNav({ handleLogout }) {
                 style={{ fontSize: "1.75 em" }}
               />
             </NavIcon>
-            <NavText>Temp & CO2 charts</NavText>
+            <NavText>Lämpötilat ja Co2 Pitoisuudet</NavText>
           </NavItem>
           <NavItem eventKey="charts2">
             <NavIcon>
@@ -67,7 +67,7 @@ function MySideNav({ handleLogout }) {
                   style={{ fontSize: "1.75 em" }}
                 />
               </NavIcon>
-              <NavText>irjaudu sisään</NavText>
+              <NavText>Kirjaudu sisään</NavText>
             </NavItem>
           )}
           {hasToken && (
