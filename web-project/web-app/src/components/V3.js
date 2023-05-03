@@ -179,7 +179,7 @@ export default function V3() {
   };
 
 return (
-  <div style={styles.chartContainer}>
+  <div className="lineCharts">
       <Line data={data} options={options} />
     </div>
   );

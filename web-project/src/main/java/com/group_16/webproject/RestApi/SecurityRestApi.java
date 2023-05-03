@@ -69,7 +69,7 @@ public class SecurityRestApi {
     @DeleteMapping("users/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
         securityService.deleteUserByUsername(username);
-        return new ResponseEntity<>("User deleted", HttpStatus.OK);
+        return new ResponseEntity<>(username, HttpStatus.OK);
     }
 
     //GetMapping

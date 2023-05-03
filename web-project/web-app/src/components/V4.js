@@ -10,23 +10,27 @@ export default function V4() {
   const [countryList, setCountryList] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
+  //Datan haku
   useEffect(() => {
     getData();
   }, []);
 
+  //Datan haku
   const getData = () => {
     axios
       .get("http://localhost:8090/co2ebc")
       .then((response) => {
         setData(response.data);
-        setCountryList(Object.keys(response.data[0].countries));
-        setFilteredCountries(Object.keys(response.data[0].countries));
+        const countries = Object.keys(response.data[0].countries).sort();
+        setCountryList(countries);
+        setFilteredCountries(countries);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  //Maiden lisääminen ja poistaminen
   const addCountryToChart = () => {
     if (selectedCountry) {
       const selectedOption = document.querySelector("select option:checked").value;
@@ -36,6 +40,18 @@ export default function V4() {
     }
   };
 
+
+  const removeCountryFromChart = (country) => {   
+      const selectedOption = document.querySelector("select option:checked").value;
+      setSelectedCountries(selectedCountries.filter((c) => c !== selectedOption));
+      setSelectedCountry("");
+      setCountryColors((prevState) => {
+        const { [country]: removedColor, ...rest } = prevState;
+        return rest;
+      });
+  };
+
+  //Graafin data
   const chartData = {
     labels: data
         .sort((a, b) => a.year - b.year)
@@ -48,17 +64,18 @@ export default function V4() {
         borderColor: countryColors[country],
         backgroundColor: countryColors[country],
     })),
-    showLine: selectedCountries.length > 0, // hide lines when no country is selected
+    showLine: selectedCountries.length > 0, 
   };
 
+  //Värien arpominen
   const getRandomColor = useMemo(() => {
     return () => {
       return "#" + Math.floor(Math.random() * 16777215).toString(16);
     }
   }, []);
  
+  //Graafin asetukset
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",
@@ -81,6 +98,7 @@ export default function V4() {
       },
       y: {
         type: "linear",
+        beginAtZero: true,
         display: true,
         position: "left",
         title: {
@@ -91,12 +109,18 @@ export default function V4() {
     },
   };
 
+  //Näppäimistöstä nappien painaminen (Enter ja delete, maiden lisäämiseen ja poistamiseen)
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       addCountryToChart();
     }
+    if (e.keyCode === 46) {
+      removeCountryFromChart();
+    }
   };
 
+
+  //Dropdown menu ja sen filtteröinti
   const handleDropdownChange = (e) => {
     const searchQuery = e.target.value;
     setSelectedCountry(searchQuery);
@@ -116,36 +140,38 @@ export default function V4() {
   }, [selectedCountry, countryList]);
 
   return (
-    <div className="V4" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="lineCharts">
         <div>
-          <div style={{ display: "flex" }}>
-        <input
-            type="text"
-            placeholder="Etsi maa..."
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-            onKeyDown={handleKeyPress}
-            style={{ marginRigth: "10px" }}
-        />
-        <select
-            value={selectedCountry}
-            onChange={handleDropdownChange}
-            style={{ marginRigth: "10px" }}
-        >
-        <option value="" disabled>
-            Valitse maa
-        </option>
-        {filteredCountries.map((country, index) => (
-            <option key={index} value={country}>
-            {country}
+          <div className="countrySelector">
+            <input
+              type="text"
+              placeholder="Etsi maa..."
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+             onKeyDown={handleKeyPress}
+              style={{ marginRigth: "10px" }}
+            />
+           <select
+              value={selectedCountry}
+              onChange={handleDropdownChange}
+              style={{ marginRigth: "10px" }}
+            >
+            <option value="" disabled>
+              Valitse maa
             </option>
-        ))}
-        </select>
-        <button onClick={addCountryToChart}>Lisää maa</button>
-        </div>
-        <div style={{ marginTop: "10px" }}>
-        <Line options={options} data={chartData} />
-        </div>
+           {filteredCountries.map((country, index) => (
+             <option key={index} value={country}>
+             {country}
+             </option>
+            ))}
+           </select>
+           <button onClick={addCountryToChart}>Lisää maa</button>
+           <button onClick={removeCountryFromChart}>Poista valittu maa</button>
+          </div>      
+          <Line
+            options={options}
+            data={chartData}
+          />       
         </div>    
     </div>
   );
