@@ -11,7 +11,7 @@ import V5 from "../components/V5";
 
 axios.defaults.baseURL = "http://localhost:8090"
 
-export default function CustomVizualization() {
+export default function CustomVisualization() {
     const { url } = useParams();
     const [getSuccess, setGetSuccess] = useState(true);
     const [viewData, setViewData] = useState([]);
