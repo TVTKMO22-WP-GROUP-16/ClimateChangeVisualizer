@@ -130,21 +130,22 @@ export default function V1(props) {
     <React.Fragment>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          Description
+          Kuvaus
         </Typography>
         {
           !props.description ?
         <Typography variant="body2">
-          This chart contains data about both yearly and monthly global surface temperature anomalies between the years 1850 and 2022.
+          Tämä kaavio kuvaa sekä vuosittaisia että kuukausittaisia globaaleja lämpötilapoikkeamia vuosina 1850-2020.
           <br />
-          Additionally you can enable a 2000-year temperature reconstruction of the Northern Hemisphere.
+          Halutessasi voit näyttää kaaviossa 2000 vuoden takaisen pohjoisen pallonpuoliskon lämpötilan rekonstruktion.
         </Typography>
        : <Typography>{props.description}</Typography>
         }
       </CardContent>
+      <h8 className="card-subtitle mt-2 text-muted">Lähteet:</h8>
       <CardActions>
         <Button size="small" href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">HADCrut 5 data</Button>
-        <Button size="small" href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005">Reconstruction Data</Button>
+        <Button size="small" href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005">Rekonstruktio Data</Button>
       </CardActions>
     </React.Fragment>
   );
@@ -153,12 +154,12 @@ export default function V1(props) {
     <div className="lineCharts">
   <div className="form-check">
       <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
-      <label className="form-check-label" htmlFor="annualData"> Yearly
+      <label className="form-check-label" htmlFor="annualData"> Vuosittain
     </label>
     </div>   
     <div className="form-check">
       <input className="form-check-input" type="radio" name="dataOption" id="monthlyData" checked={!isAnnual} onChange={() => setIsAnnual(false)} />
-      <label className="form-check-label" htmlFor="monthlyData"> Monthly
+      <label className="form-check-label" htmlFor="monthlyData"> Kuukausittain
       </label>
     </div>
       <Line options={options} data={data} />

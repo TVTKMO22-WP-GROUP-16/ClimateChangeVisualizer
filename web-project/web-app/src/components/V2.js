@@ -148,18 +148,19 @@ export default function V2(props) {
     <React.Fragment>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          Description
+          Kuvaus
         </Typography>
         {
           !props.description ?
         <Typography variant="body2">
-          This chart contains data about atmospheric CO2 concentrations from Mauna Loa measurements starting from the year 1958.
+          Tämä kaavio kuvaa Mauna Loan mittauksia ilmakehän co2 pitoisuudesta alkaen vuodesta 1958.
           <br />
-          Additionally you can enable data from Antarctic ice core records combined with Mauna Loa measurements.
+          Halutessasi voit yhdistää Antarktiksen jääkairauksista saatuja mittauksia Mauna Loan mittauksiin.
         </Typography>
         : <Typography>{props.description}</Typography>
         }
       </CardContent>
+      <h8 className="card-subtitle mt-2 text-muted">Lähteet:</h8>
       <CardActions>
         <Button size="small" href="https://gml.noaa.gov/ccgg/trends/data.html">Mauna Loa data</Button>
         <Button size="small" href="https://cdiac.ess-dive.lbl.gov/ftp/trends/co2/lawdome.combined.dat">Lawdome data</Button>

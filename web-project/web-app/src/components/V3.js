@@ -1,10 +1,17 @@
+import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 import {Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend} from 'chart.js';
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
-export default function V3() {
+export default function V3(props) {
 
   const [co2ppm, setCo2ppm] = useState([]);
   let endpoints = ["/snyder"];
@@ -28,7 +35,7 @@ export default function V3() {
   const events = co2ppmSorted.filter((d) => d.event !== "");
    
   const eventsData = {
-    label: "Ihmisen aiheuttamia tapahtumia",
+    label: "Historical human events",
     data: events.map((d) => ({
       x: d.time.toString(),
       y: 0,
@@ -52,7 +59,7 @@ export default function V3() {
     labels: co2ppmSorted.map((d) => d.time.toString()),
     datasets: [
       {
-        label: "Hiilidioksidin määrä (ppm)",
+        label: "CO2 concentration (ppm)",
         data: co2ppmSorted.filter((d) => d.cd !== 0),
         pointRadius: 0,
         backgroundColor: "red",
@@ -66,7 +73,7 @@ export default function V3() {
         },
       },
       {
-        label: "Maapallon pintalämpötilan keskimuutos",
+        label: "Global temperature change (°C)",
         data: co2ppmSorted,
         pointRadius: 0,
         backgroundColor: "blue",
@@ -91,11 +98,10 @@ export default function V3() {
       },
       title: {
         display: true,
-        text: "Lämpötilan evoluutio maailmanlaajuisesti 2-miljoonalta vuodelta",
+        text: "Global temperature evolution over the last 2 million years",
         font: {
-          size: 30
+          size: 20
         },
-        color: 'black',
       },
 
       tooltip: {
@@ -114,7 +120,7 @@ export default function V3() {
           title: function(context) {
             const xLabel = context[0].label;
             if (xLabel !== undefined && xLabel !== null) {
-              return xLabel + " vuotta sitten";
+              return xLabel + " years ago";
             }
             return "";
           }
@@ -126,7 +132,7 @@ export default function V3() {
       x: {
         title: {
           display: true,
-          text: 'Vuosia sitten (BC)',
+          text: 'Years ago (BC)',
           font: {
             size: 16,
           },
@@ -148,7 +154,7 @@ export default function V3() {
       y1:{
         title: {
           display: true,
-          text: 'Lämpötilan muutos'
+          text: 'Temperature change (°C)'
         },
         type: 'linear',
         position: 'right',
@@ -169,7 +175,6 @@ export default function V3() {
     }
   };
 
-
   const styles = {
     chartContainer: {
       display: 'flex',
@@ -179,15 +184,39 @@ export default function V3() {
     },
   };
 
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <Typography variant="h5" component="div" gutterBottom>
+          Kuvaus
+        </Typography>
+        {
+          !props.description ?
+        <Typography variant="body2">
+          Tämä kaavio kuvaa ilmakehän CO2 pitoisuutta 800 tuhannen vuoden takaa ja maapallon pintalämpötilan keskimuutosta 2 miljoonan vuoden takaa.
+          <br />
+          Halutessasi voit näyttää kaaviossa ihmisen aiheuttamia tapahtumia, jotka ovat vaikuttaneet ilmakehän co2 pitoisuuteen.
+          <br />
+        </Typography>
+        : <Typography>{props.description}</Typography>
+        }
+      </CardContent>
+      <h8 className="card-subtitle mt-2 text-muted">Lähteet:</h8>
+      <CardActions>
+        <Button size="small" href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" target="_blank" rel="noreferrer noopener" className="card-link">Tietojoukon kuvaus</Button>
+        <Button size="small" href="http://carolynsnyder.com/publications.php" target="_blank" rel="noreferrer noopener" className="card-link">Tietojoukko</Button>
+        <Button size="small" href="https://www.southampton.ac.uk/~cpd/history.html" target="_blank" rel="noreferrer noopener" className="card-link">Ihmistapahtumat</Button>
+      </CardActions>
+    </React.Fragment>
+  );
 
 return (
 
   <div className="lineCharts">
-
       <Line data={data} options={options} />
-
-      <button onClick={GetData} class="button-19">Check</button>
-
+      <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
+        <Card variant="outlined">{card}</Card>
+      </Box>
     </div>
   );
 }
