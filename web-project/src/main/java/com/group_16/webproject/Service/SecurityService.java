@@ -26,6 +26,10 @@ public class SecurityService {
     public User register(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User u = new User(username, encoder.encode(password));
+        User exists = userRepository.findByUsername(username);
+        if (exists != null && exists.getUsername() != null && !exists.getUsername().isEmpty()) {
+            return null;
+        }        
         userRepository.save(u);
         return u;
     }
@@ -75,7 +79,7 @@ public class SecurityService {
         if (u != null) {
             userRepository.delete(u);
         } else {
-            throw new IllegalArgumentException("User not found");
+            throw new IllegalArgumentException("Käyttäjää ei löytynyt");
         }
     }
 
@@ -86,7 +90,7 @@ public class SecurityService {
         if (u != null) {
             userRepository.delete(u);
         } else {
-            throw new IllegalArgumentException("User not found");
+            throw new IllegalArgumentException("Käyttäjää ei löytynyt");
         }
     }
 
