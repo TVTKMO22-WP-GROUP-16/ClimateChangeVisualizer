@@ -99,7 +99,6 @@ export default function V2() {
   };
 
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",
@@ -162,7 +161,7 @@ export default function V2() {
   );
 
   return (
-    <div className="V2" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="lineCharts">
       <Line options={options} data={data} />
       <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
         <Card variant="outlined">{card}</Card>
