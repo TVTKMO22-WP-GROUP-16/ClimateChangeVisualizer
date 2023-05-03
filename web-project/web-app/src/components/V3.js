@@ -101,20 +101,15 @@ export default function V3() {
     }
   }
 
-  const styles = {
-    chartContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '80vh',
-    },
-  };
-
+   
+ 
 
 return (
+
   <div className="lineCharts">
+
       <Line data={data} options={options} />
-      <button onClick={GetData}>Check</button>
+      <button onClick={GetData} class="button-19">Check</button>
     </div>
   );
 }

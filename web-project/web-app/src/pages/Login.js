@@ -15,6 +15,7 @@ const Login = ({ onLogin }) => {
     //Kirjautumisen käsittely
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if(username.length < 1 || password.length !== 0){
         try {
             const token = await login(username, password);
             localStorage.setItem('token', token);
@@ -26,6 +27,9 @@ const Login = ({ onLogin }) => {
             console.log(error);
             alert("Kirjautuminen epäonnistui.");
         }
+        } else{
+            alert("Kirjautuminen epäonnistui. Täytä kaikki kentät!");
+        }
     };
 
     //Sisäänkirjautumislomake
@@ -33,13 +37,17 @@ const Login = ({ onLogin }) => {
         <div className="login">
             <h1>Kirjaudu sisään</h1>
             <form onSubmit={handleSubmit}>
+
                 <div className="divPuts">
                     <label htmlFor="username">Käyttäjätunnus: </label>
+
                     <input
+                        
                         type="text"
                         id="username"
                         value={username}
                         onChange={handleUsernameChange}
+                        placeholder ="Käyttäjätunnus"
                     />
                 </div>
                 <div className="divPuts">
@@ -48,10 +56,11 @@ const Login = ({ onLogin }) => {
                         type="password"
                         id="password"
                         value={password}
-                        onChange={handlePasswordChange}
+                        onChange={handlePasswordChange} 
+                        placeholder ="Salasana"
                     />
                 </div>
-                <button data-testid="login-button" type="submit">Kirjaudu sisään</button>
+                <button type="submit" class= "button-19">Kirjaudu sisään</button>
             </form>
         </div>
     );

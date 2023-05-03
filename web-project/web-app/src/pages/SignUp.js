@@ -12,13 +12,17 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await register(username, password);
-      alert("Rekisteröinti onnistui!");
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-      alert("Rekisteröinti epäonnistui.");
+    if (username.length < 1 || password.length !== 0) {
+      try {
+        await register(username, password);
+        alert("Rekisteröinti onnistui!");
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+        alert("Rekisteröinti epäonnistui.");
+      }
+    } else {
+      alert("Rekisteröinti epäonnistui. Täytä kaikki kentät!");
     }
   };
 
@@ -32,7 +36,8 @@ const SignUp = () => {
               type="text"
               id="username"
               value={username}
-              onChange={handleUsernameChange}
+              onChange={handleUsernameChange} 
+              placeholder ="Käyttäjätunnus"
             />
           </div>
           <div className="divPuts">
@@ -42,9 +47,10 @@ const SignUp = () => {
               id="password"
               value={password}
               onChange={handlePasswordChange}
+              placeholder ="Salasana"
             />
           </div>
-          <button type="submit">Rekisteröidy</button>
+          <button type="submit" class= "button-19">Rekisteröidy</button>
         </form>
       </div>
     );

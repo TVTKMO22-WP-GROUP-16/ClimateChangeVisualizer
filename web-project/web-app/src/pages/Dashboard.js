@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -62,19 +63,22 @@ export default function Dashboard({ handleLogout }) {
       }
     };
 
-    const handleUserDelete = () => {
-      if (window.confirm('Haluatko varmasti poistaa käyttäjän?')) {
-      axios.delete('http://localhost:8090/users/' + username)
+
+  const handleUserDelete = () => {
+    if (window.confirm("Haluatko varmasti poistaa käyttäjän?")) {
+      axios
+        .delete("http://localhost:8090/users/" + username)
         .then((response) => {
           console.log("Käyttäjä poistettu", response.data);
           handleLogout();
           navigate("/login");
         })
         .catch((error) => {
-          console.log('Käyttäjän poistaminen ei onnistunut:', error);
+          console.log("Käyttäjän poistaminen ei onnistunut:", error);
         });
-      }
-    };
+    }
+  };
+
 
     return (
       <div className="dashboard">
@@ -99,6 +103,8 @@ export default function Dashboard({ handleLogout }) {
         </div>
         <button onClick={handleLogout} style={{ fontWeight: "bold" }}>Kirjaudu ulos</button>        
         <button onClick={handleUserDelete} style={{ fontWeight: "bold", backgroundColor: "darkred" }}>Poista käyttäjä</button>
+
       </div>
-    );
+    </div>
+  );
 }
