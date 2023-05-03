@@ -76,7 +76,6 @@ export default function V4() {
  
   //Graafin asetukset
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",
@@ -141,37 +140,38 @@ export default function V4() {
   }, [selectedCountry, countryList]);
 
   return (
-    <div className="V4" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="lineCharts">
         <div>
-          <div style={{ display: "flex" }}>
-        <input
-            type="text"
-            placeholder="Etsi maa..."
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-            onKeyDown={handleKeyPress}
-            style={{ marginRigth: "10px" }}
-        />
-        <select
-            value={selectedCountry}
-            onChange={handleDropdownChange}
-            style={{ marginRigth: "10px" }}
-        >
-        <option value="" disabled>
-            Valitse maa
-        </option>
-        {filteredCountries.map((country, index) => (
-            <option key={index} value={country}>
-            {country}
+          <div className="countrySelector">
+            <input
+              type="text"
+              placeholder="Etsi maa..."
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+             onKeyDown={handleKeyPress}
+              style={{ marginRigth: "10px" }}
+            />
+           <select
+              value={selectedCountry}
+              onChange={handleDropdownChange}
+              style={{ marginRigth: "10px" }}
+            >
+            <option value="" disabled>
+              Valitse maa
             </option>
-        ))}
-        </select>
-        <button onClick={addCountryToChart}>Lisää maa</button>
-        <button onClick={removeCountryFromChart}>Poista valittu maa</button>
-        </div>
-        <div style={{ marginTop: "10px" }}>
-        <Line options={options} data={chartData} />
-        </div>
+           {filteredCountries.map((country, index) => (
+             <option key={index} value={country}>
+             {country}
+             </option>
+            ))}
+           </select>
+           <button onClick={addCountryToChart}>Lisää maa</button>
+           <button onClick={removeCountryFromChart}>Poista valittu maa</button>
+          </div>      
+          <Line
+            options={options}
+            data={chartData}
+          />       
         </div>    
     </div>
   );

@@ -78,28 +78,27 @@ export default function Dashboard({ handleLogout }) {
 
     return (
       <div className="dashboard">
-        <h1>Dashboard</h1>
-        <button onClick={handleLogout}>Kirjaudu ulos</button>
-        <button onClick={handleUserDelete}>Poista käyttäjä</button>
         <div>
           <h2>Tiedot</h2>
           <p>Käyttäjänimi: {username}</p>
-          <h2>Custom Views</h2>
-      <div>
-        <select value={selectedView} onChange={handleViewChange}>
-          <option value="">Select a custom view</option>
-          {customViews.map((view) => (
+          <h2>Visualisointi näkymät: </h2>
+          <div>
+            <select value={selectedView} onChange={handleViewChange}>
+            <option value="">Select a custom view</option>
+            {customViews.map((view) => (
             <option key={view.id} value={view.url}>
-              {view.title}
+            {view.title}
             </option>
-          ))}
-        </select>
-        <button onClick={openSelectedView}>Open</button>
-        <button onClick={() => deleteCustomView(selectedView)}>
-          Delete
-        </button>
-      </div>
-    </div>
+            ))}
+            </select>
+            <button onClick={openSelectedView}>Open</button>
+            <button onClick={() => deleteCustomView(selectedView)}>
+            Delete
+            </button>
+          </div>
+        </div>
+        <button onClick={handleLogout} style={{ fontWeight: "bold" }}>Kirjaudu ulos</button>        
+        <button onClick={handleUserDelete} style={{ fontWeight: "bold", backgroundColor: "darkred" }}>Poista käyttäjä</button>
       </div>
     );
 }

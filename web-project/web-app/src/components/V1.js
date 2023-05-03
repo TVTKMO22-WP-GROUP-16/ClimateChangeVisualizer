@@ -81,7 +81,6 @@ export default function V1(props) {
   };
 
   const options = {
-    responsive: true,
     plugins: {
       legend: {
         position: "top",
@@ -151,7 +150,7 @@ export default function V1(props) {
   );
 
   return (
-    <div className="V1" style={{ responsive: true, resizeDelay: 0, paddingLeft: '70px', paddingRight: '25px', paddingTop: '30px', paddingBottom: '30px' }}>
+    <div className="lineCharts">
   <div className="form-check">
       <input className="form-check-input" type="radio" name="dataOption" id="annualData" checked={isAnnual} onChange={() => setIsAnnual(true)} />
       <label className="form-check-label" htmlFor="annualData"> Yearly
