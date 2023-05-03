@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Dashboard({ handleLogout }) {
     const [username, setUsername] = useState('');
+    const [customViews, setCustomViews] = useState([]);
+    const [selectedView, setSelectedView] = useState('');
     const navigate = useNavigate();
-
+    const handleViewChange = (e) => {
+      setSelectedView(e.target.value);
+    };
+    const openSelectedView = () => {
+      if (selectedView) {
+        navigate(`/customviews/${selectedView}`);
+      }
+    };
     useEffect(() => {
         axios.get('http://localhost:8090/private', {
             headers: {
@@ -18,7 +27,40 @@ export default function Dashboard({ handleLogout }) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+            if (username) {
+              fetchCustomViews();
+          }
+    }, [username]);
+
+    const fetchCustomViews = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8090/customviews/user/' + username,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+        setCustomViews(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const deleteCustomView = async (url) => {
+      try {
+        await axios.delete(`http://localhost:8090/customviews/${url}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        // Remove the deleted custom view from the state
+        setCustomViews(customViews.filter((view) => view.url !== url));
+      } catch (error) {
+        console.log("Error deleting custom view:", error);
+      }
+    };
 
     const handleUserDelete = () => {
       if (window.confirm('Haluatko varmasti poistaa käyttäjän?')) {
@@ -42,7 +84,22 @@ export default function Dashboard({ handleLogout }) {
         <div>
           <h2>Tiedot</h2>
           <p>Käyttäjänimi: {username}</p>
-        </div>
+          <h2>Custom Views</h2>
+      <div>
+        <select value={selectedView} onChange={handleViewChange}>
+          <option value="">Select a custom view</option>
+          {customViews.map((view) => (
+            <option key={view.id} value={view.url}>
+              {view.title}
+            </option>
+          ))}
+        </select>
+        <button onClick={openSelectedView}>Open</button>
+        <button onClick={() => deleteCustomView(selectedView)}>
+          Delete
+        </button>
+      </div>
+    </div>
       </div>
     );
 }
