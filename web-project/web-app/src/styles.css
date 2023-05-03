@@ -1,4 +1,5 @@
 body {
+
   min-width: 600px;
   font-family: sans-serif;
   margin: 0;
@@ -7,6 +8,7 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: rgb(241, 243, 235);
   /* text-align: center; */
+
 }
 
 .dashboard {  
@@ -131,28 +133,29 @@ canvas {
 }
 
 .lineCharts {
-  display: flex;
-  flex-direction: column;
-  min-width: 600px;
-  max-width: 80%;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  overflow: hidden;
-  position: relative;
-  padding-left: 70px;
-  padding-right: 25px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  
+  /*  position: relative;  */ 
+  padding: 10vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 7vw;
+  margin-left :10vw;
+  border: 2px solid black;
+  border-radius: 25px;
+  background-color: white;
 }
 
 .V5 {
-  min-width: 500px;
-  max-width: 50%;
-  height: auto;
-  box-sizing: border-box;
-  padding-left: 70px;
-  padding-right: 25px;
+   padding: 40vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 10vw;
+  margin-left :10vw;
+  border: 2px solid black;
+  border-radius: 25px;
+  background-color: white;
 }
 
 .countrySelector {
@@ -181,24 +184,62 @@ canvas {
     background-color: rgb(203, 255, 233);
 }
 
-.signup button, .login button, .dashboard button {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+
+
+
+h1{
+  text-align: center;
+  margin-left: 7vw;
+  margin-right: 10vw;
+  font-size: 3rem;
+  color: black;
+  margin-top: 10vh;
+  margin-bottom: 7vh;
 }
 
-.divPuts input {
-    margin-bottom: 4px;
-    width: 50%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid black;
-    text-align: right;
+
+section{
+  display: flex;
+  padding: 10vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 10vw;
+  margin-left :10vw;
+}
+article{
+   
+  flex:1;
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color:white;
+  border-radius: 1rem;
 }
 
-.divPuts label {
-    align-content: left;
+
+
+
+.signup form, .login form{
+  padding: 20vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 7vw;
+  margin-left : 10vw;
+  background-color: white;
+  font-size: 2rem;
+  text-align: center; 
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 25px;
 }
 
-.divPuts {
-    text-align: right;
+input[type=text], input[type=password]{
+  width: 100%;
+  padding: 1.5vh 1vh;
+  margin: 7px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.103) 
+
 }
+

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Line } from "react-chartjs-2";
 import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
+import { Line } from "react-chartjs-2";
 
 export default function V4() {
   const [data, setData] = useState([]);
@@ -142,36 +142,46 @@ export default function V4() {
   return (
     <div className="lineCharts">
         <div>
-          <div className="countrySelector">
-            <input
-              type="text"
-              placeholder="Etsi maa..."
-              value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
-             onKeyDown={handleKeyPress}
-              style={{ marginRigth: "10px" }}
-            />
-           <select
-              value={selectedCountry}
-              onChange={handleDropdownChange}
-              style={{ marginRigth: "10px" }}
-            >
-            <option value="" disabled>
-              Valitse maa
+
+          <div style={{ display: "flex" }}>
+        <input
+            type="text"
+            placeholder="Etsi maa..."
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+            onKeyDown={handleKeyPress}
+            style={{ marginRigth: "10px" }}
+        />
+        <select
+            value={selectedCountry}
+            onChange={handleDropdownChange}
+            style={{ 
+              marginRigth: "10px",
+              width: "50%",
+              padding: "1.5vh 1vh",
+              margin:"8px 8px",
+              boxSizing: "border-box",
+              border:" 2px solid black",
+              borderRadius:"6px",
+              boxShadow: "0 0 15px 4px rgba(0, 0, 0, 0.103)",
+          }}
+        >
+        <option value="" disabled>
+            Valitse maa
+        </option>
+        {filteredCountries.map((country, index) => (
+            <option key={index} value={country}>
+            {country}
             </option>
-           {filteredCountries.map((country, index) => (
-             <option key={index} value={country}>
-             {country}
-             </option>
-            ))}
-           </select>
-           <button onClick={addCountryToChart}>Lisää maa</button>
-           <button onClick={removeCountryFromChart}>Poista valittu maa</button>
-          </div>      
-          <Line
-            options={options}
-            data={chartData}
-          />       
+        ))}
+        </select>
+        <button onClick={addCountryToChart} class="button-19">Lisää maa</button>
+        <button onClick={removeCountryFromChart} class="button-19">Poista valittu maa</button>
+        </div>
+        <div style={{ marginTop: "10px" }}>
+        <Line options={options} data={chartData} />
+        </div>
+
         </div>    
     </div>
   );

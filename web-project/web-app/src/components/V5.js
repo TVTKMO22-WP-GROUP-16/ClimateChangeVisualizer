@@ -126,7 +126,8 @@ export default function V5() {
         onClick={onClick}
         
       />
-      <button onClick={() => setChartData(primarySector)}>Reset</button>
+      <button onClick={() => setChartData(primarySector) }class="button-19">Reset</button>
+      
     </div>
   );
 }

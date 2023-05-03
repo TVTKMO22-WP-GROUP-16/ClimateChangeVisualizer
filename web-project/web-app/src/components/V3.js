@@ -169,6 +169,7 @@ export default function V3() {
     }
   };
 
+
   const styles = {
     chartContainer: {
       display: 'flex',
@@ -178,9 +179,15 @@ export default function V3() {
     },
   };
 
+
 return (
+
   <div className="lineCharts">
+
       <Line data={data} options={options} />
+
+      <button onClick={GetData} class="button-19">Check</button>
+
     </div>
   );
 }
