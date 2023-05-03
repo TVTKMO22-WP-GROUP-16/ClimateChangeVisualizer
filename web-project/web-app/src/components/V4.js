@@ -33,47 +33,51 @@ export default function V4() {
   //Maiden lisääminen ja poistaminen
   const addCountryToChart = () => {
     if (selectedCountry) {
-      const selectedOption = document.querySelector("select option:checked").value;
+      const selectedOption = document.querySelector(
+        "select option:checked"
+      ).value;
       setSelectedCountries([...selectedCountries, selectedOption]);
       setSelectedCountry("");
-      setCountryColors({ ...countryColors, [selectedOption]: getRandomColor() });
+      setCountryColors({
+        ...countryColors,
+        [selectedOption]: getRandomColor(),
+      });
     }
   };
 
-
-  const removeCountryFromChart = (country) => {   
-      const selectedOption = document.querySelector("select option:checked").value;
-      setSelectedCountries(selectedCountries.filter((c) => c !== selectedOption));
-      setSelectedCountry("");
-      setCountryColors((prevState) => {
-        const { [country]: removedColor, ...rest } = prevState;
-        return rest;
-      });
+  const removeCountryFromChart = (country) => {
+    const selectedOption = document.querySelector(
+      "select option:checked"
+    ).value;
+    setSelectedCountries(selectedCountries.filter((c) => c !== selectedOption));
+    setSelectedCountry("");
+    setCountryColors((prevState) => {
+      const { [country]: removedColor, ...rest } = prevState;
+      return rest;
+    });
   };
 
   //Graafin data
   const chartData = {
-    labels: data
-        .sort((a, b) => a.year - b.year)
-        .map((d) => d.year.toString()),
+    labels: data.sort((a, b) => a.year - b.year).map((d) => d.year.toString()),
     datasets: selectedCountries.map((country) => ({
-        label: country,
-        data: data
-          .sort((a, b) => a.year - b.year)
-          .map((d) => d.countries[country] * 3.661),
-        borderColor: countryColors[country],
-        backgroundColor: countryColors[country],
+      label: country,
+      data: data
+        .sort((a, b) => a.year - b.year)
+        .map((d) => d.countries[country] * 3.661),
+      borderColor: countryColors[country],
+      backgroundColor: countryColors[country],
     })),
-    showLine: selectedCountries.length > 0, 
+    showLine: selectedCountries.length > 0,
   };
 
   //Värien arpominen
   const getRandomColor = useMemo(() => {
     return () => {
       return "#" + Math.floor(Math.random() * 16777215).toString(16);
-    }
+    };
   }, []);
- 
+
   //Graafin asetukset
   const options = {
     plugins: {
@@ -119,7 +123,6 @@ export default function V4() {
     }
   };
 
-
   //Dropdown menu ja sen filtteröinti
   const handleDropdownChange = (e) => {
     const searchQuery = e.target.value;
@@ -141,48 +144,60 @@ export default function V4() {
 
   return (
     <div className="lineCharts">
-        <div>
-
-          <div style={{ display: "flex" }}>
-        <input
+      <div>
+        <div style={{ display: "flex" }}>
+          <input
             type="text"
             placeholder="Etsi maa..."
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
             onKeyDown={handleKeyPress}
-            style={{ marginRigth: "10px" }}
-        />
-        <select
+            style={{ marginRigth: "10px", width: "50%" ,minWidth: "10vw",
+            maxWidth: "50vw",}}
+          />
+          <select
             value={selectedCountry}
             onChange={handleDropdownChange}
-            style={{ 
+            style={{
               marginRigth: "10px",
               width: "50%",
               padding: "1.5vh 1vh",
-              margin:"8px 8px",
+              margin: "8px 8px",
               boxSizing: "border-box",
-              border:" 2px solid black",
-              borderRadius:"6px",
+              border: " 2px solid black",
+              borderRadius: "6px",
               boxShadow: "0 0 15px 4px rgba(0, 0, 0, 0.103)",
-          }}
-        >
-        <option value="" disabled>
-            Valitse maa
-        </option>
-        {filteredCountries.map((country, index) => (
-            <option key={index} value={country}>
-            {country}
+              minWidth: "10vw",
+              maxWidth: "50vw",
+            }}
+          >
+            <option value="" disabled>
+              Valitse maa
             </option>
-        ))}
-        </select>
-        <button onClick={addCountryToChart} class="button-19">Lisää maa</button>
-        <button onClick={removeCountryFromChart} class="button-19">Poista valittu maa</button>
-        </div>
-        <div style={{ marginTop: "10px" }}>
-        <Line options={options} data={chartData} />
+            {filteredCountries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={addCountryToChart}
+            class="button-19"
+            style={{ marginLeft: "1vw", marginRigth: "1vw" }}
+          >
+            Lisää maa
+          </button>
+          <button
+            onClick={removeCountryFromChart}
+            class="button-19"
+            style={{ marginLeft: "1vw", marginRigth: "1vw" }}
+          >
+            Poista valittu maa
+          </button>
         </div>
 
-        </div>    
+        <Line options={options} data={chartData} />
+      </div>
     </div>
   );
 }

@@ -28,7 +28,7 @@ const SignUp = () => {
 
     return (
       <div className="signup">
-        <h1>Rekisteröityminen</h1>
+        <h1 class="otsikko">Rekisteröityminen</h1>
         <form onSubmit={handleSubmit}>
           <div className="divPuts">
             <label htmlFor="username">Käyttäjätunnus: </label>
@@ -48,9 +48,10 @@ const SignUp = () => {
               value={password}
               onChange={handlePasswordChange}
               placeholder ="Salasana"
+              style= {{marginBottom:"5vh"}}
             />
           </div>
-          <button type="submit" class= "button-19">Rekisteröidy</button>
+          <button type="submit" class= "button-19" >Rekisteröidy</button>
         </form>
       </div>
     );

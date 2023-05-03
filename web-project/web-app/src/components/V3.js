@@ -186,7 +186,6 @@ return (
 
       <Line data={data} options={options} />
 
-      <button onClick={GetData} class="button-19">Check</button>
 
     </div>
   );

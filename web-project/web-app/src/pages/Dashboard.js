@@ -105,6 +105,6 @@ export default function Dashboard({ handleLogout }) {
         <button onClick={handleUserDelete} style={{ fontWeight: "bold", backgroundColor: "darkred" }}>Poista käyttäjä</button>
 
       </div>
-    </div>
+   
   );
 }
