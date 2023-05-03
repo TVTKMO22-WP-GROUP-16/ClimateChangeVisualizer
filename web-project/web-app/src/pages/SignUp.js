@@ -12,7 +12,7 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (username.length < 1 || password.length !== 0) {
+    if (username.length !== 0 && password.length !== 0) {
       try {
         await register(username, password);
         alert("Rekisteröinti onnistui!");
@@ -28,7 +28,7 @@ const SignUp = () => {
 
     return (
       <div className="signup">
-        <h1 class="otsikko">Rekisteröityminen</h1>
+        <h1 className="otsikko">Rekisteröityminen</h1>
         <form onSubmit={handleSubmit}>
           <div className="divPuts">
             <label htmlFor="username">Käyttäjätunnus: </label>
@@ -51,7 +51,7 @@ const SignUp = () => {
               style= {{marginBottom:"5vh"}}
             />
           </div>
-          <button type="submit" class= "button-19" >Rekisteröidy</button>
+          <button type="submit" className="button-19" >Rekisteröidy</button>
         </form>
       </div>
     );
