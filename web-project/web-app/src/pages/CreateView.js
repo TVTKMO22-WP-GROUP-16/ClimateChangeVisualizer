@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Rating, TextField, Typography, RadioGroup, Radio } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel, TextField, RadioGroup, Radio } from "@mui/material";
 import { Link } from "react-router-dom";
 
 
@@ -26,6 +26,19 @@ export default function CreateView() {
       descriptions: [],
       layout: "stacked",
     });
+    // State for form validation, initialized with false
+    const [formValid, setFormValid] = useState(false);
+    
+    const validateForm = () => {
+      const atLeastOneVisualization = Object.values(checked).some((value) => value === true);
+      const titleLengthValid = formData.title.length >= 3;
+  
+      return atLeastOneVisualization && titleLengthValid;
+    };
+
+    useEffect(() => {
+      setFormValid(validateForm());
+    }, [formData, checked]);
   
     // Handle checkboxes changes
     const handleChange = (event) => {
@@ -132,10 +145,6 @@ export default function CreateView() {
     // Render the CreateView component
     return (
       <form onSubmit={handleSubmit} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
-        <div>
-          <h2>Tiedot</h2>
-          <p>Käyttäjänimi: {username}</p>
-        </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <FormLabel sx={{ fontSize: "2rem" }}>Create view</FormLabel>
         <FormGroup sx={{ padding: 2, borderRadius: 2, border: "1px solid", borderColor: "primary.main"}}>
@@ -160,7 +169,7 @@ export default function CreateView() {
             <FormControlLabel value="stacked" control={<Radio />} label="Stacked" />
             <FormControlLabel value="side-by-side" control={<Radio />} label="Side-by-side" />
           </RadioGroup>
-          <Button type="submit" variant="outlined">
+          <Button type="submit" variant="outlined" disabled={!formValid}>
             Submit
           </Button>
         </FormGroup>
