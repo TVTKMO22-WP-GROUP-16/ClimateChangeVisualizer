@@ -148,7 +148,7 @@ export default function V1(props) {
   return (
     <div className="lineCharts">
       <div>
-      <Radio checked={isAnnual} onChange={() => setIsAnnual(true)} />Annual
+      <Radio checked={isAnnual} onChange={() => setIsAnnual(true)} />Yearly
       </div>
       <div>
       <Radio checked={!isAnnual} onChange={() => setIsAnnual(false)} />Monthly
