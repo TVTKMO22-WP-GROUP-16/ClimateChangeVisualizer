@@ -12,74 +12,76 @@ export default function V3() {
 
   useEffect(() => {
     GetData();
-   }, []);
+  }, []);
 
   function GetData (){
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-     .then((data) => {
-       console.log(data);
-       setCo2ppm(data[0].data);
-     }).catch(err => {
-       console.log(err);
-     })
-   }  
+      .then((data) => {
+        console.log(data);
+        setCo2ppm(data[0].data);
+      }).catch(err => {
+        console.log(err);
+    })
+  }  
 
+  const co2ppmSorted = co2ppm.sort((a, b) => a.time - b.time);
+  const events = co2ppmSorted.filter((d) => d.event !== "");
+   
+  const eventsData = {
+    label: "Ihmisen aiheuttamia tapahtumia",
+    data: events.map((d) => ({
+      x: d.time.toString(),
+      y: 0,
+      raw: d,
+      label: d.event,
+    })),
+    backgroundColor: "orange",
+    borderColor: "orange",
+    pointRadius: 5,
+    pointHoverRadius: 10,
+    showLine: false,
+    tension: 0.4,
+    yAxisID: "y2",
+    parsing: {
+      xAxisKey: "x",
+      yAxisKey: "y",
+    },
+  };
+   
   const data = {
-      labels: co2ppm.sort((a, b) => a.time - b.time)
-      .map((d) => d.time.toString()),
-      
-      datasets: [
-        {
-          label: 'Hiilidioksidin määrä (ppm)',
-          data: co2ppm.filter((d) => d.cd !== 0),
-          fill: false,
-          pointRadius: 0,
-          backgroundColor: "red",
-          borderColor: "red",
-          tension: 0.4,
-          yAxisID: 'y',
-          parsing: {
-            xAxisKey: "time",
-            yAxisKey: "cd",         
-          }
-        },        
-        {
-          label: 'Maapallon pintalämpötilan keskimuutos',
-          data: co2ppm,
-          fill: false,
-          pointRadius: 0,
-          backgroundColor: 'blue',
-          borderColor: 'blue',
-          hitRadius: 3,
-          tension: 0.4,
-          yAxisID: 'y1',
-          parsing: {
-            xAxisKey: "time",
-            yAxisKey: "fifty",
-          },
+    labels: co2ppmSorted.map((d) => d.time.toString()),
+    datasets: [
+      {
+        label: "Hiilidioksidin määrä (ppm)",
+        data: co2ppmSorted.filter((d) => d.cd !== 0),
+        pointRadius: 0,
+        backgroundColor: "red",
+        borderColor: "red",
+        hitRadius: 3,
+        tension: 0.4,
+        yAxisID: "y",
+        parsing: {
+          xAxisKey: "time",
+          yAxisKey: "cd",
         },
-        {
-          label: 'Ihmisen aiheuttamia tapahtumia',
-          data: co2ppm,
-          fill: false,
-          backgroundColor: 'black',
-          borderColor: 'black',
-          pointRadius: (context) => {
-            return context.raw && context.raw.event === "" ? 0 : 5;
-          },
-          hitRadius: (context) => {
-            return context.raw && context.raw.event === "" ? 0 : 5;
-          },
-          showLine: false,
-          tension: 0.4,
-          yAxisID: 'y2',
-          parsing: {
-            xAxisKey: "time",
-            yAxisKey: "event",
-          },
+      },
+      {
+        label: "Maapallon pintalämpötilan keskimuutos",
+        data: co2ppmSorted,
+        pointRadius: 0,
+        backgroundColor: "blue",
+        borderColor: "blue",
+        hitRadius: 3,
+        tension: 0.4,
+        yAxisID: "y1",
+        parsing: {
+          xAxisKey: "time",
+          yAxisKey: "fifty",
         },
-      ],
-    };
+      },
+      eventsData,
+    ],
+  };
   
   const options = {
     responsive: true,
@@ -104,8 +106,8 @@ export default function V3() {
               label += context.parsed.y.toLocaleString() + " ppm";
             } else if (context.datasetIndex === 1) {
               label += context.parsed.y.toLocaleString() + " °C";
-            } else {
-              label += context.raw.event;
+            } else if (context.datasetIndex === 2 && context.raw && context.raw.label) {
+              label += context.raw.label;
             }
             return label;
           },
@@ -137,10 +139,9 @@ export default function V3() {
           display: true,
           text: 'co2 ppm',
         },
-        beginAtZero: true,
         type: 'linear',
         position: 'left',
-        min: 140,
+        min: 130,
         max: 300,     
       },
 
@@ -149,29 +150,21 @@ export default function V3() {
           display: true,
           text: 'Lämpötilan muutos'
         },
-        beginAtZero: true,
         type: 'linear',
         position: 'right',
         grid: {
         drawOnChartArea: false
         },
-        min: -8,
-        max: 3,
+        min: -7.5,
+        max: 5,
       },
 
       y2: {
-        title: {
-          display: false,
-          text: 'Ihmisen aiheuttamat tapahtumat',
-        },
-        type: 'category',
+        display: false,
+        type: 'linear',
         position: 'left',
-        grid:{
-        drawOnChartArea: false,
-        },
-        ticks: {
-          display: true,
-        },
+        min: -1,
+        max: .09,        
       },
     }
   };
