@@ -9,7 +9,6 @@ export default function V3(props) {
 
   const [co2ppm, setCo2ppm] = useState([]);
   let endpoints = ["/snyder"];
-  axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
     GetData();
@@ -189,7 +188,7 @@ export default function V3(props) {
         <Typography variant="body2">
           Tämä kaavio kuvaa ilmakehän CO2 pitoisuutta 800 tuhannen vuoden takaa ja maapallon pintalämpötilan keskimuutosta 2 miljoonan vuoden takaa.
           <br />
-          Halutessasi voit näyttää kaaviossa ihmisen aiheuttamia tapahtumia, jotka ovat vaikuttaneet ilmakehän co2 pitoisuuteen.
+          Halutessasi voit näyttää kaaviossa ihmisen aiheuttamia tapahtumia, jotka ovat vaikuttaneet ilmakehän CO2 pitoisuuteen.
         </Typography>
         : <Typography>{props.description}</Typography>
         }

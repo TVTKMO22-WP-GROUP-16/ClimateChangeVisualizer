@@ -120,7 +120,7 @@ export default function CreateView() {
       
         // Send a POST request to the backend with the submitted data
         try {
-          const response = await axios.post("http://localhost:8090/customviews", submittedData);
+          const response = await axios.post("/customviews", submittedData);
           console.log("Form submitted and saved:", response.data);
           setCreatedUrl(submittedData.url); // Set the created url to the state
         } catch (error) {
@@ -129,7 +129,7 @@ export default function CreateView() {
       };
       
       useEffect(() => {
-        axios.get('http://localhost:8090/private', {
+        axios.get('/private', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
@@ -146,10 +146,10 @@ export default function CreateView() {
     return (
       <form onSubmit={handleSubmit} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <FormLabel sx={{ fontSize: "2rem" }}>Create view</FormLabel>
-        <FormGroup sx={{ padding: 2, borderRadius: 2, border: "1px solid", borderColor: "primary.main"}}>
-        <TextField sx={{ paddingBottom: 2 }}  inputProps={{ maxLength: 45 }} variant="standard" placeholder="Title" value={formData.title} onChange={handleTitleChange} />
-          <FormLabel component="legend">Select Visualizations</FormLabel>
+        <FormLabel sx={{ fontSize: "2rem" }}>Luo näkymä</FormLabel>
+        <FormGroup sx={{ padding: 2, borderRadius: 2, border: "1px solid", borderColor: "primary.main", backgroundColor: "rgb(247, 250, 249)" }}>
+        <TextField sx={{ paddingBottom: 2 }}  inputProps={{ maxLength: 45 }} variant="standard" placeholder="Näkymän nimi" value={formData.title} onChange={handleTitleChange} />
+          <FormLabel component="legend">Valitse visualisaatiot</FormLabel>
           <FormGroup row sx={{ paddingBottom: 2 }}>
             <FormControlLabel control={<Checkbox checked={checked.v1} onChange={handleChange} name="v1" />}label="V1"/>
             <FormControlLabel control={<Checkbox checked={checked.v2} onChange={handleChange} name="v2" />}label="V2"/>
@@ -158,23 +158,23 @@ export default function CreateView() {
             <FormControlLabel control={<Checkbox checked={checked.v5} onChange={handleChange} name="v5" />}label="V5"/>
           </FormGroup>
           <FormGroup sx={{ paddingBottom: 2, alignItems: "center", width: "100%", display: 'flex', flexDirection: 'column' }}>
-          {checked.v1 && <FormControlLabel control={<TextField placeholder="Description 1" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 0)} />} />}
-          {checked.v2 && <FormControlLabel control={<TextField placeholder="Description 2" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 1)} />} />}
-          {checked.v3 && <FormControlLabel control={<TextField placeholder="Description 3" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 2)} />} />}
-          {checked.v4 && <FormControlLabel control={<TextField placeholder="Description 4" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 3)} />} />}
-          {checked.v5 && <FormControlLabel control={<TextField placeholder="Description 5" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 4)} />} />}
+          {checked.v1 && <FormControlLabel control={<TextField placeholder="Kuvaus 1" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 0)} />} />}
+          {checked.v2 && <FormControlLabel control={<TextField placeholder="Kuvaus 2" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 1)} />} />}
+          {checked.v3 && <FormControlLabel control={<TextField placeholder="Kuvaus 3" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 2)} />} />}
+          {checked.v4 && <FormControlLabel control={<TextField placeholder="Kuvaus 4" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 3)} />} />}
+          {checked.v5 && <FormControlLabel control={<TextField placeholder="Kuvaus 5" inputProps={{ maxLength: 128 }} onChange={(e) => handleInputChange(e, 4)} />} />}
           </FormGroup>
-          <FormLabel component="legend">Select layout</FormLabel>
+          <FormLabel component="legend">Valitse asettelu</FormLabel>
           <RadioGroup value={layout} onChange={handleLayoutChange} sx={{ paddingBottom: 2 }}>
-            <FormControlLabel value="stacked" control={<Radio />} label="Stacked" />
-            <FormControlLabel value="side-by-side" control={<Radio />} label="Side-by-side" />
+            <FormControlLabel value="stacked" control={<Radio />} label="Päällekkäin" />
+            <FormControlLabel value="side-by-side" control={<Radio />} label="Vierekkäin" />
           </RadioGroup>
           <Button type="submit" variant="outlined" disabled={!formValid}>
-            Submit
+            Luo näkymä
           </Button>
         </FormGroup>
       {createdUrl && ( <Button component={Link} to={`/customviews/${createdUrl}`} variant="contained" color="primary">
-      Go to created view
+      Avaa luotu näkymä
       </Button>)}
       </div>
     </form>

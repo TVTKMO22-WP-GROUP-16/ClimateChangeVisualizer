@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = ""
+
 const api = axios.create({
     baseURL: ''
 });

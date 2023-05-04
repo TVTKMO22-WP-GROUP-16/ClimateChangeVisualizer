@@ -15,7 +15,6 @@ export default function V1(props) {
   const [dataReconstruction, setReconstruction] = useState();
   const [isAnnual, setIsAnnual] = useState(true);
   let endpoints = ["/yearlyanomalies", "/monthlyanomalies", "/reconstruction"];
-  axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
@@ -130,7 +129,7 @@ export default function V1(props) {
         {
           !props.description ?
         <Typography variant="body2">
-          Tämä kaavio kuvaa sekä vuosittaisia että kuukausittaisia globaaleja lämpötilapoikkeamia vuosina 1850-2020.
+          Tämä kaavio kuvaa sekä vuosittaisia että kuukausittaisia globaaleja lämpötilapoikkeamia alkaen vuodesta 1850.
           <br />
           Halutessasi voit näyttää kaaviossa 2000 vuoden takaisen pohjoisen pallonpuoliskon lämpötilan rekonstruktion.
         </Typography>

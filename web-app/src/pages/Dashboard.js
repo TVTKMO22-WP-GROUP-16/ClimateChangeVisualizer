@@ -17,7 +17,7 @@ export default function Dashboard({ handleLogout }) {
       }
     };
     useEffect(() => {
-        axios.get('http://localhost:8090/private', {
+        axios.get('/private', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
@@ -36,7 +36,7 @@ export default function Dashboard({ handleLogout }) {
     const fetchCustomViews = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8090/customviews/user/' + username,
+          '/customviews/user/' + username,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -51,7 +51,7 @@ export default function Dashboard({ handleLogout }) {
 
     const deleteCustomView = async (url) => {
       try {
-        await axios.delete(`http://localhost:8090/customviews/${url}`, {
+        await axios.delete(`/customviews/${url}`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -65,7 +65,7 @@ export default function Dashboard({ handleLogout }) {
 
   const handleUserDelete = () => {
       axios
-        .delete("http://localhost:8090/users/" + username)
+        .delete("/users/" + username)
         .then((response) => {
           console.log("Käyttäjä poistettu", response.data);
           handleLogout();
@@ -79,7 +79,7 @@ export default function Dashboard({ handleLogout }) {
   const handleUserDeleteViews = () => {
     if (window.confirm("Haluatko varmasti poistaa käyttäjän?")) {
       axios
-        .delete("http://localhost:8090/customviews/user/" + username)
+        .delete("/customviews/user/" + username)
         .then((response) => {
           console.log("Näkymät poistettu", response.data);
           handleUserDelete();

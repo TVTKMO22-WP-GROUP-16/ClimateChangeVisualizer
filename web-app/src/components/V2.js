@@ -15,7 +15,6 @@ export default function V2(props) {
   const [dataIcecore2, setIcecore2] = useState();
   const [dataIcecore3, setIcecore3] = useState();
   let endpoints = ["/maunaloayearly", "/maunaloamonthly", "/icecore1", "/icecore2", "/icecore3"];
-  axios.defaults.baseURL = "http://localhost:8090"
 
   useEffect(() => {
     GetData();
@@ -147,7 +146,7 @@ export default function V2(props) {
         {
           !props.description ?
         <Typography variant="body2">
-          Tämä kaavio kuvaa Mauna Loan mittauksia ilmakehän co2 pitoisuudesta alkaen vuodesta 1958.
+          Tämä kaavio kuvaa Mauna Loan mittauksia ilmakehän CO2 pitoisuudesta alkaen vuodesta 1958.
           <br />
           Halutessasi voit yhdistää Antarktiksen jääkairauksista saatuja mittauksia Mauna Loan mittauksiin.
         </Typography>
