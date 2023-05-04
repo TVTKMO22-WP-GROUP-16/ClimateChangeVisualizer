@@ -1,7 +1,14 @@
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from "@mui/material/";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { Card, Box, CardActions, CardContent, Button, Typography } from '@mui/material/';
 
 export default function V4(props) {
   const [data, setData] = useState([]);
@@ -19,7 +26,7 @@ export default function V4(props) {
   //Datan haku
   const getData = () => {
     axios
-      .get("/co2ebc")
+      .get("http://localhost:8090/co2ebc")
       .then((response) => {
         setData(response.data);
         const countries = Object.keys(response.data[0].countries).sort();
@@ -149,19 +156,32 @@ export default function V4(props) {
         <Typography variant="h5" component="div" gutterBottom>
           Kuvaus
         </Typography>
-        {
-          !props.description ?
-        <Typography variant="body2">
-          Tämä kaavio kuvaa valtakunnallisia hiilidioksidipäästöjä fossiilisista polttoaineista ja teollisuusprosesseista ilman bunkkeripolttoaineita.
-          <br />
-          Maailmanlaajuiset päästöt sisältävät myös päästöt bunkkeripolttoaineista.
-        </Typography>
-       : <Typography>{props.description}</Typography>
-        }
+        {!props.description ? (
+          <Typography variant="body2">
+            Tämä kaavio kuvaa valtakunnallisia hiilidioksidipäästöjä
+            fossiilisista polttoaineista ja teollisuusprosesseista ilman
+            bunkkeripolttoaineita.
+            <br />
+            Maailmanlaajuiset päästöt sisältävät myös päästöt
+            bunkkeripolttoaineista.
+          </Typography>
+        ) : (
+          <Typography>{props.description}</Typography>
+        )}
       </CardContent>
       <CardActions>
-        <Button size="small" href="https://essd.copernicus.org/articles/14/1917/2022/">Kuvaus</Button>
-        <Button size="small" href="https://data.icos-cp.eu/licence_accept?ids=%5B%22lApekzcmd4DRC34oGXQqOxbJ%22%5D">Dataset (.xlsx)</Button>
+        <Button
+          size="small"
+          href="https://essd.copernicus.org/articles/14/1917/2022/"
+        >
+          Kuvaus
+        </Button>
+        <Button
+          size="small"
+          href="https://data.icos-cp.eu/licence_accept?ids=%5B%22lApekzcmd4DRC34oGXQqOxbJ%22%5D"
+        >
+          Dataset (.xlsx)
+        </Button>
       </CardActions>
     </React.Fragment>
   );
@@ -176,8 +196,12 @@ export default function V4(props) {
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
             onKeyDown={handleKeyPress}
-            style={{ marginRigth: "10px", width: "50%" ,minWidth: "10vw",
-            maxWidth: "50vw",}}
+            style={{
+              marginRigth: "10px",
+              width: "50%",
+              minWidth: "10vw",
+              maxWidth: "50vw",
+            }}
           />
           <select
             value={selectedCountry}
