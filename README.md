@@ -100,10 +100,11 @@ Kloonaa repositorio haluamaasi kansioon.<br>
 
 
 Tietokannan luonti:
-Luo pgadmin 4:ssä login/group role nimellä wp16db_user
-Tämän jälkeen luo database nimellä wp16db ja aseta sen omistajaksi wp16db_user.
-Tietokannan luomisen jälkeen klikkaa tehtyä tietokantaa oikealla hiirenapilla avataksesi menun ja valitse sieltä Restore. Ikkunassa, joka aukeaa valitse Formatiksi Custom or tar ja Filenamen kohdalle etsi wp16db-backup.sql tiedoston sijainti.
-Viimeisenä klikkaa restore, jonka pitäisi luoda sinulle tietokanta, josta löytyy kaikki tarvittava tieto sivustoa varten.
+Luo pgadmin 4:ssä login/group role nimellä wp16db_user <br>
+Tämän jälkeen luo database nimellä wp16db ja aseta sen omistajaksi wp16db_user. <br>
+Tietokannan luomisen jälkeen klikkaa tehtyä tietokantaa oikealla hiirenapilla avataksesi menun ja valitse sieltä Restore. <br>
+Ikkunassa, joka aukeaa valitse Formatiksi Custom or tar ja Filenamen kohdalle etsi wp16db-backup.sql tiedoston sijainti. <br>
+Viimeisenä klikkaa restore jonka pitäisi luoda sinulle tietokanta, josta löytyy kaikki tarvittava tieto sivustoa varten.
 
 Lisää application.properties -tiedosto 
 src/main/resources -kansioon:
@@ -118,7 +119,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 jwt.secret=randomavain
 server.port=8090
 ```
-Varmista, että ole asentanut tarvittavat lisäosat Visual Studio Codeen (kuten tarvittavat Java-lisäosat)
+Varmista, että olet asentanut tarvittavat lisäosat Visual Studio Codeen (kuten tarvittavat Java-lisäosat)
 
 Avaa kansiosi Visual Studio Codessa.
 
@@ -130,9 +131,10 @@ Palvelin on nyt käynnistyneenä, jos terminaalin viimeisin rivi vaikuttaa tält
 Avaa nyt web-app -kansio uudessa terminaalissa
 
 Aja seuraava komento terminaalissa:
+```
 npm install
-
 npm start
+```
 
 React-applikaation pitäisi nyt pyöriä osoitteessa:
 http://localhost:3000
