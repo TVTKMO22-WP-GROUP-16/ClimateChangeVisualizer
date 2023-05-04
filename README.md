@@ -130,7 +130,7 @@ Palvelin on nyt käynnistyneenä, jos terminaalin viimeisin rivi vaikuttaa tält
 
 Avaa nyt web-app -kansio uudessa terminaalissa
 
-Aja seuraava komento terminaalissa:
+Aja seuraavat komennot terminaalissa:
 ```
 npm install
 npm start
@@ -144,3 +144,7 @@ http://localhost:3000
 https://ccv-service.onrender.com 
 
 Tämä todellakin on demo. Sivuja ei pysty päivittämään ja linkkejä ei pysty jakamaan, koska renderissä oleva build versio olisi vaatinut paljon muutoksia jotta nämä asiat saataisiin julkisessa internetissä toimimaan. Aikamme loppui kesken.
+
+---
+###ER-kaaviot
+![ER](https://user-images.githubusercontent.com/117103774/236281630-d97f0484-9d9c-434c-ad43-db7ff042a447.png)
