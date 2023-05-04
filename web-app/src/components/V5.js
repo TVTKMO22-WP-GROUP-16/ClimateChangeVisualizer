@@ -10,7 +10,6 @@ export default function V5(props) {
   const [subSector, setSubSector] = useState();
   const [chartData, setChartData] = useState([]);
   let endpoints = ["/co2shares", "/co2subshares"];
-  //axios.defaults.baseURL = "http://localhost:8090";
 
   const chartRef = useRef();
 

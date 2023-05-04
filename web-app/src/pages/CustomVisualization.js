@@ -9,8 +9,6 @@ import V3 from "../components/V3";
 import V4 from "../components/V4";
 import V5 from "../components/V5";
 
-axios.defaults.baseURL = "http://localhost:8090"
-
 export default function CustomVisualization() {
     const { url } = useParams();
     const [getSuccess, setGetSuccess] = useState(true);
