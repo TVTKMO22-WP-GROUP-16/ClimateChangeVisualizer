@@ -1,13 +1,7 @@
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
+import { Card, Box, CardActions, CardContent, Button, Typography } from '@mui/material/';
 import {Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend} from 'chart.js';
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
@@ -196,14 +190,12 @@ export default function V3(props) {
           Tämä kaavio kuvaa ilmakehän CO2 pitoisuutta 800 tuhannen vuoden takaa ja maapallon pintalämpötilan keskimuutosta 2 miljoonan vuoden takaa.
           <br />
           Halutessasi voit näyttää kaaviossa ihmisen aiheuttamia tapahtumia, jotka ovat vaikuttaneet ilmakehän co2 pitoisuuteen.
-          <br />
         </Typography>
         : <Typography>{props.description}</Typography>
         }
       </CardContent>
-      <h8 className="card-subtitle mt-2 text-muted">Lähteet:</h8>
       <CardActions>
-        <Button size="small" href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" target="_blank" rel="noreferrer noopener" className="card-link">Tietojoukon kuvaus</Button>
+        <Button size="small" href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" target="_blank" rel="noreferrer noopener" className="card-link">Kuvaus</Button>
         <Button size="small" href="http://carolynsnyder.com/publications.php" target="_blank" rel="noreferrer noopener" className="card-link">Tietojoukko</Button>
         <Button size="small" href="https://www.southampton.ac.uk/~cpd/history.html" target="_blank" rel="noreferrer noopener" className="card-link">Ihmistapahtumat</Button>
       </CardActions>

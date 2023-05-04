@@ -1,10 +1,11 @@
 import axios from "axios";
 import { ArcElement, Title , Chart as ChartJS, Legend, Tooltip ,} from "chart.js";
 import React, { useEffect, useRef, useState  } from "react";
+import { Card, Box, CardActions, CardContent, Button, Typography } from '@mui/material/';
 import { Doughnut, getElementsAtEvent  } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function V5() {
+export default function V5(props) {
   const [primarySector, setPrimarySector] = useState();
   const [subSector, setSubSector] = useState();
   const [chartData, setChartData] = useState([]);
@@ -113,9 +114,31 @@ export default function V5() {
        
       },
     },
-    },
-   
+    },  
   };
+
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <Typography align="left" variant="h5" component="div" gutterBottom>
+          Kuvaus
+        </Typography>
+        {
+          !props.description ?
+        <Typography variant="body2" align="left">
+          Tämä kaavio kuvaa eri toimialojen osuutta hiilidioksidipäästöistä maailmanlaajuisesti.
+          <br />
+          Halutessasi voit tarkastella tietyn toimialan alatoimialojen osuutta hiilidioksidipäästöistä
+        </Typography>
+       : <Typography align="left">{props.description}</Typography>
+        }
+      </CardContent>
+      <CardActions>
+        <Button size="small" href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector" target="_blank" rel="noreferrer noopener" className="card-link">Kuvaus</Button>
+        <Button size="small" href="https://ourworldindata.org/uploads/2020/09/Global-GHG-Emissions-by-sector-based-on-WRI-2020.xlsx" target="_blank" rel="noreferrer noopener" className="card-link">Dataset (.xlsx)</Button>
+      </CardActions>
+    </React.Fragment>
+  );
 
   return (
     <div className="V5">
@@ -127,7 +150,11 @@ export default function V5() {
         
       />
       <button onClick={() => setChartData(primarySector) }class="button-19">Reset</button>
-      
+      <br />
+      <br />
+      <Box sx={{ width: "30rem" }} paddingLeft={"35px"}>
+          <Card variant="outlined">{card}</Card>
+        </Box>
     </div>
   );
 }

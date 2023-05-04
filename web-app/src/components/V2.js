@@ -5,13 +5,7 @@ import { Line } from "react-chartjs-2";
 import "chartjs-adapter-luxon";
 import { DateTime } from "luxon";
 import axios from "axios";
-
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Card, Box, CardActions, CardContent, Button, Typography } from '@mui/material/';
 
 export default function V2(props) {
 
@@ -160,7 +154,6 @@ export default function V2(props) {
         : <Typography>{props.description}</Typography>
         }
       </CardContent>
-      <h8 className="card-subtitle mt-2 text-muted">Lähteet:</h8>
       <CardActions>
         <Button size="small" href="https://gml.noaa.gov/ccgg/trends/data.html">Mauna Loa data</Button>
         <Button size="small" href="https://cdiac.ess-dive.lbl.gov/ftp/trends/co2/lawdome.combined.dat">Lawdome data</Button>
