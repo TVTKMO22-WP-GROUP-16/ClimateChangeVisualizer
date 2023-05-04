@@ -20,7 +20,7 @@ export default function V4(props) {
   //Datan haku
   const getData = () => {
     axios
-      .get("/co2ebc")
+      .get("co2ebc")
       .then((response) => {
         setData(response.data);
         const countries = Object.keys(response.data[0].countries).sort();
