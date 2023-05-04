@@ -1,0 +1,175 @@
+body {
+
+  min-width: 600px;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(241, 243, 235);
+  /* text-align: center; */
+
+}
+
+.dashboard {  
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    padding: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(247, 250, 249);
+    word-wrap: break-word;
+}
+
+.home {   
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+    padding: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-right: 10vw;
+    margin-left: 10vw; 
+    word-wrap: break-word; 
+}
+
+
+.customVisualization {
+  display: block;
+  text-align: center;
+}
+
+.visualizationContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.visualizationContainer.stacked {
+  flex-direction: column;
+}
+
+.visualizationContainer.sidebyside {
+  flex-direction: row;
+}
+
+.visualizationContainer.sidebyside > * {
+  width: calc(50% - 10px);
+  margin-right: 20px;
+}
+
+.visualizationContainer.sidebyside > *:nth-child(2n) {
+  margin-right: 0;
+}
+
+.visualizationContainer.stacked > * {
+  height: 70%;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.otsikko {
+  text-align: left;
+  margin-left: 8vh;
+  word-wrap: break-word;
+  
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(247, 250, 249);
+}
+
+ .lineCharts {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 7vw;
+  margin-left :10vw;
+  min-width: 600px;
+  max-width: 80%;
+} 
+
+.V5 {
+  /* padding-top: 5vh;  */
+  padding-bottom: 5vh; 
+  margin-right : auto;
+  margin-left :auto;
+  max-width: 50%;
+  min-width: 500px;
+  text-align: center;
+}
+
+.countrySelector {
+  text-align: center;
+ 
+}
+
+section{
+  display: flex;
+
+}
+
+article{
+  flex:1; 
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: rgb(247, 250, 249);
+  border-radius: 1rem;
+  border: 2px solid black;
+  text-align: center;
+}
+
+
+.signup form, .login form{
+  padding: 20vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right : 7vw;
+  margin-left : 10vw;
+  background-color: white;
+  font-size: 2rem;
+  text-align: center; 
+  background-color: rgb(247, 250, 249);
+  border: 2px solid black;
+  border-radius: 25px;
+}
+
+input[type=text], input[type=password]{
+  width: 30%;
+  min-width: fit-content;
+  max-width: fit-content;
+  padding: 1.5vh 1vh;
+  margin: 7px 0;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.103);
+ 
+}
+.divPuts{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
