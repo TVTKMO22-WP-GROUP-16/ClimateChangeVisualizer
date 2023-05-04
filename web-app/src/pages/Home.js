@@ -16,28 +16,27 @@ export default function Home() {
         <main>
           <section>
             <article>
-              <h2>Charts 1</h2>
+              <h2>Lämpötilatiedot ja CO2</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed
-                lorem turpis. Nam non sapien vel lectus interdum viverra eu vitae
-                felis. Nam lectus massa, pellentesque vitae justo et, suscipit
-                tempus purus. Curabitur pulvinar metus ut nunc dapibus, quis
-                sodales neque consectetur. Fusce iaculis id lacus sed lobortis.
-                Cras vitae tristique dui, mollis pellentesque diam. Suspendisse
-                porttitor leo ante, vitae blandit justo tempor ut. Morbi at ante
-                ante.
+              Ensimmäinen kaavio kuvaa sekä vuosittaisia että kuukausittaisia globaaleja lämpötilapoikkeamia vuosina 1850-2020.
+              </p>
+              <p>
+              Toinen kaavio kuvaa Mauna Loan mittauksia ilmakehän co2 pitoisuudesta alkaen vuodesta 1958.
+              </p>
+              <p>
+              Kolmas kaavio kuvaa ilmakehän CO2 pitoisuutta 800 tuhannen vuoden takaa ja maapallon pintalämpötilan keskimuutosta 2 miljoonan vuoden takaa.
               </p>
               <Link to = "/Charts1">
                 <button class="button-19">Avaa</button>
               </Link>
             </article>
             <article>
-              <h2>Charts 2</h2>
+              <h2>Päästölähteet</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed
-                lorem turpis. Nam non sapien vel lectus interdum viverra eu vitae
-                felis. Nam lectus massa, pellentesque vitae justo et, suscipit
-                tempus purus.
+              Ensimmäinen kaavio kuvaa valtakunnallisia hiilidioksidipäästöjä fossiilisista polttoaineista ja teollisuusprosesseista ilman bunkkeripolttoaineita.
+              </p>
+              <p>
+              Toinen kaavio kuvaa eri toimialojen osuutta hiilidioksidipäästöistä maailmanlaajuisesti.
               </p>
               <Link to = "/Charts2">
                 <button class="button-19">Avaa</button>
